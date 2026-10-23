@@ -124,8 +124,8 @@ def write_report(
         f"- Generated: `{utc_stamp()}`",
         f"- Repetitions per ablation: `{ABLATION_REPETITIONS}`",
         f"- Cold-start validity threshold: `{COLD_START_THRESHOLD_SECONDS}s`",
-        "- User override for this run: each ablation is run two times in this supplemental batch.",
-        "- Prelaunch gates, health probes, smoke tests, HPA diagnostics, and extra Prometheus monitoring were skipped by user override.",
+        "- Each ablation is run twice in this supplemental batch.",
+        "- Prelaunch gates, health probes, smoke tests, HPA diagnostics, and extra Prometheus monitoring were skipped under the recorded protocol.",
         "- Runner internal placement recovery, targeted warmup, drain, formal replay, cleanup, cooldown, and standard Prometheus energy metrics were preserved.",
         "- proposed_control was not rerun by this launcher, under the recorded protocol.",
         "- proposed_wo_historical_smoothing was not run.",
@@ -184,9 +184,8 @@ def main(argv: list[str] | None = None) -> int:
             "ablation_description": case["description"],
             "changed_parameters_or_flags": case["changed_params"],
             "unchanged_base_config": UNCHANGED_CONFIG,
-            "user_override": {
+            "protocol_override": {
                 "repetitions_per_ablation": ABLATION_REPETITIONS,
-                "local_save_dir": "C:\\Users\\artifact\\Desktop\\\u6d88\u878d\u8865\u6d4b\u4e24\u6b21",
             },
             "code_sha256": hashes,
             "config_snapshot": {

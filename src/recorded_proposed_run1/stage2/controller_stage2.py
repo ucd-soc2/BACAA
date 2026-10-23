@@ -1,11 +1,6 @@
-﻿"""
-controller.py 闁炽儲鏌￠埀?濞戞挾绮敮鍫曞礆鐠虹儤鍎曢柣?===========================
-婵?20s 濞戞挴鍋撳☉鎾虫瀫缂佹稒鐗滈悰銉╁矗閿濆繒绐楅悹?QPS 闁?Transformer 濡澘瀚粊?闁?闁告劕纾悺銉т沪?闁?kubectl 闁圭瑳?
-濞达綀娉曢弫銈夊棘閻熸壆纭€闁?    # 闁革负鍔庨崵搴∥熼垾宕囩闁挎稑鐗呯粭?workload_replayer 闁告艾鏈柨娑樺缁?queue 闁瑰嘲鐏濋悿鍕⒔?QPS闁?    python3 controller.py checkpoints_h1_fixed --live --trace data/test_workload.csv --duration-minutes 5
+"""Recorded controller for Proposed run 1.
 
-    # 缂佸倽宕甸崵搴∥熼垾宕囩闁挎稑鐗呯划?workload trace CSV 閻?QPS闁挎稑濂旂粭澶愬触鐏?replayer闁?    python3 controller.py checkpoints_h1_fixed --trace data/test_workload.csv
-
-    # 濞寸姴鎳忕粊瀵告嫚閺囩唽浣割嚕韫囥儳绀勬俊顖楀墲鐎氭瑩寮悧鍫濈ウ闁?    python3 controller.py checkpoints_h1_fixed --dry-run
+Supports live workload replay, offline trace input, and dry-run decisions.
 """
 
 import argparse
@@ -47,7 +42,7 @@ from workload_replayer import (
 
 
 # ============================================
-# 闂佹澘绉堕悿?# ============================================
+# Controller configuration.
 
 DECISION_WINDOW_S = 60
 PREDICTION_HORIZON = 2
@@ -123,7 +118,7 @@ API_UNAVAILABLE_PATTERNS = (
 
 
 # ============================================
-# 鐎规悶鍎遍崣鍧楀礄閼恒儲娈?# ============================================
+# Controller helpers.
 
 class KubeApiUnavailable(RuntimeError):
     pass
@@ -448,7 +443,7 @@ def get_queue_depth() -> float:
     Cached with a 60-s TTL because each refresh enumerates Pods and calls
     kubectl-proxy on every one (1-3 s per refresh). With SCALE_UP_LEAD_S=10
     the controller has ~10 s of decision budget per window; caching keeps
-    the per-decision cost 鈮?1 ms after the first query, leaving room for
+    the per-decision cost low after the first query, leaving room for
     prediction + downtrend correction + kubectl patch.
 
     The value is best-effort. If metrics are unavailable, return 0 so the
@@ -1538,7 +1533,7 @@ def get_current_pods() -> int:
 
 
 # ============================================
-# QPS 闁轰胶澧楀畵浣糕攦閹板墎绀勭紒鍌濆吹閸ゅ骸螣閳ュ磭纭€闁汇垻绀?# ============================================
+# Workload trace input.
 
 def _trace_request_value(row: dict) -> float:
     for column in ("requests_per_60s", "requests_per_20s", "requests", "request_count"):
@@ -1562,9 +1557,9 @@ class TraceQPSReader:
         self._start_row = int(start_row) % len(self._rows)
         self._idx = self._start_row
         print(f"[TraceQPS] Loaded {len(self._rows)} windows, start_row={start_row}")
-        print(f"  Range: window {self._rows[0]['window_id']} 闁?{self._rows[-1]['window_id']}")
+        print(f"  Range: window {self._rows[0]['window_id']} to {self._rows[-1]['window_id']}")
         print(f"  Start: window {self._rows[self._start_row]['window_id']}")
-        print(f"  QPS range: {min(r['qps'] for r in self._rows):.0f} 闁?"
+        print(f"  QPS range: {min(r['qps'] for r in self._rows):.0f} to "
               f"{max(r['qps'] for r in self._rows):.0f} req/{DECISION_WINDOW_S:.0f}s")
 
     def get_qps(self, elapsed_seconds: float) -> float:
@@ -1643,7 +1638,7 @@ def build_oracle_prediction(args, window_index: int) -> dict:
 
 
 # ============================================
-# 闁革负鍔庨崵搴∥熼垾宕囩闁挎稒鑹剧槐鎾愁潰閵夛箑浠橀柛鎺曟硾閹﹪鎮崇槐娆愮▔?workload_replayer 闁告艾鏈柨?# ============================================
+# Live control with workload replay.
 
 async def run_controller_live(predictor, layer, args):
     """Run live controller synchronized with workload_replayer."""
@@ -1653,14 +1648,14 @@ async def run_controller_live(predictor, layer, args):
         getattr(args, "bootstrap_target_pods", None) or DECISION_CONFIG["N_min"]
     )
 
-    # 闁冲厜鍋撻柍鍏夊亾 闁告帗绻傞柛?QPS 闁告ê妫楄ぐ鍫曟晬閸粎鐭?trace CSV 濡澘瀚敐鐐烘晬?闁冲厜鍋撻柍鍏夊亾
+    # Initialize forecasting history from the trace.
     trace_rows = _load_trace_rows(args.trace)
     start_row = getattr(args, "start_row", 0)
     start_window = int(start_row)
     for i in range(lookback):
         qps_history.append(trace_rows[(start_window - lookback + i) % len(trace_rows)])
 
-    # 闁冲厜鍋撻柍鍏夊亾 鐟滅増鎸告晶?pod 闁?闁冲厜鍋撻柍鍏夊亾
+    # Read the initial replica state.
     if args.dry_run:
         current_pods = bootstrap_target_pods
     else:
@@ -1673,13 +1668,13 @@ async def run_controller_live(predictor, layer, args):
     print(f"Starting live control loop (every {DECISION_WINDOW_S}s)...")
     print("=" * 60)
 
-    # 闁冲厜鍋撻柍鍏夊亾 闂傚啰鍠庨崹顏堝椽瀹€鍐偓鐢靛枙閳?闁冲厜鍋撻柍鍏夊亾
+    # Queue completed replay-window observations.
     queue: asyncio.Queue = asyncio.Queue()
 
     async def observe_window(schedule):
         await queue.put(dict(schedule))
 
-    # 闁冲厜鍋撻柍鍏夊亾 replay 闂佹澘绉堕悿?闁冲厜鍋撻柍鍏夊亾
+    # Configure workload replay.
     run_id = args.run_id or make_run_id(args.baseline_name or "transformer")
     replay_config = ReplayConfig(
         csv=args.trace,
@@ -1696,7 +1691,7 @@ async def run_controller_live(predictor, layer, args):
         save_request_log=args.save_request_log,
     )
 
-    # 闁冲厜鍋撻柍鍏夊亾 闁硅矇鍐ㄧ厬鐎垫澘绠氶柨娑樼墕閸炴挳鏌?async 闁告垼濮ら弳鐔兼晬鐏炶偐鐟?replayer 妤犵偞鍎奸柨?闁冲厜鍋撻柍鍏夊亾
+    # Initialize replay and controller state.
     windows = int((args.duration_minutes * 60) / DECISION_WINDOW_S)
     controller_start = time.monotonic() + args.start_delay
     _target_pods = current_pods
@@ -1878,12 +1873,12 @@ async def run_controller_live(predictor, layer, args):
                     "downtrend": prepared["downtrend"],
                 }
 
-            # 闁冲厜鍋撻柍鍏夊亾 缂佹稑顦欢鐔煎嫉閻涖儵宕ｉ敐鍥ㄧ暠閻庡湱鍋ゅ?QPS闁挎稑鐗撳Ο鍡樼箙閻愬灚绾柛?replayer 闁规亽鍔嶉弳鐔煎箲缁?闁冲厜鍋撻柍鍏夊亾
+            # Update demand history from the completed replay window.
             window_actual = await queue.get()
 
             if window_actual["window_index"] != window_index:
                 print(
-                    f"  闁?window mismatch: expected={window_index}, "
+                    f"  Warning: window mismatch: expected={window_index}, "
                     f"got={window_actual['window_index']}"
                 )
 
@@ -1896,7 +1891,7 @@ async def run_controller_live(predictor, layer, args):
                 target_pods_after=_target_pods,
             )
 
-            # 闁冲厜鍋撻柍鍏夊亾 闁哄啨鍎辩换?闁冲厜鍋撻柍鍏夊亾
+            # Report the completed decision window.
             print(f"\n[Step {window_index}] win={window_actual['csv_window_id']}")
             print(f"  QPS_actual={actual_qps:.1f}  "
                   f"QPS_expected={window_actual['expected_requests']:.1f}")
@@ -1944,7 +1939,7 @@ async def run_controller_live(predictor, layer, args):
                       f"alpha={r['alpha']:.3f}  cnt={r['scale_in_counter']}  "
                       f"target_pods_now={_target_pods}")
 
-    # 闁冲厜鍋撻柍鍏夊亾 妤犵偞鍎奸柛姘楅柟璨夊啫鐓戦柛?+ workload_replayer 闁冲厜鍋撻柍鍏夊亾
+    # Run workload replay and control concurrently.
     tasks = [
         asyncio.create_task(controller_loop()),
         asyncio.create_task(
@@ -1979,7 +1974,7 @@ async def run_controller_live(predictor, layer, args):
 
 
 # ============================================
-# 缂佸倽宕甸崵搴∥熼垾宕囩闁挎稒鑹鹃幃鎾愁潰閵夛箑浠橀柛鎺曟硾閹﹪鎮崇槐娆愮?trace CSV 閻?QPS闁?# ============================================
+# Offline trace-based controller.
 
 def run_controller_offline(predictor, layer, args):
     """Run controller from trace CSV without workload_replayer."""
@@ -2224,12 +2219,12 @@ def run_controller_offline(predictor, layer, args):
         elapsed_step = time.time() - loop_start
         sleep_time = max(0, DECISION_WINDOW_S - elapsed_step)
         if sleep_time < DECISION_WINDOW_S * 0.5:
-            print(f"  闁?Step took {elapsed_step:.1f}s, only sleeping {sleep_time:.1f}s")
+            print(f"  Warning: Step took {elapsed_step:.1f}s, only sleeping {sleep_time:.1f}s")
         time.sleep(sleep_time)
 
 
 # ============================================
-# 闁稿繈鍎辫ぐ?# ============================================
+# Command-line interface.
 
 def main():
     parser = argparse.ArgumentParser(
@@ -2389,14 +2384,14 @@ def main():
         raise SystemExit("--ci-time-scale must be positive")
     applied_overrides = apply_decision_config_overrides(args)
 
-    # 闁冲厜鍋撻柍鍏夊亾 1. 闁告梻濮惧ù鍥熼垾宕団偓?闁冲厜鍋撻柍鍏夊亾
+    # Load the forecasting model.
     print("=" * 60)
     print("Loading Transformer model...")
     predictor = QPSPredictor(args.checkpoint_dir)
     lookback = predictor.lookback
     print(f"  lookback = {lookback}")
 
-    # 闁冲厜鍋撻柍鍏夊亾 2. 闁告梻濮惧ù鍥礃瀹曞洨鎽滈悘?闁冲厜鍋撻柍鍏夊亾
+    # Initialize the decision layer.
     print("\nLoading decision layer...")
     ci = CILoader(args.ci_csv)
     layer = DecisionLayer(DECISION_CONFIG, ci)
@@ -2422,7 +2417,7 @@ def main():
     if applied_overrides:
         print("  DECISION_CONFIG_OVERRIDES=" + json.dumps(applied_overrides, sort_keys=True))
 
-    # 闁冲厜鍋撻柍鍏夊亾 3. 閺夆晜鍔?闁冲厜鍋撻柍鍏夊亾
+    # Run the selected controller mode.
     if args.live:
         print(f"\nQPS source: live (workload_replayer via asyncio.Queue)")
         print(f"  duration={args.duration_minutes}min, start_delay={args.start_delay}s, "

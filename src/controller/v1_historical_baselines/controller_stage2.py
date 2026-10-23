@@ -1,4 +1,4 @@
-﻿
+
 
 import argparse
 import asyncio
@@ -1498,9 +1498,9 @@ class TraceQPSReader:
         self._start_row = int(start_row) % len(self._rows)
         self._idx = self._start_row
         print(f"[TraceQPS] Loaded {len(self._rows)} windows, start_row={start_row}")
-        print(f"  Range: window {self._rows[0]['window_id']} 闁?{self._rows[-1]['window_id']}")
+        print(f"  Range: window {self._rows[0]['window_id']} to {self._rows[-1]['window_id']}")
         print(f"  Start: window {self._rows[self._start_row]['window_id']}")
-        print(f"  QPS range: {min(r['qps'] for r in self._rows):.0f} 闁?"
+        print(f"  QPS range: {min(r['qps'] for r in self._rows):.0f} to "
               f"{max(r['qps'] for r in self._rows):.0f} req/{DECISION_WINDOW_S:.0f}s")
 
     def get_qps(self, elapsed_seconds: float) -> float:
@@ -1787,7 +1787,7 @@ async def run_controller_live(predictor, layer, args):
 
             if window_actual["window_index"] != window_index:
                 print(
-                    f"  闁?window mismatch: expected={window_index}, "
+                    f"  Warning: window mismatch: expected={window_index}, "
                     f"got={window_actual['window_index']}"
                 )
 
@@ -2094,7 +2094,7 @@ def run_controller_offline(predictor, layer, args):
         elapsed_step = time.time() - loop_start
         sleep_time = max(0, DECISION_WINDOW_S - elapsed_step)
         if sleep_time < DECISION_WINDOW_S * 0.5:
-            print(f"  闁?Step took {elapsed_step:.1f}s, only sleeping {sleep_time:.1f}s")
+            print(f"  Warning: Step took {elapsed_step:.1f}s, only sleeping {sleep_time:.1f}s")
         time.sleep(sleep_time)
 
 

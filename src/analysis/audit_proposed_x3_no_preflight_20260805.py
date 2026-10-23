@@ -11,8 +11,6 @@ REQUIRED_TOP_LEVEL = [
     "method_aggregate_metrics.csv",
     "method_aggregate_metrics_wide.csv",
     "FINAL_REPORT.md",
-    "TEACHER_REQUIREMENTS_SUMMARY.json",
-    "TEACHER_REQUIREMENTS_SUMMARY.md",
 ]
 
 

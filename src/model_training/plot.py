@@ -1,8 +1,8 @@
-"""验证集预测结果绘图模块。
+"""Validation forecast plotting.
 
-本模块负责把真实请求量、q50 预测、q10-q90 预测区间，以及可选的
-confidence-aware QPS decision 画到同一张图中，方便检查模型是否跟随
-burst 和 valley。
+Plot observed demand, q50 forecasts, q10-q90 intervals, and optional
+confidence-aware QPS planning values together to inspect forecast behavior
+during bursts and valleys.
 """
 
 import numpy as np
@@ -10,13 +10,13 @@ import matplotlib.pyplot as plt
 
 
 def _as_2d(arr, name):
-    """把 [N] 数组转换为 [N, 1]，并检查 [N, horizon] 输入是否合法。"""
+    """Convert [N] arrays to [N, 1] and validate [N, horizon] inputs."""
     arr = np.asarray(arr)
     if arr.ndim == 1:
         return arr.reshape(-1, 1)
     if arr.ndim == 2:
         return arr
-    raise ValueError(f"{name} 应该是 [N] 或 [N, horizon]，当前 shape={arr.shape}")
+    raise ValueError(f"{name} must have shape [N] or [N, horizon], got shape={arr.shape}")
 
 
 def plot_val_prediction_interval(
@@ -30,10 +30,10 @@ def plot_val_prediction_interval(
     c_final=None,
     plot_decision=True,
 ):
-    """绘制单个 horizon 的验证集预测区间图。
+    """Plot validation prediction intervals for one forecast horizon.
 
-    输入 y_true、q10、q50、q90 均为原始请求量尺度。
-    如果传入 c_final，则额外绘制：
+    Inputs y_true, q10, q50, and q90 use the original demand scale.
+    If c_final is supplied, also plot:
     Q_decision = q50 + (1 - C) * (q90 - q50)
     """
     y_true = _as_2d(y_true, "y_true")
@@ -43,7 +43,7 @@ def plot_val_prediction_interval(
 
     horizon = y_true.shape[1]
     if horizon_idx < 0 or horizon_idx >= horizon:
-        raise ValueError(f"horizon_idx={horizon_idx} 超出范围，当前 horizon={horizon}")
+        raise ValueError(f"horizon_idx={horizon_idx} is out of range for horizon={horizon}")
 
     true_line = y_true[:, horizon_idx][:max_points]
     q10_line = q10[:, horizon_idx][:max_points]
@@ -73,11 +73,11 @@ def plot_val_prediction_interval(
     plt.tight_layout()
     plt.savefig(save_path, dpi=300)
     plt.close()
-    print(f"图已保存到: {save_path}")
+    print(f"Plot saved to: {save_path}")
 
 
 def plot_all_horizons(y_true, q10, q50, q90, max_points=300):
-    """依次绘制所有 horizon 的验证集预测区间图。"""
+    """Plot validation prediction intervals for every forecast horizon."""
     y_true = _as_2d(y_true, "y_true")
     for h in range(y_true.shape[1]):
         plot_val_prediction_interval(

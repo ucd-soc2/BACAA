@@ -140,7 +140,7 @@ def run_batch(batch: str) -> int:
         }
         summary["formal_repetition_order_indexes"] = runner.REPETITION_ORDER_INDEXES
         summary["no_preflight_gate_override"] = {
-            "user_override": "skip preflight/gate preliminary tests for this run",
+            "protocol_override": "skip preflight/gate preliminary tests for this run",
             "skipped_prelaunch_steps": skipped_prelaunch_steps(),
             "preserved_runner_steps": [
                 "initial placement recovery inside run_method",
@@ -212,7 +212,7 @@ def run_batch(batch: str) -> int:
                             "started_at_utc": runner.base.utc_now(),
                             "pre_health": {
                                 "skipped": True,
-                                "reason": "attempt_pre_health_check_disabled_by_user_override",
+                                "reason": "attempt_pre_health_check_disabled_by_protocol_override",
                             },
                         }
                         try:
@@ -289,7 +289,7 @@ def run_batch(batch: str) -> int:
                                 )
                             event["post_health"] = {
                                 "skipped": True,
-                                "reason": "post_attempt_health_check_disabled_by_user_override",
+                                "reason": "post_attempt_health_check_disabled_by_protocol_override",
                             }
                             runner.write_json(summary_path, summary)
                         if event.get("failure_type") == "infra_failure":

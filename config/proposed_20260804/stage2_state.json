@@ -9,8 +9,6 @@
     "expected_run_count": 3,
     "per_run_metrics": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_main_proposed_x3_cold55_no_preflight_gate_20260804_1629/per_run_metrics.csv",
     "report": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_main_proposed_x3_cold55_no_preflight_gate_20260804_1629/FINAL_REPORT.md",
-    "teacher_requirements_summary_json": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_main_proposed_x3_cold55_no_preflight_gate_20260804_1629/TEACHER_REQUIREMENTS_SUMMARY.json",
-    "teacher_requirements_summary_md": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_main_proposed_x3_cold55_no_preflight_gate_20260804_1629/TEACHER_REQUIREMENTS_SUMMARY.md",
     "valid_run_count": 3
   },
   "args": {
@@ -320,11 +318,11 @@
       "method": "proposed",
       "passed": false,
       "post_health": {
-        "reason": "post_attempt_health_check_disabled_by_user_override",
+        "reason": "post_attempt_health_check_disabled_by_protocol_override",
         "skipped": true
       },
       "pre_health": {
-        "reason": "attempt_pre_health_check_disabled_by_user_override",
+        "reason": "attempt_pre_health_check_disabled_by_protocol_override",
         "skipped": true
       },
       "repetition": 1,
@@ -348,11 +346,11 @@
       "method": "proposed",
       "passed": false,
       "post_health": {
-        "reason": "post_attempt_health_check_disabled_by_user_override",
+        "reason": "post_attempt_health_check_disabled_by_protocol_override",
         "skipped": true
       },
       "pre_health": {
-        "reason": "attempt_pre_health_check_disabled_by_user_override",
+        "reason": "attempt_pre_health_check_disabled_by_protocol_override",
         "skipped": true
       },
       "repetition": 1,
@@ -376,11 +374,11 @@
       "method": "proposed",
       "passed": true,
       "post_health": {
-        "reason": "post_attempt_health_check_disabled_by_user_override",
+        "reason": "post_attempt_health_check_disabled_by_protocol_override",
         "skipped": true
       },
       "pre_health": {
-        "reason": "attempt_pre_health_check_disabled_by_user_override",
+        "reason": "attempt_pre_health_check_disabled_by_protocol_override",
         "skipped": true
       },
       "repetition": 1,
@@ -405,11 +403,11 @@
       "method": "proposed",
       "passed": true,
       "post_health": {
-        "reason": "post_attempt_health_check_disabled_by_user_override",
+        "reason": "post_attempt_health_check_disabled_by_protocol_override",
         "skipped": true
       },
       "pre_health": {
-        "reason": "attempt_pre_health_check_disabled_by_user_override",
+        "reason": "attempt_pre_health_check_disabled_by_protocol_override",
         "skipped": true
       },
       "repetition": 2,
@@ -434,11 +432,11 @@
       "method": "proposed",
       "passed": true,
       "post_health": {
-        "reason": "post_attempt_health_check_disabled_by_user_override",
+        "reason": "post_attempt_health_check_disabled_by_protocol_override",
         "skipped": true
       },
       "pre_health": {
-        "reason": "attempt_pre_health_check_disabled_by_user_override",
+        "reason": "attempt_pre_health_check_disabled_by_protocol_override",
         "skipped": true
       },
       "repetition": 3,
@@ -729,7 +727,7 @@
       "initial_cooldown",
       "final_health"
     ],
-    "user_override": "skip preflight/gate preliminary tests for this run"
+    "protocol_override": "skip preflight/gate preliminary tests for this run"
   },
   "passed": true,
   "proposed_no_preflight_audit": {
@@ -745,7 +743,7 @@
     "selected_methods": [
       "proposed"
     ],
-    "user_restart_supervisor": "outer monitor restarts this same failed repetition/batch under the recorded retry limits",
+    "restart_supervisor": "outer monitor restarts this same failed repetition/batch under the recorded retry limits",
     "valid_runs_required": 3,
     "yaml": "stage2/yamls/qwen-transformer.yaml"
   },

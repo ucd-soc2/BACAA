@@ -53,7 +53,7 @@ def write_report(
         "",
         f"- Generated: `{utc_stamp()}`",
         f"- Cold-start validity threshold: `{COLD_START_THRESHOLD_SECONDS}s`",
-        "- Prelaunch gates, health probes, smoke tests, HPA diagnostics, and extra Prometheus monitoring were skipped by user override.",
+        "- Prelaunch gates, health probes, smoke tests, HPA diagnostics, and extra Prometheus monitoring were skipped under the recorded protocol.",
         "- Runner internal placement recovery, targeted warmup, drain, formal replay, cleanup, cooldown, and standard Prometheus energy metrics were preserved.",
         "- Base mu=12.5 was not rerun by this launcher, under the recorded protocol.",
         "",

@@ -129,7 +129,7 @@ def run(batch: str) -> int:
         "queue_mode_expected": "none",
         "no_proposed": True,
         "cold_start_threshold_seconds": COLD_START_THRESHOLD_SECONDS,
-        "user_restart_supervisor": "outer supervisor restarts this same batch if the launcher exits nonzero or required artifacts are incomplete",
+        "restart_supervisor": "outer supervisor restarts this same batch if the launcher exits nonzero or required artifacts are incomplete",
     }
     rc = 1
     try:

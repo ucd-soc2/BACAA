@@ -1,33 +1,33 @@
 """
-decision.py  ── 决策层（Carbon-Aware Scale-Down Controller）
+decision.py -- Carbon-Aware Scale-Down Controller
 =============================================================
 
-职责：
-    接收 Transformer 预测结果（q50/q90/confidence）
-    → 算出 Q_plan
-    → 计算 N_req / D_smooth / α / D_fuse / N_target
-    → 返回本周期应该 apply 的 pod 数
+Responsibilities:
+    Receive Transformer forecasts (q50/q90/confidence)
+    -> Compute Q_plan
+    -> Compute N_req / D_smooth / alpha / D_fuse / N_target
+    -> Return the replica target for the current window
 
-不包含：
-    - K8s API 调用（由外部 main 循环负责）
-    - 模型推理（由 inference.py 负责）
-    - Metrics 采集（由外部负责）
+External responsibilities:
+    - Kubernetes API calls (handled by the outer control loop)
+    - Model inference (handled by inference.py)
+    - Metrics collection (handled externally)
 
-使用方法：
+Usage:
     from decision import DecisionLayer, CILoader
 
     ci    = CILoader("snapshots_2026-02-10_IE-2025-5_minute.csv")
     layer = DecisionLayer(config)
 
-    # 每个 decision window 调用一次
+    # Call once per decision window
     result = layer.step(
-        q50          = 95.0,      # Transformer 预测的 q50（requests/window）
-        q90          = 130.0,     # Transformer 预测的 q90
+        q50          = 95.0,      # Transformer q50 forecast (requests/window)
+        q90          = 130.0,     # Transformer q90 forecast
         confidence   = 0.72,      # per-step confidence
-        current_pods = 3,         # 当前实际 pod 数
+        current_pods = 3,         # Current replica count
         current_time = datetime.now(timezone.utc),
     )
-    N_actual = result["N_actual"]  # 直接传给 kubectl scale
+    N_actual = result["N_actual"]  # Pass directly to kubectl scale
 """
 
 import math
@@ -39,17 +39,17 @@ import pandas as pd
 
 
 # ─────────────────────────────────────────────
-# 1. CI 查表（从 CSV 加载，按时间 forward-fill）
+# 1. Carbon intensity lookup (load CSV and forward-fill in time)
 # ─────────────────────────────────────────────
 
 class CILoader:
     """
-    加载碳强度 trace，按时间查询当前 CI 值。
+    Load a carbon-intensity trace and look up CI by timestamp.
 
-    用法：
+    Usage:
         ci = CILoader("snapshots_2026-02-10_IE-2025-5_minute.csv")
         value = ci.lookup(datetime.now(timezone.utc))
-        rho   = ci.normalized(value)   # 归一化到 [0, 1]
+        rho   = ci.normalized(value)   # Normalize to [0, 1]
     """
 
     CI_COL   = "Carbon intensity gCO₂eq/kWh (Life cycle)"
@@ -75,7 +75,7 @@ class CILoader:
         print(f"  CI   : {self.ci_min:.1f} ~ {self.ci_max:.1f}  gCO2/kWh")
 
     def lookup(self, t: datetime) -> float:
-        """给定 UTC datetime，返回最近一条 CI 值（forward-fill）。"""
+        """Return the latest available CI value at a UTC datetime (forward-fill)."""
         if t.tzinfo is not None:
             t_naive = t.replace(tzinfo=None)
         else:
@@ -87,7 +87,7 @@ class CILoader:
         return float(self._values[idx])
 
     def normalized(self, ci_value: float) -> float:
-        """将 CI 值归一化到 [0, 1]。rho_CI = (CI - CI_min) / (CI_max - CI_min)"""
+        """Normalize CI to [0, 1]: rho_CI = (CI - CI_min) / (CI_max - CI_min)."""
         span = self.ci_max - self.ci_min
         if span < 1e-9:
             return 0.5
@@ -95,59 +95,59 @@ class CILoader:
 
 
 # ─────────────────────────────────────────────
-# 2. 决策层
+# 2. Decision layer
 # ─────────────────────────────────────────────
 
 class DecisionLayer:
     """
-    Carbon-Aware 决策层（严格遵循论文 Section 3.3–3.5）。
+    Carbon-aware replica decision layer.
 
-    扩容路径（Section 3.5.1）：
+    Scale-up path:
         N_req = ceil(Q_plan / mu)
-        N_actual = N_req          <-- 立即扩，不做平滑
+        N_actual = N_req          <-- Scale up immediately, without smoothing
 
-    缩容路径（Section 3.5.2–3.5.5）：
-        1. 不再使用连续确认门控：缩容请求直接进入 carbon-aware 历史融合
-        2. 历史平滑：D_smooth = sum w_i * N_req_{t-H+i}  (只使用过去已完成窗口)
-        3. 碳感知融合权重：alpha = clip(alpha_base + k_ci*rho_CI - k_g*r_gap, ...)
-        4. 融合缩容目标：D_fuse = alpha*N_req + (1-alpha)*D_smooth
-        5. 安全下界：N_target = max(ceil(D_fuse), N_req)
+    Scale-down path:
+        1. With confirmation disabled, scale-down requests enter carbon-aware history fusion directly
+        2. History smoothing: D_smooth = sum w_i * N_req_{t-H+i} (completed windows only)
+        3. Carbon-aware weight: alpha = clip(alpha_base + k_ci*rho_CI - k_g*r_gap, ...)
+        4. Fused scale-down target: D_fuse = alpha*N_req + (1-alpha)*D_smooth
+        5. Capacity floor: N_target = max(ceil(D_fuse), N_req)
 
-    Q_plan 公式（Section 3.3.4）：
+    Planning equation:
         Q_plan = C*q50 + (1-C)*q90
 
-    r_gap 公式（Section 3.5.4）：
-        r_gap = (N_cur - N_req) / N_cur    （仅在缩容时 N_req < N_cur）
+    Scale-down gap equation:
+        r_gap = (N_cur - N_req) / N_cur    (only for scale-down, where N_req < N_cur)
 
-    config 示例：
+    Example configuration:
         {
             "mu":              13.75,   # calibrated single-pod capacity (requests/window)
             "N_min":           1,
             "N_max":          4,
-            "W":               3,      # D_smooth 历史窗口长度
-            "hist_beta":       0.9,    # 指数衰减系数（越大，近期权重越高）
+            "W":               3,      # D_smooth history length
+            "hist_beta":       0.9,    # Exponential weighting coefficient (larger values favor recent windows)
             "alpha_base":      0.50,
-            "k_ci":            0.20,   # 碳强度系数
-            "k_g":             0.10,   # 缩容缺口比例系数
+            "k_ci":            0.20,   # Carbon-intensity coefficient
+            "k_g":             0.10,   # Scale-down gap coefficient
             "alpha_min":       0.40,
             "alpha_max":       0.75,
         }
     """
 
     def __init__(self, config: dict, ci_loader: CILoader):
-        # ── 容量参数 ──
+        # ── Capacity parameters ──
         self.mu    = float(config["mu"])
         self.N_min = int(config["N_min"])
         self.N_max = int(config["N_max"])
 
-        # ── 缩容超参数 ──
+        # ── Scale-down parameters ──
         self.alpha_base    = float(config.get("alpha_base", 0.50))
         self.k_ci          = float(config.get("k_ci", 0.20))
         self.k_g           = float(config.get("k_g", 0.10))
         self.alpha_min     = float(config.get("alpha_min", 0.40))
         self.alpha_max     = float(config.get("alpha_max", 0.75))
 
-        # ── 历史窗口：指数衰减权重（Section 3.5.3）──
+        # ── History window: exponential weights──
         W = int(config.get("W", 3))
         hist_beta = float(config.get("hist_beta", 0.9))
         self._hist: deque = deque(maxlen=W)
@@ -161,11 +161,11 @@ class DecisionLayer:
         # ── CI loader ──
         self.ci_loader = ci_loader
 
-        # ── 缩容确认门（report 3.4 / 7.3.8: consecutive scale-in confirmation）──
-        # scale_in_confirm = 1 等价于无门（旧行为）；设为 2~3 恢复 "cautious in"。
+        # ── Consecutive scale-in confirmation──
+        # scale_in_confirm = 1 disables confirmation; 2 or 3 requires consecutive scale-in decisions.
         self.scale_in_confirm = max(int(config.get("scale_in_confirm_windows", 1)), 1)
 
-        # ── 状态 ──
+        # ── State ──
         self._scale_in_counter = 0
 
         print(f"[DecisionLayer] Ready.")
@@ -174,15 +174,15 @@ class DecisionLayer:
         print(f"  alpha_base={self.alpha_base}, k_ci={self.k_ci}, "
               f"k_g={self.k_g}, W={self.W}, hist_beta={hist_beta}")
 
-    # ── 内部工具 ──────────────────────────────
+    # ── Internal helpers ──────────────────────────────
 
     def _n_req(self, q_plan: float) -> int:
-        """Q_plan -> 最小所需 pod 数（Section 4: N_req = ceil(Q_plan / mu)）"""
+        """Map Q_plan to the minimum required replicas: N_req = ceil(Q_plan / mu)."""
         raw = math.ceil(max(q_plan, 0.0) / max(self.mu, 1e-9))
         return int(np.clip(raw, self.N_min, self.N_max))
 
     def _d_smooth(self, hist_values=None) -> float:
-        """指数加权历史平滑需求 D_smooth = sum w_i * N_req_{t-H+i}（Section 3.5.3）"""
+        """Exponentially weighted historical demand: D_smooth = sum w_i * N_req_{t-H+i}."""
         hist = self._hist if hist_values is None else hist_values
         if not hist:
             return float(self.N_min)
@@ -192,20 +192,20 @@ class DecisionLayer:
         return float(np.dot(arr, w))
 
     def _alpha(self, rho_ci: float, r_gap: float) -> float:
-        """碳感知自适应融合权重（Section 3.5.4）"""
+        """Carbon-aware adaptive fusion weight."""
         raw = self.alpha_base + self.k_ci * rho_ci - self.k_g * r_gap
         return float(np.clip(raw, self.alpha_min, self.alpha_max))
 
-    # ── 主接口 ────────────────────────────────
+    # ── Public interface ────────────────────────────────
 
     def compute_q_plan(self,
                        q50: float,
                        q90: float,
                        confidence: float) -> float:
         """
-        Q_plan = C*q50 + (1-C)*q90   （Section 3.3.4）
+        Q_plan = C*q50 + (1-C)*q90
 
-        等价写法：Q_plan = q50 + (1-C)*(q90 - q50)
+        Equivalent form: Q_plan = q50 + (1-C)*(q90 - q50)
         """
         C = float(np.clip(confidence, 0.0, 1.0))
         return float(C * q50 + (1.0 - C) * q90)
@@ -218,57 +218,57 @@ class DecisionLayer:
              current_time: datetime,
              q_plan: float = None) -> dict:
         """
-        一次完整的决策（每个 decision window 调用一次）。
+        Perform one complete decision per control window.
 
-        参数：
-            q50          : Transformer 预测的 q50（单位须与 mu 一致）
-            q90          : Transformer 预测的 q90
-            confidence   : 置信度 C in [0, 1]
-            current_pods : 当前实际 pod 数 N_cur
-            current_time : datetime（UTC），用于查 CI
-            q_plan       : 若调用方已算好 Q_plan，直接传入；否则内部计算
+        Parameters:
+            q50          : Transformer q50 forecast (same units as mu)
+            q90          : Transformer q90 forecast
+            confidence   : Confidence C in [0, 1]
+            current_pods : Current replica count N_cur
+            current_time : UTC datetime for the CI lookup
+            q_plan       : Optional precomputed Q_plan; calculated internally when omitted
 
-        返回 dict，关键字段：
-            N_actual        : 最终应该 apply 的 pod 数
-            N_req           : 当前预测的最低需求
-            D_smooth        : 历史平滑需求
-            D_fuse          : 融合后 pod 数
-            alpha           : 本步的缩容融合权重
-            r_gap           : 缩容缺口比例 (N_cur - N_req) / N_cur
-            rho_ci          : 归一化 CI
-            ci_now          : 当前 CI 原始值（gCO2/kWh）
-            q_plan          : 用于规划的 QPS
+        Return a dictionary with the following key fields:
+            N_actual        : Final replica target to apply
+            N_req           : Minimum replicas implied by the current forecast
+            D_smooth        : Smoothed historical demand
+            D_fuse          : Fused replica demand
+            alpha           : Scale-down fusion weight for this step
+            r_gap           : Scale-down gap ratio (N_cur - N_req) / N_cur
+            rho_ci          : Normalized CI
+            ci_now          : Current raw CI (gCO2/kWh)
+            q_plan          : QPS used for capacity planning
             scale_direction : "up" / "down" / "hold"
         """
-        # ── 1) Q_plan（Section 3.3.4）──
+        # ── 1) Q_plan──
         if q_plan is None:
             q_plan = self.compute_q_plan(q50, q90, confidence)
 
-        # ── 2) N_req（Section 4）──
+        # ── 2) N_req──
         N_req = self._n_req(q_plan)
 
-        # ── 3) D_smooth 使用决策开始前的历史快照 ──
+        # ── 3) Compute D_smooth from history before the current decision ──
         # Current N_req is appended after the decision so it is not counted twice
         # through both alpha*N_req and the smoothed historical term.
         past_hist = tuple(self._hist)
         D_smooth = self._d_smooth(past_hist) if past_hist else float(current_pods)
 
-        # ── 4) CI 查询 ──
+        # ── 4) CI lookup ──
         ci_now = self.ci_loader.lookup(current_time)
         rho_ci = self.ci_loader.normalized(ci_now)
 
-        # ── 5) 决策分支（Section 3.5.6）──
+        # ── 5) Decision branches──
         if N_req > current_pods:
-            # ── 快速扩容（Section 3.5.1）：直接扩，不做平滑 ──
+            # ── Immediate scale-up without smoothing ──
             self._scale_in_counter = 0
             N_target = N_req
-            alpha    = self.alpha_base   # 仅记录
+            alpha    = self.alpha_base   # Recorded for diagnostics only
             D_fuse   = N_req
             N_actual = int(np.clip(N_target, self.N_min, self.N_max))
             direction = "up"
 
         elif N_req == current_pods:
-            # ── 无动作（Section 3.5.6）──
+            # ── Hold the current replica count──
             self._scale_in_counter = 0
             N_target = current_pods
             alpha    = self.alpha_base
@@ -308,16 +308,16 @@ class DecisionLayer:
                 N_actual = N_target
                 direction = "down"
 
-        # ── 6) 计算 r_gap 用于输出 ──
+        # ── 6) Compute r_gap for the output ──
         if N_req < current_pods:
             out_r_gap = float((current_pods - N_req) / max(current_pods, 1))
         else:
             out_r_gap = 0.0
 
         result = {
-            # 主输出
+            # Primary outputs
             "N_actual":        N_actual,
-            # 中间量（用于 log / debug）
+            # Intermediate values for logging and diagnostics
             "N_req":           N_req,
             "D_smooth":        round(D_smooth, 3),
             "D_fuse":          D_fuse,
@@ -338,7 +338,7 @@ class DecisionLayer:
 
 
 # ─────────────────────────────────────────────
-# 3. 简单测试
+# 3. Example simulation
 # ─────────────────────────────────────────────
 
 if __name__ == "__main__":
@@ -352,13 +352,13 @@ if __name__ == "__main__":
         print("Usage: python3 decision.py <path_to_ci_csv>")
         sys.exit(1)
 
-    # ── 小流量自测配置（独立于 controller 运行配置）──────────────────
+    # ── Small-demand example configuration (separate from the controller runtime configuration)──────────────────
     config = {
-        "mu":             4.0,    # 单 pod 安全容量（单位为 requests/window）
+        "mu":             4.0,    # Safe per-Pod capacity (requests/window)
         "N_min":          1,
         "N_max":          4,
-        "W":              3,      # 历史窗口长度
-        "hist_beta":       0.9,    # 指数衰减系数
+        "W":              3,      # History length
+        "hist_beta":       0.9,    # Exponential weighting coefficient
         "alpha_base":     0.50,
         "k_ci":           0.20,
         "k_g":            0.10,
@@ -369,9 +369,9 @@ if __name__ == "__main__":
     ci    = CILoader(ci_path)
     layer = DecisionLayer(config, ci)
 
-    # ── 模拟 10 个控制周期，覆盖扩容/持稳/缩容场景 ──
+    # ── Simulate 10 control windows with scale-up, hold, and scale-down scenarios ──
     print("\n" + "=" * 70)
-    print("模拟 10 个控制周期（scale-down confirmation disabled, mu=4）")
+    print("Simulating 10 control windows (scale-down confirmation disabled, mu=4)")
     print("=" * 70)
 
     # (q50, q90, confidence, current_pods)
@@ -379,18 +379,18 @@ if __name__ == "__main__":
         (16.0, 20.0, 0.85, 3),   #  1: high demand path; may scale up immediately
         (16.0, 20.0, 0.85, 3),   #  2: repeated demand; expected hold after reaching target
         (16.0, 20.0, 0.85, 3),   #  3: repeated demand; no scale-down gate is used
-        (24.0, 30.0, 0.60, 2),   #  4: N_req=ceil(6.6/4)=2 == cur, hold, 计数清零
-        (30.0, 38.0, 0.50, 2),   #  5: N_req=ceil(8.5/4)=3 > cur=2, 快速扩容->3
+        (24.0, 30.0, 0.60, 2),   #  4: N_req=ceil(6.6/4)=2 == cur, hold, Reset the confirmation counter
+        (30.0, 38.0, 0.50, 2),   #  5: N_req=ceil(8.5/4)=3 > cur=2, Immediate scale-up to 3
         (32.0, 40.0, 0.55, 3),   #  6: N_req=ceil(9.2/4)=3 == cur, hold
         (12.0, 18.0, 0.50, 3),   #  7: lower demand; immediately enters carbon-aware scale-down fusion
         (10.0, 16.0, 0.45, 3),   #  8: lower demand; immediate scale-down fusion again
         (10.0, 16.0, 0.45, 3),   #  9: lower demand; no consecutive wait
-        (32.0, 40.0, 0.55, 1),   # 10: N_req=ceil(9.2/4)=3 > cur=1, 快速扩容->3
+        (32.0, 40.0, 0.55, 1),   # 10: N_req=ceil(9.2/4)=3 > cur=1, Immediate scale-up to 3
     ]
 
     test_time = datetime(2025, 6, 15, 14, 30, 0, tzinfo=timezone.utc)
 
-    print(f"\n{'步':>3}  {'q50':>6}  {'q90':>6}  {'C':>5}  "
+    print(f"\n{'Step':>3}  {'q50':>6}  {'q90':>6}  {'C':>5}  "
           f"{'cur':>4}  {'Q_plan':>7}  {'N_req':>5}  {'D_smth':>6}  "
           f"{'alpha':>6}  {'D_fuse':>6}  {'N_act':>5}  {'dir':>5}  "
           f"{'cnt':>4}  {'CI':>7}  {'rho_CI':>5}  {'r_gap':>5}")
@@ -419,8 +419,8 @@ if __name__ == "__main__":
         current_pods = r["N_actual"]
 
     print("\n" + "=" * 70)
-    print("决策层验证：所有路径均已覆盖")
-    print("  - 缩容: 不再等待连续确认，直接进入 carbon-aware 历史融合")
-    print("  - 扩容: N_req > N_cur -> 一步到位")
-    print("  - 持稳: N_req == N_cur -> hold")
+    print("Decision-layer simulation completed")
+    print("  - Scale-down: enter carbon-aware history fusion without consecutive confirmation")
+    print("  - Scale-up: N_req > N_cur -> apply N_req immediately")
+    print("  - Hold: N_req == N_cur -> hold")
     print("=" * 70)

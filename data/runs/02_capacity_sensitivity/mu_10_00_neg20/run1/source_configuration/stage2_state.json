@@ -9,8 +9,6 @@
     "expected_run_count": 1,
     "per_run_metrics": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu10p00_neg20_cold55_no_preflight_gate_20260729_1518/per_run_metrics.csv",
     "report": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu10p00_neg20_cold55_no_preflight_gate_20260729_1518/FINAL_REPORT.md",
-    "teacher_requirements_summary_json": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu10p00_neg20_cold55_no_preflight_gate_20260729_1518/TEACHER_REQUIREMENTS_SUMMARY.json",
-    "teacher_requirements_summary_md": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu10p00_neg20_cold55_no_preflight_gate_20260729_1518/TEACHER_REQUIREMENTS_SUMMARY.md",
     "valid_run_count": 1
   },
   "args": {
@@ -320,11 +318,11 @@
       "method": "proposed",
       "passed": true,
       "post_health": {
-        "reason": "post_attempt_health_check_disabled_by_user_override",
+        "reason": "post_attempt_health_check_disabled_by_protocol_override",
         "skipped": true
       },
       "pre_health": {
-        "reason": "attempt_pre_health_check_disabled_by_user_override",
+        "reason": "attempt_pre_health_check_disabled_by_protocol_override",
         "skipped": true
       },
       "repetition": 1,
@@ -593,7 +591,7 @@
     "relative_change_pct": -20.0,
     "sensitivity_parameter": "mu",
     "tested_mu": 10.0,
-    "user_hard_override": "plus/minus 20 percent supplemental capacity sweep"
+    "capacity_sweep_configuration": "plus/minus 20 percent supplemental capacity sweep"
   },
   "no_preflight_gate_override": {
     "cold_start_restart_policy": {
@@ -622,7 +620,7 @@
       "initial_cooldown",
       "final_health"
     ],
-    "user_override": "skip preflight/gate preliminary tests for this run"
+    "protocol_override": "skip preflight/gate preliminary tests for this run"
   },
   "passed": true,
   "repetitions": 1,

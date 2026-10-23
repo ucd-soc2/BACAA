@@ -391,7 +391,7 @@ def main(argv: list[str] | None = None) -> int:
             "relative_change_pct": case["relative_change_pct"],
             "reason": case["reason"],
             "cold_start_threshold_seconds": COLD_START_THRESHOLD_SECONDS,
-            "user_hard_override": "plus/minus 20 percent supplemental capacity sweep",
+            "capacity_sweep_configuration": "plus/minus 20 percent supplemental capacity sweep",
         }
         runner_argv = base_runner_argv(
             batch,

@@ -261,7 +261,7 @@ def run_no_preflight_batch(
     summary_path = batch_dir / "stage2_state.json"
     summary = ensure_batch_summary(runner, summary_path, args, workload)
     summary["no_preflight_gate_override"] = {
-        "user_override": "skip preflight/gate preliminary tests for this run",
+        "protocol_override": "skip preflight/gate preliminary tests for this run",
         "skipped_prelaunch_steps": skipped_prelaunch_steps(),
         "preserved_runner_steps": preserved_runner_steps(),
         "cold_start_restart_policy": {
@@ -349,7 +349,7 @@ def run_no_preflight_batch(
                             "started_at_utc": runner.base.utc_now(),
                             "pre_health": {
                                 "skipped": True,
-                                "reason": "attempt_pre_health_check_disabled_by_user_override",
+                                "reason": "attempt_pre_health_check_disabled_by_protocol_override",
                             },
                         }
                         try:
@@ -458,7 +458,7 @@ def run_no_preflight_batch(
                                 )
                             event["post_health"] = {
                                 "skipped": True,
-                                "reason": "post_attempt_health_check_disabled_by_user_override",
+                                "reason": "post_attempt_health_check_disabled_by_protocol_override",
                             }
                             event["finished_at_utc"] = runner.base.utc_now()
                             summary.setdefault("events", []).append(event)

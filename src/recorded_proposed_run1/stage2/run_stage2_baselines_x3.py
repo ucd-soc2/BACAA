@@ -2535,93 +2535,6 @@ def write_csv(path: Path, rows: list[dict[str, Any]], fieldnames: list[str]) -> 
         writer.writerows(rows)
 
 
-def write_teacher_requirements_summary(
-    batch_dir: Path,
-    rows: list[dict[str, Any]],
-    expected_methods: list[str],
-    expected_repetitions: int,
-    per_run_path: Path,
-    aggregate_path: Path,
-    aggregate_wide_path: Path,
-) -> dict[str, str]:
-    frozen_inputs_path = batch_dir / "config_snapshot" / "frozen_inputs.json"
-    effective_args_path = batch_dir / "config_snapshot" / "effective_args.json"
-    frozen_inputs: dict[str, Any] = {}
-    if frozen_inputs_path.exists():
-        frozen_inputs = json.loads(frozen_inputs_path.read_text(encoding="utf-8"))
-
-    payload = {
-        "generated_at_utc": base.utc_now(),
-        "expected_methods": expected_methods,
-        "expected_repetitions": expected_repetitions,
-        "valid_run_count": len(rows),
-        "dataset": frozen_inputs.get("workload", {}),
-        "carbon_trace": frozen_inputs.get("carbon", {}),
-        "llm_request": frozen_inputs.get("llm_request", {}),
-        "transformer_and_experiment_config": {
-            "effective_args_json": str(effective_args_path),
-            "frozen_inputs_json": str(frozen_inputs_path),
-            "transformer_model": (
-                frozen_inputs.get("paths", {})
-                .get("transformer_model", {})
-                .get("path", "")
-            ),
-        },
-        "primary_metric_artifacts": {
-            "per_run_metrics_csv": str(per_run_path),
-            "method_aggregate_metrics_csv": str(aggregate_path),
-            "method_aggregate_metrics_wide_csv": str(aggregate_wide_path),
-        },
-        "diagnostic_artifacts_per_run": {
-            "request_latency_success_failure_timeout": "*_replay_request_log.csv",
-            "workload_ready_target_queue_scale": "*_window_decisions.csv",
-            "queue_backlog_samples": "*_queue_samples.csv",
-            "scale_start_events": "*_scale_events.csv",
-            "prometheus_energy_carbon": "*_prometheus_summary.json and *_prometheus_resource_samples.csv",
-            "extra_prometheus_diagnostics": "*_extra_prometheus_monitoring.json",
-            "formal_pod_samples": "valid_run_summary.json -> checks.formal_pod_samples",
-        },
-        "notes": [
-            "P50/P95/P99, success, failure and timeout metrics are derived from request logs.",
-            "Energy and carbon are derived from Prometheus CPU/memory samples and carbon intensity.",
-            "Per-success energy/carbon are computed after the run from totals and successful requests.",
-            "Node latency is computed only when request logs include a node or pod column.",
-            "Scale-to-Ready latency is matched post-run from scale_events.csv and window_decisions.csv.",
-        ],
-    }
-    json_path = batch_dir / "TEACHER_REQUIREMENTS_SUMMARY.json"
-    write_json(json_path, payload)
-
-    md_path = batch_dir / "TEACHER_REQUIREMENTS_SUMMARY.md"
-    lines = [
-        "# Teacher Requirements Summary",
-        "",
-        f"- Generated: `{payload['generated_at_utc']}`",
-        f"- Valid runs: `{len(rows)}/{len(expected_methods) * expected_repetitions}`",
-        f"- Methods: `{', '.join(expected_methods)}`",
-        "",
-        "## Primary Tables",
-        "",
-        f"- Per-run metrics: `{per_run_path}`",
-        f"- Aggregate long table: `{aggregate_path}`",
-        f"- Aggregate wide table: `{aggregate_wide_path}`",
-        "",
-        "## Diagnostics",
-        "",
-    ]
-    for label, pattern in payload["diagnostic_artifacts_per_run"].items():
-        lines.append(f"- `{label}`: `{pattern}`")
-    lines.extend([
-        "",
-        "## Notes",
-        "",
-    ])
-    lines.extend(f"- {note}" for note in payload["notes"])
-    md_path.write_text("\n".join(lines), encoding="utf-8")
-    return {
-        "teacher_requirements_summary_json": str(json_path),
-        "teacher_requirements_summary_md": str(md_path),
-    }
 
 
 def write_aggregate_artifacts(
@@ -2703,15 +2616,6 @@ def write_aggregate_artifacts(
     for metric in AGGREGATE_METRICS:
         wide_fields.extend([f"{metric}_mean", f"{metric}_stddev"])
     write_csv(aggregate_wide_path, aggregate_wide_rows, wide_fields)
-    teacher_summary_paths = write_teacher_requirements_summary(
-        batch_dir,
-        rows,
-        expected_methods,
-        expected_repetitions,
-        per_run_path,
-        aggregate_path,
-        aggregate_wide_path,
-    )
 
     counts = {
         method: sum(row["method"] == method for row in rows)
@@ -2754,7 +2658,6 @@ def write_aggregate_artifacts(
         "aggregate_metrics": str(aggregate_path),
         "aggregate_metrics_wide": str(aggregate_wide_path),
         "report": str(report_path),
-        **teacher_summary_paths,
     }
 
 

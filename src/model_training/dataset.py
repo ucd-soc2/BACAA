@@ -1,10 +1,10 @@
-"""请求量序列数据集构造模块。
+"""Request-demand dataset construction.
 
-本模块把原始 workload 序列转换成监督学习样本：
-X = 过去 lookback 个窗口的特征序列
-y = 未来 horizon 个窗口的请求量
+Convert a workload time series into supervised learning samples:
+X = features from the preceding lookback windows
+y = demand in the next horizon windows
 
-归一化公式：
+Normalization equations:
 X_norm = (X - mean_train) / std_train
 y_norm = (y - target_mean_train) / target_std_train
 """
@@ -16,10 +16,10 @@ from torch.utils.data import Dataset, DataLoader
 
 
 class QPSDataset(Dataset):
-    """为请求量预测构造滑动窗口样本。
+    """Construct sliding-window samples for demand forecasting.
 
-    该类支持 DataFrame 或一维序列输入。训练集会计算 feature 和 target
-    的统计量，验证集和测试集复用训练集统计量，避免数据泄漏。
+    Accept a DataFrame or a one-dimensional series. Compute feature and target
+    statistics on training data and reuse them for validation and test normalization.
     """
 
     def __init__(
@@ -32,9 +32,9 @@ class QPSDataset(Dataset):
         stats=None,
         target_normalize=True,
     ):
-        """读取 workload，归一化特征和目标，并计算样本数量。"""
+        """Read the workload, normalize features and targets, and count samples."""
         if horizon < 1:
-            raise ValueError("horizon 必须 >= 1。")
+            raise ValueError("horizon must be >= 1.")
 
         self.lookback = lookback
         self.horizon = horizon
@@ -45,10 +45,10 @@ class QPSDataset(Dataset):
             if features is None:
                 features = ["qps"]
             if "qps" not in qps_series.columns:
-                raise ValueError(f"DataFrame 必须包含 qps 列作为预测目标。当前列名: {list(qps_series.columns)}")
+                raise ValueError(f"DataFrame must contain a qps target column. Available columns: {list(qps_series.columns)}")
             missing = [c for c in features if c not in qps_series.columns]
             if missing:
-                raise ValueError(f"输入数据缺少特征列: {missing}。当前列名: {list(qps_series.columns)}")
+                raise ValueError(f"Input is missing feature columns: {missing}. Available columns: {list(qps_series.columns)}")
             data = qps_series[features].values.astype(np.float32)
             qps_raw = qps_series["qps"].values.astype(np.float32)
         else:
@@ -90,15 +90,15 @@ class QPSDataset(Dataset):
         self.n_samples = len(self.data) - self.lookback - self.horizon + 1
         if self.n_samples <= 0:
             raise ValueError(
-                f"序列太短: 至少需要 {self.lookback + self.horizon} 个点，实际只有 {len(self.data)} 个点。"
+                f"Sequence too short: need at least {self.lookback + self.horizon} points, got {len(self.data)}."
             )
 
     def __len__(self):
-        """返回可生成的滑动窗口样本数量。"""
+        """Return the number of available sliding-window samples."""
         return self.n_samples
 
     def __getitem__(self, idx):
-        """返回第 idx 个样本的历史窗口 X 和未来目标 y。"""
+        """Return history X and future targets y for sample idx."""
         x = self.data[idx: idx + self.lookback]
         if self.target_normalize:
             y = self.qps_norm[idx + self.lookback: idx + self.lookback + self.horizon]
@@ -107,7 +107,7 @@ class QPSDataset(Dataset):
         return torch.from_numpy(x).float(), torch.from_numpy(y).float()
 
     def get_stats(self):
-        """导出训练集统计量，供验证、测试和 inference 复用。"""
+        """Export training statistics for validation, testing, and inference."""
         return {
             "mean": self.mean.tolist(),
             "std": self.std.tolist(),
@@ -129,9 +129,9 @@ def split_dataset(
     batch_size=64,
     target_normalize=True,
 ):
-    """按时间顺序切分单个 workload 序列并构造 DataLoader。
+    """Split one workload series chronologically and construct DataLoaders.
 
-    切分位置为：
+    Split boundaries:
     train_end = int(n * train_ratio)
     val_end = int(n * (train_ratio + val_ratio))
     """

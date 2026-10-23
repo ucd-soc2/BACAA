@@ -2,11 +2,11 @@
 Train Quantile Transformer
 ==========================
 
-核心修正：
-1. 模型默认预测未来 2 个窗口。
-2. y 也归一化训练，evaluate/plot 时反归一化。
-3. best_model 默认按 MAE_q50 保存，而不是按包含 q10/q90 的总 quantile loss 保存。
-4. 画图时使用真实校准后的 confidence，不再用 plot.py 临时伪造 decision 曲线。
+Training behavior:
+1. Predict the next two windows by default.
+2. Normalize targets for training and denormalize them for evaluation and plotting.
+3. Select best_model by MAE_q50 by default; total quantile loss is an alternative.
+4. Use the fitted confidence calculator when plotting planning values.
 """
 
 import argparse
@@ -50,10 +50,10 @@ def load_workload(path):
             for col in ["QPS", "request_rate", "rate", "value", "requests_per_20s", "requests", "request_count"]:
                 if col in df.columns:
                     df = df.rename(columns={col: "qps"})
-                    print(f"已将列名 {col} 重命名为 qps")
+                    print(f"Renamed column {col} to qps")
                     break
         if "qps" not in df.columns:
-            raise ValueError(f"{path} 里没有 qps 列。当前列名: {list(df.columns)}")
+            raise ValueError(f"{path} has no qps column. Available columns: {list(df.columns)}")
         return df
     if path.endswith(".npy"):
         return np.load(path)
@@ -74,7 +74,7 @@ def build_dataset_with_optional_stats(data, args, stats=None):
 
 def build_loaders(args):
     if args.horizon < 1:
-        raise ValueError("--horizon 必须 >= 1。")
+        raise ValueError("--horizon must be >= 1.")
 
     if args.train_workload and args.val_workload and args.test_workload:
         print("Using separate train / val / test workload files.")
@@ -112,7 +112,7 @@ def build_loaders(args):
             target_normalize=True,
         )
 
-    raise ValueError("必须提供 --workload 或 --train_workload/--val_workload/--test_workload。")
+    raise ValueError("Provide --workload or --train_workload/--val_workload/--test_workload.")
 
 
 def denormalize_y(y_norm, train_stats):
@@ -130,7 +130,7 @@ def clip_nonnegative_pred(pred_raw):
     pred_raw[..., 0] = np.maximum(pred_raw[..., 0], 0.0)
     pred_raw[..., 1] = np.maximum(pred_raw[..., 1], 0.0)
     pred_raw[..., 2] = np.maximum(pred_raw[..., 2], 0.0)
-    # 防止 q10/q50/q90 因 clip 发生轻微交叉
+    # Enforce quantile ordering after clipping.
     pred_raw[..., 0] = np.minimum(pred_raw[..., 0], pred_raw[..., 1])
     pred_raw[..., 2] = np.maximum(pred_raw[..., 2], pred_raw[..., 1])
     return pred_raw
@@ -196,7 +196,7 @@ def get_score(metrics, mode):
         return metrics["h2_MAE_q50"]
     if mode == "loss":
         return metrics["loss_norm"]
-    raise ValueError("--save_metric 只能是 mae 或 loss")
+    raise ValueError("--save_metric must be mae or loss")
 
 
 def get_horizon_weights(args):
@@ -204,8 +204,8 @@ def get_horizon_weights(args):
         return None
     if len(args.horizon_weights) != args.horizon:
         raise ValueError(
-            f"--horizon_weights 长度必须等于 --horizon。"
-            f"当前 horizon={args.horizon}, weights={args.horizon_weights}"
+            f"--horizon_weights length must equal --horizon. "
+            f"Got horizon={args.horizon}, weights={args.horizon_weights}"
         )
     return [float(w) for w in args.horizon_weights]
 
@@ -222,11 +222,11 @@ def resolve_qps_floor(args, train_stats):
 
 def auto_plot_validation(args, val_preds_raw, val_trues_raw, confidence=None):
     if not args.auto_plot:
-        print("\n已关闭自动画图。")
+        print("\nAutomatic plotting is disabled.")
         return
     if not HAS_PLOT:
-        print("\n没有成功导入 plot.py，所以跳过画图。")
-        print(f"错误信息: {PLOT_ERROR}")
+        print("\nSkipping plots because plot.py could not be imported.")
+        print(f"Error: {PLOT_ERROR}")
         return
 
     plot_dir = os.path.join(args.output_dir, "val_plots")
@@ -238,8 +238,8 @@ def auto_plot_validation(args, val_preds_raw, val_trues_raw, confidence=None):
     y_true = val_trues_raw
 
     print("\n" + "=" * 60)
-    print("开始自动绘制验证集预测图...")
-    print(f"保存目录: {plot_dir}")
+    print("Plotting validation forecasts...")
+    print(f"Output directory: {plot_dir}")
 
     horizon = y_true.shape[1]
     for h in range(horizon):
@@ -255,7 +255,7 @@ def auto_plot_validation(args, val_preds_raw, val_trues_raw, confidence=None):
             c_final=confidence,
             plot_decision=True,
         )
-    print("验证集预测图保存完成。")
+    print("Validation forecast plots saved.")
 
 
 def main(args):
@@ -270,7 +270,7 @@ def main(args):
         print(f"Horizon loss weights: {horizon_weights}")
 
     if args.features[0] != "qps":
-        raise ValueError("当前 residual q50 版本要求 features 的第一列必须是 qps，例如 --features qps 或 --features qps response_time")
+        raise ValueError("The residual q50 model requires qps as the first feature, e.g. --features qps or --features qps response_time")
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
@@ -413,9 +413,9 @@ def main(args):
 
     auto_plot_validation(args, val_preds_raw, val_trues_raw, confidence=val_confidence)
 
-    print(f"\n所有结果保存在: {args.output_dir}")
-    print(f"验证集图保存在: {os.path.join(args.output_dir, 'val_plots')}")
-    print("使用 inference.py 加载模型做推理。")
+    print(f"\nAll results saved to: {args.output_dir}")
+    print(f"Validation plots saved to: {os.path.join(args.output_dir, 'val_plots')}")
+    print("Use inference.py to load the model for prediction.")
 
 
 if __name__ == "__main__":

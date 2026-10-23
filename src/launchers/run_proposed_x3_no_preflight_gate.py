@@ -19,7 +19,6 @@ from no_preflight_experiment_common import (
 
 COLD_START_THRESHOLD_SECONDS = 55.0
 BATCH_PREFIX = "main_proposed_x3_cold55_no_preflight_gate"
-LOCAL_EXPORT_TARGET = "C:\\Users\\artifact\\Desktop\\8.4proposed3" + "\u6b21"
 
 
 def utc_stamp() -> str:
@@ -65,7 +64,6 @@ def package_batch(runner: Any, batch: str, batch_dir: Path) -> dict[str, Any]:
         "archive": str(archive),
         "included_paths": [],
         "logs_included": "logs files whose basename contains the batch id",
-        "local_export_target": LOCAL_EXPORT_TARGET,
         "cold_start_threshold_seconds": COLD_START_THRESHOLD_SECONDS,
     }
     if not batch_dir.exists():
@@ -121,8 +119,6 @@ def validate_proposed_x3(batch_dir: Path) -> None:
         batch_dir / "per_run_metrics.csv",
         batch_dir / "method_aggregate_metrics.csv",
         batch_dir / "method_aggregate_metrics_wide.csv",
-        batch_dir / "TEACHER_REQUIREMENTS_SUMMARY.md",
-        batch_dir / "TEACHER_REQUIREMENTS_SUMMARY.json",
         batch_dir / "FINAL_REPORT.md",
     ]
     for path in required_paths:
@@ -232,8 +228,7 @@ def run(batch: str) -> int:
         "no_smoke": True,
         "no_preflight_gate": True,
         "cold_start_threshold_seconds": COLD_START_THRESHOLD_SECONDS,
-        "local_export_target": LOCAL_EXPORT_TARGET,
-        "user_restart_supervisor": "outer monitor restarts this same failed repetition/batch under the recorded retry limits",
+        "restart_supervisor": "outer monitor restarts this same failed repetition/batch under the recorded retry limits",
     }
     try:
         result = run_no_preflight_batch(

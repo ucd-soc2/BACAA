@@ -9,8 +9,6 @@
     "expected_run_count": 1,
     "per_run_metrics": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu11p25_neg10_cold55_no_preflight_gate_20260728_023601/per_run_metrics.csv",
     "report": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu11p25_neg10_cold55_no_preflight_gate_20260728_023601/FINAL_REPORT.md",
-    "teacher_requirements_summary_json": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu11p25_neg10_cold55_no_preflight_gate_20260728_023601/TEACHER_REQUIREMENTS_SUMMARY.json",
-    "teacher_requirements_summary_md": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu11p25_neg10_cold55_no_preflight_gate_20260728_023601/TEACHER_REQUIREMENTS_SUMMARY.md",
     "valid_run_count": 1
   },
   "args": {
@@ -320,11 +318,11 @@
       "method": "proposed",
       "passed": true,
       "post_health": {
-        "reason": "post_attempt_health_check_disabled_by_user_override",
+        "reason": "post_attempt_health_check_disabled_by_protocol_override",
         "skipped": true
       },
       "pre_health": {
-        "reason": "attempt_pre_health_check_disabled_by_user_override",
+        "reason": "attempt_pre_health_check_disabled_by_protocol_override",
         "skipped": true
       },
       "repetition": 1,
@@ -621,7 +619,7 @@
       "initial_cooldown",
       "final_health"
     ],
-    "user_override": "skip preflight/gate preliminary tests for this run"
+    "protocol_override": "skip preflight/gate preliminary tests for this run"
   },
   "passed": true,
   "repetitions": 1,

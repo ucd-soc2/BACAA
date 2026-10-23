@@ -1,10 +1,10 @@
-"""模型推理接口模块。
+"""Model inference interface.
 
-本模块用于加载训练好的 Quantile Transformer checkpoint，并向控制器提供
-未来 horizon 个窗口的 q10、q50、q90、confidence 和 conservative planning
-需求值。
+Load a trained Quantile Transformer checkpoint and provide the controller with
+q10, q50, q90, confidence, and conservative planning demand estimates for the
+next horizon windows.
 
-重要公式：
+Key equations:
 X_norm = (X - mean_train) / std_train
 pred_raw = pred_norm * target_std + target_mean
 Q_decision = q50 + (1 - C) * (q90 - q50)
@@ -21,10 +21,10 @@ from model import QuantileQPSTransformer, ConfidenceCalculator
 
 
 class QPSPredictor:
-    """加载 checkpoint 并提供请求量分位数预测接口。"""
+    """Load a checkpoint and expose request-demand quantile forecasts."""
 
     def __init__(self, checkpoint_dir, device=None):
-        """读取 results.json、构建模型、加载 best_model.pt 和 confidence 参数。"""
+        """Read results.json, build the model, and load best_model.pt and confidence parameters."""
         self.checkpoint_dir = checkpoint_dir
 
         results_path = os.path.join(checkpoint_dir, "results.json")
@@ -100,26 +100,26 @@ class QPSPredictor:
         print(f"  confidence_temperature={self.conf_calc.temperature:.2f}")
 
     def _denorm_pred(self, pred_norm):
-        """把模型输出从归一化 target 空间还原到原始请求量尺度。"""
+        """Convert model outputs from normalized targets to the original request-demand scale."""
         if self.target_normalized:
             return pred_norm * self.target_std + self.target_mean
         return pred_norm
 
     @torch.no_grad()
     def predict(self, history):
-        """对一个历史窗口序列输出未来 horizon 个窗口的 q10、q50、q90 和 confidence。
+        """Predict q10, q50, q90, and confidence for the next horizon windows.
 
-        输入 history 的长度必须等于训练配置中的 lookback。模型输出后会裁剪到非负
-        请求量，并再次保证 q10 <= q50 <= q90。
+        The input history length must match the configured lookback. Clip predictions to
+        nonnegative demand and enforce q10 <= q50 <= q90.
         """
         history = np.asarray(history, dtype=np.float32)
         if history.ndim == 1:
             history = history.reshape(-1, 1)
 
         if history.shape[0] != self.lookback:
-            raise ValueError(f"History 长度应为 {self.lookback}，实际 {history.shape[0]}")
+            raise ValueError(f"Expected history length {self.lookback}, got {history.shape[0]}")
         if history.shape[1] != self.feature_dim:
-            raise ValueError(f"特征维度应为 {self.feature_dim}，实际 {history.shape[1]}")
+            raise ValueError(f"Expected feature dimension {self.feature_dim}, got {history.shape[1]}")
 
         x_norm = (history - self.mean) / self.std
         x_tensor = torch.from_numpy(x_norm).float().unsqueeze(0).to(self.device)
@@ -154,11 +154,11 @@ class QPSPredictor:
         return result
 
     def predict_with_decision(self, history):
-        """在分位数预测基础上计算 conservative QPS planning value。
+        """Compute a conservative QPS planning value from the forecast quantiles.
 
-        公式为：
+        Equation:
         Q_decision = q50 + (1 - confidence) * (q90 - q50)
-        confidence 高时更接近 q50，confidence 低时更接近 q90。
+        Higher confidence shifts planning toward q50; lower confidence shifts it toward q90.
         """
         result = self.predict(history)
         q50 = result["q50"]
@@ -189,9 +189,9 @@ if __name__ == "__main__":
     if predictor.feature_dim > 1:
         example_history = np.stack([example_history] * predictor.feature_dim, axis=1)
 
-    print(f"\n示例输入长度: {predictor.lookback}")
+    print(f"\nExample input length: {predictor.lookback}")
     result = predictor.predict_with_decision(example_history)
-    print(f"\n预测未来 {predictor.horizon} 个窗口:")
+    print(f"\nForecast for the next {predictor.horizon} windows:")
     for idx in range(predictor.horizon):
         print(f"  Horizon {idx + 1}:")
         print(f"    q10:        {result['q10'][idx]:.2f}")
