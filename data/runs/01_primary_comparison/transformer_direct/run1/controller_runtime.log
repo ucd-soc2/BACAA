@@ -1,0 +1,2436 @@
++ /home/artifact/online_experiment/.venv/bin/python stage2/controller_stage2.py checkpoints_transformer_h2 --live --decision-mode direct --baseline-name transformer_direct --config-mu 12.5 --ci-csv stage2/data/carbon_intensity_ie_2025-09-20_24h.csv --trace /home/artifact/online_experiment/data/test_workload_burst.csv --start-row 11708 --duration-minutes 180.0 --seed 42 --start-delay 30.0 --first-patch-lead 1.0 --bootstrap-target-pods 2 --run-id stage2_transformer_direct_rep01_attempt01_s11708_180min_main_transformer_direct_x3_cold55_no_preflight_gate_20260729_0121 --output-dir /home/artifact/online_experiment/results --save-request-log --prometheus-url http://10.43.143.194:9090 --queue-mode none --ready-latency-p95-seconds 40.0 --scale-up-slack-seconds 1.0 --queue-sample-period-seconds 2.0 --queue-max-sample-age-seconds 10.0 --queue-query-timeout-seconds 1.5 --queue-samples-output /home/artifact/online_experiment/results/stage2_transformer_direct_rep01_attempt01_s11708_180min_main_transformer_direct_x3_cold55_no_preflight_gate_20260729_0121_queue_samples.csv --window-decisions-output /home/artifact/online_experiment/results/stage2_transformer_direct_rep01_attempt01_s11708_180min_main_transformer_direct_x3_cold55_no_preflight_gate_20260729_0121_window_decisions.csv --scale-events-output /home/artifact/online_experiment/results/stage2_transformer_direct_rep01_attempt01_s11708_180min_main_transformer_direct_x3_cold55_no_preflight_gate_20260729_0121_scale_events.csv --ci-trace-start 2025-09-20 00:00:00+00:00 --ci-window-seconds 480.0 --ci-time-scale 8.0 --disable-queue
+============================================================
+Loading Transformer model...
+/home/artifact/online_experiment/model.py:87: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  self.transformer = nn.TransformerEncoder(encoder_layer, num_layers=n_layers)
+[QPSPredictor] Loaded from checkpoints_transformer_h2
+  feature_dim=4, lookback=100, horizon=2
+  features=['qps', 'diff_1', 'slope_3', 'acceleration']
+  prediction_mode=absolute
+  target_mean=10.0774, target_std=6.7486
+  U_ref=0.431143
+  qps_floor=10.50
+  confidence_ref_percentile=88.0
+  confidence_temperature=1.08
+  lookback = 100
+
+Loading decision layer...
+[CILoader] Loaded 288 rows
+  Time : 2025-09-20 00:00:00  →  2025-09-20 23:55:00
+  CI   : 141.9 ~ 439.0  gCO2/kWh
+[DecisionLayer] Ready.
+  mu=12.5, N=[1,4], scale-down confirmation=disabled
+  alpha_base=0.5, k_ci=0.2, k_g=0.1, W=3, hist_beta=0.9
+  decision_mode=direct
+  prediction_source=model
+  queue_mode=none, ready_latency_p95=40.0s, scale_up_slack=1.0s, q_plan_mode=confidence_blend, queue_source=auto, queue_sample_period=2.0s, queue_max_age=10.0s, ci_time_scale=8.0
+  DECISION_CONFIG={"N_max": 4, "N_min": 1, "W": 3, "alpha_base": 0.5, "alpha_max": 0.75, "alpha_min": 0.4, "downtrend_enabled": false, "downtrend_margin": 1.15, "downtrend_min_drop": 30.0, "downtrend_previous_windows": 3, "downtrend_queue_threshold": 0.0, "downtrend_ratio": 0.75, "downtrend_recent_windows": 3, "hist_beta": 0.9, "k_ci": 0.2, "k_g": 0.1, "mu": 12.5, "q_plan_mode": "confidence_blend", "queue_alpha": 1.0, "queue_drain_s": 60, "scale_down_horizon": 1, "scale_in_confirm_windows": 1, "scale_up_safety_margin": 1.0}
+  DECISION_CONFIG_OVERRIDES={"mu": 12.5}
+
+QPS source: live (workload_replayer via asyncio.Queue)
+  duration=180.0min, start_delay=30.0s, horizon=2, scale_up_lead=40.0s
+
+Initial state: current_pods=2
+============================================================
+Starting live control loop (every 60s)...
+============================================================
+========== Poisson workload replay ==========
+baseline_name=transformer_direct
+start_time=2026-07-29 01:28:18.817441
+csv=/home/artifact/online_experiment/data/test_workload_burst.csv
+url=http://192.168.10.101:31011/v1/chat/completions
+host=qwen.default.example.com
+request_column=requests_per_60s
+window_size_seconds=60
+duration_minutes=180.0
+windows=180
+scale=1.0
+seed=42
+run_id=stage2_transformer_direct_rep01_attempt01_s11708_180min_main_transformer_direct_x3_cold55_no_preflight_gate_20260729_0121
+output_dir=/home/artifact/online_experiment/results
+[Schedule] local_window=0 csv_window_id=87309 timestamp=5238480 type=Periodic peaks expected=14.00 poisson_generated=14
+[Schedule] local_window=1 csv_window_id=87310 timestamp=5238540 type=Periodic peaks expected=10.00 poisson_generated=10
+[Schedule] local_window=2 csv_window_id=87311 timestamp=5238600 type=Periodic peaks expected=12.00 poisson_generated=12
+[Schedule] local_window=3 csv_window_id=87312 timestamp=5238660 type=Periodic peaks expected=10.00 poisson_generated=10
+[Schedule] local_window=4 csv_window_id=87313 timestamp=5238720 type=Periodic peaks expected=13.00 poisson_generated=13
+[Schedule] local_window=5 csv_window_id=87314 timestamp=5238780 type=Periodic peaks expected=9.00 poisson_generated=9
+[Schedule] local_window=6 csv_window_id=87315 timestamp=5238840 type=Periodic peaks expected=11.00 poisson_generated=11
+[Schedule] local_window=7 csv_window_id=87316 timestamp=5238900 type=Periodic peaks expected=11.00 poisson_generated=11
+[Schedule] local_window=8 csv_window_id=87317 timestamp=5238960 type=Periodic peaks expected=14.00 poisson_generated=14
+[Schedule] local_window=9 csv_window_id=87318 timestamp=5239020 type=Periodic peaks expected=11.00 poisson_generated=11
+[Schedule] local_window=10 csv_window_id=87319 timestamp=5239080 type=Periodic peaks expected=12.00 poisson_generated=12
+[Schedule] local_window=11 csv_window_id=87320 timestamp=5239140 type=Periodic peaks expected=14.00 poisson_generated=14
+[Schedule] local_window=12 csv_window_id=87321 timestamp=5239200 type=Periodic peaks expected=8.00 poisson_generated=8
+[Schedule] local_window=13 csv_window_id=87322 timestamp=5239260 type=Periodic peaks expected=12.00 poisson_generated=12
+[Schedule] local_window=14 csv_window_id=87323 timestamp=5239320 type=Periodic peaks expected=9.00 poisson_generated=9
+[Schedule] local_window=15 csv_window_id=87324 timestamp=5239380 type=Periodic peaks expected=15.00 poisson_generated=15
+[Schedule] local_window=16 csv_window_id=87325 timestamp=5239440 type=Periodic peaks expected=8.00 poisson_generated=8
+[Schedule] local_window=17 csv_window_id=87326 timestamp=5239500 type=Periodic peaks expected=14.00 poisson_generated=14
+[Schedule] local_window=18 csv_window_id=87327 timestamp=5239560 type=Periodic peaks expected=12.00 poisson_generated=12
+[Schedule] local_window=19 csv_window_id=87328 timestamp=5239620 type=Periodic peaks expected=9.00 poisson_generated=9
+[Schedule] local_window=20 csv_window_id=87329 timestamp=5239680 type=Periodic peaks expected=9.00 poisson_generated=9
+[Schedule] local_window=21 csv_window_id=87330 timestamp=5239740 type=Periodic peaks expected=10.00 poisson_generated=10
+[Schedule] local_window=22 csv_window_id=87331 timestamp=5239800 type=Periodic peaks expected=9.00 poisson_generated=9
+[Schedule] local_window=23 csv_window_id=87332 timestamp=5239860 type=Periodic peaks expected=10.00 poisson_generated=10
+[Schedule] local_window=24 csv_window_id=87333 timestamp=5239920 type=Periodic peaks expected=10.00 poisson_generated=10
+[Schedule] local_window=25 csv_window_id=87334 timestamp=5239980 type=Periodic peaks expected=11.00 poisson_generated=11
+[Schedule] local_window=26 csv_window_id=87335 timestamp=5240040 type=Periodic peaks expected=9.00 poisson_generated=9
+[Schedule] local_window=27 csv_window_id=87336 timestamp=5240100 type=Periodic peaks expected=8.00 poisson_generated=8
+[Schedule] local_window=28 csv_window_id=87337 timestamp=5240160 type=Periodic peaks expected=11.00 poisson_generated=11
+[Schedule] local_window=29 csv_window_id=87338 timestamp=5240220 type=Periodic peaks expected=8.00 poisson_generated=8
+[Schedule] local_window=30 csv_window_id=87339 timestamp=5240280 type=Periodic peaks expected=10.00 poisson_generated=10
+[Schedule] local_window=31 csv_window_id=87340 timestamp=5240340 type=Periodic peaks expected=11.00 poisson_generated=11
+[Schedule] local_window=32 csv_window_id=87341 timestamp=5240400 type=Periodic peaks expected=10.00 poisson_generated=10
+[Schedule] local_window=33 csv_window_id=87342 timestamp=5240460 type=Periodic peaks expected=10.00 poisson_generated=10
+[Schedule] local_window=34 csv_window_id=87343 timestamp=5240520 type=Periodic peaks expected=11.00 poisson_generated=11
+[Schedule] local_window=35 csv_window_id=87344 timestamp=5240580 type=Periodic peaks expected=11.00 poisson_generated=11
+[Schedule] local_window=36 csv_window_id=87345 timestamp=5240640 type=Periodic peaks expected=13.00 poisson_generated=13
+[Schedule] local_window=37 csv_window_id=87346 timestamp=5240700 type=normal expected=6.00 poisson_generated=6
+[Schedule] local_window=38 csv_window_id=87347 timestamp=5240760 type=normal expected=7.00 poisson_generated=7
+[Schedule] local_window=39 csv_window_id=87348 timestamp=5240820 type=normal expected=11.00 poisson_generated=11
+[Schedule] local_window=40 csv_window_id=87349 timestamp=5240880 type=normal expected=10.00 poisson_generated=10
+[Schedule] local_window=41 csv_window_id=87350 timestamp=5240940 type=normal expected=4.00 poisson_generated=4
+[Schedule] local_window=42 csv_window_id=87351 timestamp=5241000 type=normal expected=7.00 poisson_generated=7
+[Schedule] local_window=43 csv_window_id=87352 timestamp=5241060 type=normal expected=5.00 poisson_generated=5
+[Schedule] local_window=44 csv_window_id=87353 timestamp=5241120 type=normal expected=5.00 poisson_generated=5
+[Schedule] local_window=45 csv_window_id=87354 timestamp=5241180 type=normal expected=7.00 poisson_generated=7
+[Schedule] local_window=46 csv_window_id=87355 timestamp=5241240 type=normal expected=6.00 poisson_generated=6
+[Schedule] local_window=47 csv_window_id=87356 timestamp=5241300 type=normal expected=8.00 poisson_generated=8
+[Schedule] local_window=48 csv_window_id=87357 timestamp=5241360 type=normal expected=10.00 poisson_generated=10
+[Schedule] local_window=49 csv_window_id=87358 timestamp=5241420 type=normal expected=7.00 poisson_generated=7
+[Schedule] local_window=50 csv_window_id=87359 timestamp=5241480 type=normal expected=11.00 poisson_generated=11
+[Schedule] local_window=51 csv_window_id=87360 timestamp=5241540 type=normal expected=10.00 poisson_generated=10
+[Schedule] local_window=52 csv_window_id=87361 timestamp=5241600 type=normal expected=8.00 poisson_generated=8
+[Schedule] local_window=53 csv_window_id=87362 timestamp=5241660 type=normal expected=7.00 poisson_generated=7
+[Schedule] local_window=54 csv_window_id=87363 timestamp=5241720 type=normal expected=6.00 poisson_generated=6
+[Schedule] local_window=55 csv_window_id=87364 timestamp=5241780 type=normal expected=5.00 poisson_generated=5
+[Schedule] local_window=56 csv_window_id=87365 timestamp=5241840 type=normal expected=6.00 poisson_generated=6
+[Schedule] local_window=57 csv_window_id=87366 timestamp=5241900 type=normal expected=6.00 poisson_generated=6
+[Schedule] local_window=58 csv_window_id=87367 timestamp=5241960 type=normal expected=8.00 poisson_generated=8
+[Schedule] local_window=59 csv_window_id=87368 timestamp=5242020 type=normal expected=8.00 poisson_generated=8
+[Schedule] local_window=60 csv_window_id=87369 timestamp=5242080 type=Pattern shift expected=34.00 poisson_generated=34
+[Schedule] local_window=61 csv_window_id=87370 timestamp=5242140 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=62 csv_window_id=87371 timestamp=5242200 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=63 csv_window_id=87372 timestamp=5242260 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=64 csv_window_id=87373 timestamp=5242320 type=Pattern shift expected=29.00 poisson_generated=29
+[Schedule] local_window=65 csv_window_id=87374 timestamp=5242380 type=Pattern shift expected=40.00 poisson_generated=40
+[Schedule] local_window=66 csv_window_id=87375 timestamp=5242440 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=67 csv_window_id=87376 timestamp=5242500 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=68 csv_window_id=87377 timestamp=5242560 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=69 csv_window_id=87378 timestamp=5242620 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=70 csv_window_id=87379 timestamp=5242680 type=Pattern shift expected=40.00 poisson_generated=40
+[Schedule] local_window=71 csv_window_id=87380 timestamp=5242740 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=72 csv_window_id=87381 timestamp=5242800 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=73 csv_window_id=87382 timestamp=5242860 type=Pattern shift expected=40.00 poisson_generated=40
+[Schedule] local_window=74 csv_window_id=87383 timestamp=5242920 type=Pattern shift expected=34.00 poisson_generated=34
+[Schedule] local_window=75 csv_window_id=87384 timestamp=5242980 type=Pattern shift expected=33.00 poisson_generated=33
+[Schedule] local_window=76 csv_window_id=87385 timestamp=5243040 type=Pattern shift expected=34.00 poisson_generated=34
+[Schedule] local_window=77 csv_window_id=87386 timestamp=5243100 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=78 csv_window_id=87387 timestamp=5243160 type=Pattern shift expected=40.00 poisson_generated=40
+[Schedule] local_window=79 csv_window_id=87388 timestamp=5243220 type=Pattern shift expected=43.00 poisson_generated=43
+[Schedule] local_window=80 csv_window_id=87389 timestamp=5243280 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=81 csv_window_id=87390 timestamp=5243340 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=82 csv_window_id=87391 timestamp=5243400 type=Pattern shift expected=37.00 poisson_generated=37
+[Schedule] local_window=83 csv_window_id=87392 timestamp=5243460 type=Pattern shift expected=37.00 poisson_generated=37
+[Schedule] local_window=84 csv_window_id=87393 timestamp=5243520 type=Pattern shift expected=39.00 poisson_generated=39
+[Schedule] local_window=85 csv_window_id=87394 timestamp=5243580 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=86 csv_window_id=87395 timestamp=5243640 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=87 csv_window_id=87396 timestamp=5243700 type=Pattern shift expected=39.00 poisson_generated=39
+[Schedule] local_window=88 csv_window_id=87397 timestamp=5243760 type=Pattern shift expected=37.00 poisson_generated=37
+[Schedule] local_window=89 csv_window_id=87398 timestamp=5243820 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=90 csv_window_id=87399 timestamp=5243880 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=91 csv_window_id=87400 timestamp=5243940 type=Pattern shift expected=33.00 poisson_generated=33
+[Schedule] local_window=92 csv_window_id=87401 timestamp=5244000 type=Pattern shift expected=31.00 poisson_generated=31
+[Schedule] local_window=93 csv_window_id=87402 timestamp=5244060 type=Pattern shift expected=34.00 poisson_generated=34
+[Schedule] local_window=94 csv_window_id=87403 timestamp=5244120 type=Pattern shift expected=30.00 poisson_generated=30
+[Schedule] local_window=95 csv_window_id=87404 timestamp=5244180 type=Pattern shift expected=30.00 poisson_generated=30
+[Schedule] local_window=96 csv_window_id=87405 timestamp=5244240 type=Pattern shift expected=32.00 poisson_generated=32
+[Schedule] local_window=97 csv_window_id=87406 timestamp=5244300 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=98 csv_window_id=87407 timestamp=5244360 type=Pattern shift expected=39.00 poisson_generated=39
+[Schedule] local_window=99 csv_window_id=87408 timestamp=5244420 type=Pattern shift expected=33.00 poisson_generated=33
+[Schedule] local_window=100 csv_window_id=87409 timestamp=5244480 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=101 csv_window_id=87410 timestamp=5244540 type=Pattern shift expected=31.00 poisson_generated=31
+[Schedule] local_window=102 csv_window_id=87411 timestamp=5244600 type=Pattern shift expected=33.00 poisson_generated=33
+[Schedule] local_window=103 csv_window_id=87412 timestamp=5244660 type=Pattern shift expected=31.00 poisson_generated=31
+[Schedule] local_window=104 csv_window_id=87413 timestamp=5244720 type=Pattern shift expected=37.00 poisson_generated=37
+[Schedule] local_window=105 csv_window_id=87414 timestamp=5244780 type=Pattern shift expected=33.00 poisson_generated=33
+[Schedule] local_window=106 csv_window_id=87415 timestamp=5244840 type=Pattern shift expected=34.00 poisson_generated=34
+[Schedule] local_window=107 csv_window_id=87416 timestamp=5244900 type=Pattern shift expected=34.00 poisson_generated=34
+[Schedule] local_window=108 csv_window_id=87417 timestamp=5244960 type=Pattern shift expected=32.00 poisson_generated=32
+[Schedule] local_window=109 csv_window_id=87418 timestamp=5245020 type=Pattern shift expected=37.00 poisson_generated=37
+[Schedule] local_window=110 csv_window_id=87419 timestamp=5245080 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=111 csv_window_id=87420 timestamp=5245140 type=Pattern shift expected=39.00 poisson_generated=39
+[Schedule] local_window=112 csv_window_id=87421 timestamp=5245200 type=Pattern shift expected=39.00 poisson_generated=39
+[Schedule] local_window=113 csv_window_id=87422 timestamp=5245260 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=114 csv_window_id=87423 timestamp=5245320 type=Pattern shift expected=33.00 poisson_generated=33
+[Schedule] local_window=115 csv_window_id=87424 timestamp=5245380 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=116 csv_window_id=87425 timestamp=5245440 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=117 csv_window_id=87426 timestamp=5245500 type=Pattern shift expected=32.00 poisson_generated=32
+[Schedule] local_window=118 csv_window_id=87427 timestamp=5245560 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=119 csv_window_id=87428 timestamp=5245620 type=Pattern shift expected=37.00 poisson_generated=37
+[Schedule] local_window=120 csv_window_id=87429 timestamp=5245680 type=Pattern shift expected=34.00 poisson_generated=34
+[Schedule] local_window=121 csv_window_id=87430 timestamp=5245740 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=122 csv_window_id=87431 timestamp=5245800 type=Pattern shift expected=32.00 poisson_generated=32
+[Schedule] local_window=123 csv_window_id=87432 timestamp=5245860 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=124 csv_window_id=87433 timestamp=5245920 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=125 csv_window_id=87434 timestamp=5245980 type=Pattern shift expected=40.00 poisson_generated=40
+[Schedule] local_window=126 csv_window_id=87435 timestamp=5246040 type=Pattern shift expected=32.00 poisson_generated=32
+[Schedule] local_window=127 csv_window_id=87436 timestamp=5246100 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=128 csv_window_id=87437 timestamp=5246160 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=129 csv_window_id=87438 timestamp=5246220 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=130 csv_window_id=87439 timestamp=5246280 type=Pattern shift expected=37.00 poisson_generated=37
+[Schedule] local_window=131 csv_window_id=87440 timestamp=5246340 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=132 csv_window_id=87441 timestamp=5246400 type=Pattern shift expected=43.00 poisson_generated=43
+[Schedule] local_window=133 csv_window_id=87442 timestamp=5246460 type=Pattern shift expected=34.00 poisson_generated=34
+[Schedule] local_window=134 csv_window_id=87443 timestamp=5246520 type=Pattern shift expected=41.00 poisson_generated=41
+[Schedule] local_window=135 csv_window_id=87444 timestamp=5246580 type=Pattern shift expected=26.00 poisson_generated=26
+[Schedule] local_window=136 csv_window_id=87445 timestamp=5246640 type=Pattern shift expected=39.00 poisson_generated=39
+[Schedule] local_window=137 csv_window_id=87446 timestamp=5246700 type=Pattern shift expected=32.00 poisson_generated=32
+[Schedule] local_window=138 csv_window_id=87447 timestamp=5246760 type=Pattern shift expected=40.00 poisson_generated=40
+[Schedule] local_window=139 csv_window_id=87448 timestamp=5246820 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=140 csv_window_id=87449 timestamp=5246880 type=Pattern shift expected=33.00 poisson_generated=33
+[Schedule] local_window=141 csv_window_id=87450 timestamp=5246940 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=142 csv_window_id=87451 timestamp=5247000 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=143 csv_window_id=87452 timestamp=5247060 type=Pattern shift expected=42.00 poisson_generated=42
+[Schedule] local_window=144 csv_window_id=87453 timestamp=5247120 type=Pattern shift expected=45.00 poisson_generated=45
+[Schedule] local_window=145 csv_window_id=87454 timestamp=5247180 type=Pattern shift expected=41.00 poisson_generated=41
+[Schedule] local_window=146 csv_window_id=87455 timestamp=5247240 type=Pattern shift expected=33.00 poisson_generated=33
+[Schedule] local_window=147 csv_window_id=87456 timestamp=5247300 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=148 csv_window_id=87457 timestamp=5247360 type=Pattern shift expected=31.00 poisson_generated=31
+[Schedule] local_window=149 csv_window_id=87458 timestamp=5247420 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=150 csv_window_id=87459 timestamp=5247480 type=normal expected=8.00 poisson_generated=8
+[Schedule] local_window=151 csv_window_id=87460 timestamp=5247540 type=normal expected=9.00 poisson_generated=9
+[Schedule] local_window=152 csv_window_id=87461 timestamp=5247600 type=normal expected=7.00 poisson_generated=7
+[Schedule] local_window=153 csv_window_id=87462 timestamp=5247660 type=normal expected=4.00 poisson_generated=4
+[Schedule] local_window=154 csv_window_id=87463 timestamp=5247720 type=normal expected=9.00 poisson_generated=9
+[Schedule] local_window=155 csv_window_id=87464 timestamp=5247780 type=Sudden spike expected=31.00 poisson_generated=31
+[Schedule] local_window=156 csv_window_id=87465 timestamp=5247840 type=Sudden spike expected=21.00 poisson_generated=21
+[Schedule] local_window=157 csv_window_id=87466 timestamp=5247900 type=Sudden spike expected=42.00 poisson_generated=42
+[Schedule] local_window=158 csv_window_id=87467 timestamp=5247960 type=Sudden spike expected=8.00 poisson_generated=8
+[Schedule] local_window=159 csv_window_id=87468 timestamp=5248020 type=normal expected=10.00 poisson_generated=10
+[Schedule] local_window=160 csv_window_id=87469 timestamp=5248080 type=normal expected=12.00 poisson_generated=12
+[Schedule] local_window=161 csv_window_id=87470 timestamp=5248140 type=normal expected=7.00 poisson_generated=7
+[Schedule] local_window=162 csv_window_id=87471 timestamp=5248200 type=normal expected=10.00 poisson_generated=10
+[Schedule] local_window=163 csv_window_id=87472 timestamp=5248260 type=normal expected=7.00 poisson_generated=7
+[Schedule] local_window=164 csv_window_id=87473 timestamp=5248320 type=normal expected=6.00 poisson_generated=6
+[Schedule] local_window=165 csv_window_id=87474 timestamp=5248380 type=normal expected=11.00 poisson_generated=11
+[Schedule] local_window=166 csv_window_id=87475 timestamp=5248440 type=normal expected=8.00 poisson_generated=8
+[Schedule] local_window=167 csv_window_id=87476 timestamp=5248500 type=normal expected=8.00 poisson_generated=8
+[Schedule] local_window=168 csv_window_id=87477 timestamp=5248560 type=normal expected=8.00 poisson_generated=8
+[Schedule] local_window=169 csv_window_id=87478 timestamp=5248620 type=normal expected=9.00 poisson_generated=9
+[Schedule] local_window=170 csv_window_id=87479 timestamp=5248680 type=Irregular bursts expected=10.00 poisson_generated=10
+[Schedule] local_window=171 csv_window_id=87480 timestamp=5248740 type=Irregular bursts expected=7.00 poisson_generated=7
+[Schedule] local_window=172 csv_window_id=87481 timestamp=5248800 type=Irregular bursts expected=9.00 poisson_generated=9
+[Schedule] local_window=173 csv_window_id=87482 timestamp=5248860 type=Irregular bursts expected=7.00 poisson_generated=7
+[Schedule] local_window=174 csv_window_id=87483 timestamp=5248920 type=Irregular bursts expected=9.00 poisson_generated=9
+[Schedule] local_window=175 csv_window_id=87484 timestamp=5248980 type=Irregular bursts expected=13.00 poisson_generated=13
+[Schedule] local_window=176 csv_window_id=87485 timestamp=5249040 type=Irregular bursts expected=10.00 poisson_generated=10
+[Schedule] local_window=177 csv_window_id=87486 timestamp=5249100 type=Irregular bursts expected=10.00 poisson_generated=10
+[Schedule] local_window=178 csv_window_id=87487 timestamp=5249160 type=Irregular bursts expected=9.00 poisson_generated=9
+[Schedule] local_window=179 csv_window_id=87488 timestamp=5249220 type=Irregular bursts expected=8.00 poisson_generated=8
+
+Replay will start in 30.0 seconds and run until about 2026-07-29 04:28:48.948458.
+
+[Step 0] win=87309
+  QPS_actual=14.0  QPS_expected=14.0
+  Bootstrap: no prediction decision yet; keeping initial pods
+
+[Step 1] win=87310
+  QPS_actual=10.0  QPS_expected=10.0
+  Planning: mode=transformer-direct  horizon=2  target_win=2  hist_mean=9.6
+  Predict: q50=13.4->13.4  q90=16.3->16.3  C=0.480  source=model
+  Scale-up gate: horizon=2  N_req=2  Q_plan=14.9  raw_N_req=2  raw_Q_plan=14.9
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=14.9  N_req=2  N_ready=2  N_target=2  N_act=2  [hold; hold]
+  CI=427  rho=0.961  alpha=0.000  cnt=0  target_pods_now=2
+
+[Step 2] win=87311
+  QPS_actual=12.0  QPS_expected=12.0
+  Planning: mode=transformer-direct  horizon=2  target_win=3  hist_mean=9.5
+  Predict: q50=11.2->11.2  q90=13.5->13.5  C=0.557  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=12.2  raw_N_req=1  raw_Q_plan=12.2
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=12.2  N_req=1  N_ready=2  N_target=2  N_act=1  [down; down@next_window_start]
+  CI=428  rho=0.961  alpha=0.000  cnt=0  target_pods_now=2
+  [kubectl] patched qwen-00001 min=max=1
+  [scale:down@win3:0s] target_pods 2 -> 1
+
+[Step 3] win=87312
+  QPS_actual=10.0  QPS_expected=10.0
+  Planning: mode=transformer-direct  horizon=2  target_win=4  hist_mean=9.6
+  Predict: q50=11.3->11.3  q90=13.5->13.5  C=0.582  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=12.2  raw_N_req=1  raw_Q_plan=12.2
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=12.2  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=428  rho=0.962  alpha=0.000  cnt=0  target_pods_now=1
+  [kubectl] patched qwen-00001 min=max=2
+  [scale:up@win4:+19.0s] target_pods 1 -> 2
+
+[Step 4] win=87313
+  QPS_actual=13.0  QPS_expected=13.0
+  Planning: mode=transformer-direct  horizon=2  target_win=5  hist_mean=9.6
+  Predict: q50=11.9->11.9  q90=13.8->13.8  C=0.601  source=model
+  Scale-up gate: horizon=2  N_req=2  Q_plan=12.6  raw_N_req=2  raw_Q_plan=12.6
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=12.6  N_req=2  N_ready=1  N_target=1  N_act=2  [up; up@+19.0s; ready_by=+60.0s; L_p95=40.0s; slack=1.0s]
+  CI=433  rho=0.979  alpha=0.000  cnt=0  target_pods_now=2
+
+[Step 5] win=87314
+  QPS_actual=9.0  QPS_expected=9.0
+  Planning: mode=transformer-direct  horizon=2  target_win=6  hist_mean=9.7
+  Predict: q50=11.9->11.9  q90=14.1->14.1  C=0.555  source=model
+  Scale-up gate: horizon=2  N_req=2  Q_plan=12.9  raw_N_req=2  raw_Q_plan=12.9
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=12.9  N_req=2  N_ready=2  N_target=2  N_act=2  [hold; hold]
+  CI=433  rho=0.979  alpha=0.000  cnt=0  target_pods_now=2
+
+[Step 6] win=87315
+  QPS_actual=11.0  QPS_expected=11.0
+  Planning: mode=transformer-direct  horizon=2  target_win=7  hist_mean=9.7
+  Predict: q50=12.5->12.5  q90=14.6->14.6  C=0.576  source=model
+  Scale-up gate: horizon=2  N_req=2  Q_plan=13.4  raw_N_req=2  raw_Q_plan=13.4
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=13.4  N_req=2  N_ready=2  N_target=2  N_act=2  [hold; hold]
+  CI=433  rho=0.979  alpha=0.000  cnt=0  target_pods_now=2
+
+[Step 7] win=87316
+  QPS_actual=11.0  QPS_expected=11.0
+  Planning: mode=transformer-direct  horizon=2  target_win=8  hist_mean=9.7
+  Predict: q50=11.3->11.3  q90=13.4->13.4  C=0.569  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=12.2  raw_N_req=1  raw_Q_plan=12.2
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=12.2  N_req=1  N_ready=2  N_target=2  N_act=1  [down; down@next_window_start]
+  CI=433  rho=0.979  alpha=0.000  cnt=0  target_pods_now=2
+  [kubectl] patched qwen-00001 min=max=1
+  [scale:down@win8:0s] target_pods 2 -> 1
+
+[Step 8] win=87317
+  QPS_actual=14.0  QPS_expected=14.0
+  Planning: mode=transformer-direct  horizon=2  target_win=9  hist_mean=9.5
+  Predict: q50=11.3->11.3  q90=13.5->13.5  C=0.560  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=12.3  raw_N_req=1  raw_Q_plan=12.3
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=12.3  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=431  rho=0.973  alpha=0.000  cnt=0  target_pods_now=1
+  [kubectl] patched qwen-00001 min=max=2
+  [scale:up@win9:+19.0s] target_pods 1 -> 2
+
+[Step 9] win=87318
+  QPS_actual=11.0  QPS_expected=11.0
+  Planning: mode=transformer-direct  horizon=2  target_win=10  hist_mean=9.6
+  Predict: q50=12.0->12.0  q90=14.2->14.2  C=0.565  source=model
+  Scale-up gate: horizon=2  N_req=2  Q_plan=13.0  raw_N_req=2  raw_Q_plan=13.0
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=13.0  N_req=2  N_ready=1  N_target=1  N_act=2  [up; up@+19.0s; ready_by=+60.0s; L_p95=40.0s; slack=1.0s]
+  CI=431  rho=0.973  alpha=0.000  cnt=0  target_pods_now=2
+
+[Step 10] win=87319
+  QPS_actual=12.0  QPS_expected=12.0
+  Planning: mode=transformer-direct  horizon=2  target_win=11  hist_mean=9.6
+  Predict: q50=12.1->12.1  q90=14.4->14.4  C=0.547  source=model
+  Scale-up gate: horizon=2  N_req=2  Q_plan=13.2  raw_N_req=2  raw_Q_plan=13.2
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=13.2  N_req=2  N_ready=2  N_target=2  N_act=2  [hold; hold]
+  CI=431  rho=0.973  alpha=0.000  cnt=0  target_pods_now=2
+
+[Step 11] win=87320
+  QPS_actual=14.0  QPS_expected=14.0
+  Planning: mode=transformer-direct  horizon=2  target_win=12  hist_mean=9.6
+  Predict: q50=11.5->11.5  q90=13.5->13.5  C=0.589  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=12.3  raw_N_req=1  raw_Q_plan=12.3
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=12.3  N_req=1  N_ready=2  N_target=2  N_act=1  [down; down@next_window_start]
+  CI=431  rho=0.973  alpha=0.000  cnt=0  target_pods_now=2
+  [kubectl] patched qwen-00001 min=max=1
+  [scale:down@win12:0s] target_pods 2 -> 1
+
+[Step 12] win=87321
+  QPS_actual=8.0  QPS_expected=8.0
+  Planning: mode=transformer-direct  horizon=2  target_win=13  hist_mean=9.7
+  Predict: q50=11.5->11.5  q90=13.7->13.7  C=0.557  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=12.5  raw_N_req=1  raw_Q_plan=12.5
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=12.5  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=433  rho=0.978  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 13] win=87322
+  QPS_actual=12.0  QPS_expected=12.0
+  Planning: mode=transformer-direct  horizon=2  target_win=14  hist_mean=9.6
+  Predict: q50=10.5->10.5  q90=12.6->12.6  C=0.575  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=11.4  raw_N_req=1  raw_Q_plan=11.4
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=11.4  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=433  rho=0.978  alpha=0.000  cnt=0  target_pods_now=1
+  [kubectl] patched qwen-00001 min=max=2
+  [scale:up@win14:+19.0s] target_pods 1 -> 2
+
+[Step 14] win=87323
+  QPS_actual=9.0  QPS_expected=9.0
+  Planning: mode=transformer-direct  horizon=2  target_win=15  hist_mean=9.7
+  Predict: q50=12.6->12.6  q90=14.9->14.9  C=0.537  source=model
+  Scale-up gate: horizon=2  N_req=2  Q_plan=13.7  raw_N_req=2  raw_Q_plan=13.7
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=13.7  N_req=2  N_ready=1  N_target=1  N_act=2  [up; up@+19.0s; ready_by=+60.0s; L_p95=40.0s; slack=1.0s]
+  CI=433  rho=0.978  alpha=0.000  cnt=0  target_pods_now=2
+
+[Step 15] win=87324
+  QPS_actual=15.0  QPS_expected=15.0
+  Planning: mode=transformer-direct  horizon=2  target_win=16  hist_mean=9.7
+  Predict: q50=13.0->13.0  q90=15.2->15.2  C=0.561  source=model
+  Scale-up gate: horizon=2  N_req=2  Q_plan=14.0  raw_N_req=2  raw_Q_plan=14.0
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=14.0  N_req=2  N_ready=2  N_target=2  N_act=2  [hold; hold]
+  CI=434  rho=0.982  alpha=0.000  cnt=0  target_pods_now=2
+
+[Step 16] win=87325
+  QPS_actual=8.0  QPS_expected=8.0
+  Planning: mode=transformer-direct  horizon=2  target_win=17  hist_mean=9.8
+  Predict: q50=10.9->10.9  q90=13.1->13.1  C=0.567  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=11.8  raw_N_req=1  raw_Q_plan=11.8
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=11.8  N_req=1  N_ready=2  N_target=2  N_act=1  [down; down@next_window_start]
+  CI=434  rho=0.982  alpha=0.000  cnt=0  target_pods_now=2
+  [kubectl] patched qwen-00001 min=max=1
+  [scale:down@win17:0s] target_pods 2 -> 1
+
+[Step 17] win=87326
+  QPS_actual=14.0  QPS_expected=14.0
+  Planning: mode=transformer-direct  horizon=2  target_win=18  hist_mean=9.8
+  Predict: q50=11.3->11.3  q90=13.4->13.4  C=0.582  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=12.2  raw_N_req=1  raw_Q_plan=12.2
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=12.2  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=434  rho=0.982  alpha=0.000  cnt=0  target_pods_now=1
+  [kubectl] patched qwen-00001 min=max=2
+  [scale:up@win18:+19.0s] target_pods 1 -> 2
+
+[Step 18] win=87327
+  QPS_actual=12.0  QPS_expected=12.0
+  Planning: mode=transformer-direct  horizon=2  target_win=19  hist_mean=9.9
+  Predict: q50=11.7->11.7  q90=14.3->14.3  C=0.515  source=model
+  Scale-up gate: horizon=2  N_req=2  Q_plan=13.0  raw_N_req=2  raw_Q_plan=13.0
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=13.0  N_req=2  N_ready=1  N_target=1  N_act=2  [up; up@+19.0s; ready_by=+60.0s; L_p95=40.0s; slack=1.0s]
+  CI=434  rho=0.982  alpha=0.000  cnt=0  target_pods_now=2
+
+[Step 19] win=87328
+  QPS_actual=9.0  QPS_expected=9.0
+  Planning: mode=transformer-direct  horizon=2  target_win=20  hist_mean=9.9
+  Predict: q50=12.0->12.0  q90=14.3->14.3  C=0.546  source=model
+  Scale-up gate: horizon=2  N_req=2  Q_plan=13.0  raw_N_req=2  raw_Q_plan=13.0
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=13.0  N_req=2  N_ready=2  N_target=2  N_act=2  [hold; hold]
+  CI=436  rho=0.990  alpha=0.000  cnt=0  target_pods_now=2
+
+[Step 20] win=87329
+  QPS_actual=9.0  QPS_expected=9.0
+  Planning: mode=transformer-direct  horizon=2  target_win=21  hist_mean=9.9
+  Predict: q50=11.0->11.0  q90=12.8->12.8  C=0.605  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=11.7  raw_N_req=1  raw_Q_plan=11.7
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=11.7  N_req=1  N_ready=2  N_target=2  N_act=1  [down; down@next_window_start]
+  CI=436  rho=0.990  alpha=0.000  cnt=0  target_pods_now=2
+  [kubectl] patched qwen-00001 min=max=1
+  [scale:down@win21:0s] target_pods 2 -> 1
+
+[Step 21] win=87330
+  QPS_actual=10.0  QPS_expected=10.0
+  Planning: mode=transformer-direct  horizon=2  target_win=22  hist_mean=9.9
+  Predict: q50=11.5->11.5  q90=13.4->13.4  C=0.600  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=12.2  raw_N_req=1  raw_Q_plan=12.2
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=12.2  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=436  rho=0.990  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 22] win=87331
+  QPS_actual=9.0  QPS_expected=9.0
+  Planning: mode=transformer-direct  horizon=2  target_win=23  hist_mean=10.0
+  Predict: q50=10.0->10.0  q90=11.8->11.8  C=0.616  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=10.7  raw_N_req=1  raw_Q_plan=10.7
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=10.7  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=436  rho=0.990  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 23] win=87332
+  QPS_actual=10.0  QPS_expected=10.0
+  Planning: mode=transformer-direct  horizon=2  target_win=24  hist_mean=9.9
+  Predict: q50=11.0->11.0  q90=12.7->12.7  C=0.625  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=11.6  raw_N_req=1  raw_Q_plan=11.6
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=11.6  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=439  rho=1.000  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 24] win=87333
+  QPS_actual=10.0  QPS_expected=10.0
+  Planning: mode=transformer-direct  horizon=2  target_win=25  hist_mean=9.9
+  Predict: q50=11.1->11.1  q90=12.8->12.8  C=0.623  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=11.7  raw_N_req=1  raw_Q_plan=11.7
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=11.7  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=439  rho=1.000  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 25] win=87334
+  QPS_actual=11.0  QPS_expected=11.0
+  Planning: mode=transformer-direct  horizon=2  target_win=26  hist_mean=10.0
+  Predict: q50=11.0->11.0  q90=12.6->12.6  C=0.637  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=11.6  raw_N_req=1  raw_Q_plan=11.6
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=11.6  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=439  rho=1.000  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 26] win=87335
+  QPS_actual=9.0  QPS_expected=9.0
+  Planning: mode=transformer-direct  horizon=2  target_win=27  hist_mean=10.0
+  Predict: q50=9.9->9.9  q90=11.6->11.6  C=0.631  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=10.5  raw_N_req=1  raw_Q_plan=10.5
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=10.5  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=439  rho=1.000  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 27] win=87336
+  QPS_actual=8.0  QPS_expected=8.0
+  Planning: mode=transformer-direct  horizon=2  target_win=28  hist_mean=9.8
+  Predict: q50=10.9->10.9  q90=12.7->12.7  C=0.624  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=11.6  raw_N_req=1  raw_Q_plan=11.6
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=11.6  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=438  rho=0.997  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 28] win=87337
+  QPS_actual=11.0  QPS_expected=11.0
+  Planning: mode=transformer-direct  horizon=2  target_win=29  hist_mean=9.8
+  Predict: q50=10.0->10.0  q90=11.5->11.5  C=0.661  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=10.5  raw_N_req=1  raw_Q_plan=10.5
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=10.5  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=438  rho=0.997  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 29] win=87338
+  QPS_actual=8.0  QPS_expected=8.0
+  Planning: mode=transformer-direct  horizon=2  target_win=30  hist_mean=9.8
+  Predict: q50=9.3->9.3  q90=10.9->10.9  C=0.657  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=9.8  raw_N_req=1  raw_Q_plan=9.8
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=9.8  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=438  rho=0.997  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 30] win=87339
+  QPS_actual=10.0  QPS_expected=10.0
+  Planning: mode=transformer-direct  horizon=2  target_win=31  hist_mean=9.8
+  Predict: q50=10.2->10.2  q90=11.5->11.5  C=0.678  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=10.6  raw_N_req=1  raw_Q_plan=10.6
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=10.6  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=438  rho=0.997  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 31] win=87340
+  QPS_actual=11.0  QPS_expected=11.0
+  Planning: mode=transformer-direct  horizon=2  target_win=32  hist_mean=9.8
+  Predict: q50=9.3->9.3  q90=10.7->10.7  C=0.677  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=9.8  raw_N_req=1  raw_Q_plan=9.8
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=9.8  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=438  rho=0.997  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 32] win=87341
+  QPS_actual=10.0  QPS_expected=10.0
+  Planning: mode=transformer-direct  horizon=2  target_win=33  hist_mean=9.8
+  Predict: q50=10.4->10.4  q90=12.3->12.3  C=0.605  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=11.1  raw_N_req=1  raw_Q_plan=11.1
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=11.1  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=438  rho=0.997  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 33] win=87342
+  QPS_actual=10.0  QPS_expected=10.0
+  Planning: mode=transformer-direct  horizon=2  target_win=34  hist_mean=9.9
+  Predict: q50=10.4->10.4  q90=12.2->12.2  C=0.614  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=11.1  raw_N_req=1  raw_Q_plan=11.1
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=11.1  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=438  rho=0.997  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 34] win=87343
+  QPS_actual=11.0  QPS_expected=11.0
+  Planning: mode=transformer-direct  horizon=2  target_win=35  hist_mean=9.9
+  Predict: q50=10.1->10.1  q90=11.6->11.6  C=0.646  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=10.6  raw_N_req=1  raw_Q_plan=10.6
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=10.6  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=436  rho=0.990  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 35] win=87344
+  QPS_actual=11.0  QPS_expected=11.0
+  Planning: mode=transformer-direct  horizon=2  target_win=36  hist_mean=9.9
+  Predict: q50=9.7->9.7  q90=11.3->11.3  C=0.652  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=10.3  raw_N_req=1  raw_Q_plan=10.3
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=10.3  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=436  rho=0.990  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 36] win=87345
+  QPS_actual=13.0  QPS_expected=13.0
+  Planning: mode=transformer-direct  horizon=2  target_win=37  hist_mean=10.0
+  Predict: q50=10.7->10.7  q90=12.4->12.4  C=0.623  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=11.4  raw_N_req=1  raw_Q_plan=11.4
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=11.4  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=436  rho=0.990  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 37] win=87346
+  QPS_actual=6.0  QPS_expected=6.0
+  Planning: mode=transformer-direct  horizon=2  target_win=38  hist_mean=10.0
+  Predict: q50=10.7->10.7  q90=12.8->12.8  C=0.581  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=11.6  raw_N_req=1  raw_Q_plan=11.6
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=11.6  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=436  rho=0.990  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 38] win=87347
+  QPS_actual=7.0  QPS_expected=7.0
+  Planning: mode=transformer-direct  horizon=2  target_win=39  hist_mean=10.0
+  Predict: q50=9.7->9.7  q90=11.0->11.0  C=0.680  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=10.1  raw_N_req=1  raw_Q_plan=10.1
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=10.1  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=419  rho=0.932  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 39] win=87348
+  QPS_actual=11.0  QPS_expected=11.0
+  Planning: mode=transformer-direct  horizon=2  target_win=40  hist_mean=10.0
+  Predict: q50=7.7->7.7  q90=8.7->8.7  C=0.747  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=8.0  raw_N_req=1  raw_Q_plan=8.0
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=8.0  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=419  rho=0.933  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 40] win=87349
+  QPS_actual=10.0  QPS_expected=10.0
+  Planning: mode=transformer-direct  horizon=2  target_win=41  hist_mean=10.0
+  Predict: q50=9.4->9.4  q90=11.0->11.0  C=0.651  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=10.0  raw_N_req=1  raw_Q_plan=10.0
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=10.0  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=419  rho=0.932  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 41] win=87350
+  QPS_actual=4.0  QPS_expected=4.0
+  Planning: mode=transformer-direct  horizon=2  target_win=42  hist_mean=10.0
+  Predict: q50=9.9->9.9  q90=12.2->12.2  C=0.553  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=10.9  raw_N_req=1  raw_Q_plan=10.9
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=10.9  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=419  rho=0.932  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 42] win=87351
+  QPS_actual=7.0  QPS_expected=7.0
+  Planning: mode=transformer-direct  horizon=2  target_win=43  hist_mean=9.9
+  Predict: q50=8.5->8.5  q90=9.6->9.6  C=0.714  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=8.8  raw_N_req=1  raw_Q_plan=8.8
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=8.8  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=411  rho=0.906  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 43] win=87352
+  QPS_actual=5.0  QPS_expected=5.0
+  Planning: mode=transformer-direct  horizon=2  target_win=44  hist_mean=9.9
+  Predict: q50=8.0->8.0  q90=9.3->9.3  C=0.710  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=8.4  raw_N_req=1  raw_Q_plan=8.4
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=8.4  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=411  rho=0.906  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 44] win=87353
+  QPS_actual=5.0  QPS_expected=5.0
+  Planning: mode=transformer-direct  horizon=2  target_win=45  hist_mean=9.9
+  Predict: q50=9.0->9.0  q90=10.2->10.2  C=0.692  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=9.4  raw_N_req=1  raw_Q_plan=9.4
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=9.4  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=411  rho=0.905  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 45] win=87354
+  QPS_actual=7.0  QPS_expected=7.0
+  Planning: mode=transformer-direct  horizon=2  target_win=46  hist_mean=9.7
+  Predict: q50=7.6->7.6  q90=8.3->8.3  C=0.788  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=7.8  raw_N_req=1  raw_Q_plan=7.8
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=7.8  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=393  rho=0.847  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 46] win=87355
+  QPS_actual=6.0  QPS_expected=6.0
+  Planning: mode=transformer-direct  horizon=2  target_win=47  hist_mean=9.7
+  Predict: q50=6.8->6.8  q90=7.5->7.5  C=0.808  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=6.9  raw_N_req=1  raw_Q_plan=6.9
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=6.9  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=394  rho=0.847  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 47] win=87356
+  QPS_actual=8.0  QPS_expected=8.0
+  Planning: mode=transformer-direct  horizon=2  target_win=48  hist_mean=9.7
+  Predict: q50=7.6->7.6  q90=8.4->8.4  C=0.780  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=7.8  raw_N_req=1  raw_Q_plan=7.8
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=7.8  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=393  rho=0.846  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 48] win=87357
+  QPS_actual=10.0  QPS_expected=10.0
+  Planning: mode=transformer-direct  horizon=2  target_win=49  hist_mean=9.7
+  Predict: q50=6.7->6.7  q90=7.4->7.4  C=0.825  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=6.8  raw_N_req=1  raw_Q_plan=6.8
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=6.8  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=393  rho=0.846  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 49] win=87358
+  QPS_actual=7.0  QPS_expected=7.0
+  Planning: mode=transformer-direct  horizon=2  target_win=50  hist_mean=9.7
+  Predict: q50=6.5->6.5  q90=7.5->7.5  C=0.750  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=6.8  raw_N_req=1  raw_Q_plan=6.8
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=6.8  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=393  rho=0.844  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 50] win=87359
+  QPS_actual=11.0  QPS_expected=11.0
+  Planning: mode=transformer-direct  horizon=2  target_win=51  hist_mean=9.7
+  Predict: q50=6.7->6.7  q90=7.3->7.3  C=0.824  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=6.8  raw_N_req=1  raw_Q_plan=6.8
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=6.8  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=393  rho=0.844  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 51] win=87360
+  QPS_actual=10.0  QPS_expected=10.0
+  Planning: mode=transformer-direct  horizon=2  target_win=52  hist_mean=9.7
+  Predict: q50=8.8->8.8  q90=10.4->10.4  C=0.632  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=9.4  raw_N_req=1  raw_Q_plan=9.4
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=9.4  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=393  rho=0.844  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 52] win=87361
+  QPS_actual=8.0  QPS_expected=8.0
+  Planning: mode=transformer-direct  horizon=2  target_win=53  hist_mean=9.7
+  Predict: q50=9.9->9.9  q90=12.0->12.0  C=0.555  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=10.9  raw_N_req=1  raw_Q_plan=10.9
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=10.9  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=393  rho=0.844  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 53] win=87362
+  QPS_actual=7.0  QPS_expected=7.0
+  Planning: mode=transformer-direct  horizon=2  target_win=54  hist_mean=9.7
+  Predict: q50=7.7->7.7  q90=8.8->8.8  C=0.721  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=8.0  raw_N_req=1  raw_Q_plan=8.0
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=8.0  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=393  rho=0.844  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 54] win=87363
+  QPS_actual=6.0  QPS_expected=6.0
+  Planning: mode=transformer-direct  horizon=2  target_win=55  hist_mean=9.7
+  Predict: q50=7.8->7.8  q90=8.8->8.8  C=0.740  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=8.1  raw_N_req=1  raw_Q_plan=8.1
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=8.1  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=393  rho=0.844  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 55] win=87364
+  QPS_actual=5.0  QPS_expected=5.0
+  Planning: mode=transformer-direct  horizon=2  target_win=56  hist_mean=9.7
+  Predict: q50=7.6->7.6  q90=8.4->8.4  C=0.768  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=7.8  raw_N_req=1  raw_Q_plan=7.8
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=7.8  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=393  rho=0.844  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 56] win=87365
+  QPS_actual=6.0  QPS_expected=6.0
+  Planning: mode=transformer-direct  horizon=2  target_win=57  hist_mean=9.7
+  Predict: q50=7.9->7.9  q90=8.7->8.7  C=0.773  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=8.1  raw_N_req=1  raw_Q_plan=8.1
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=8.1  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=393  rho=0.844  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 57] win=87366
+  QPS_actual=6.0  QPS_expected=6.0
+  Planning: mode=transformer-direct  horizon=2  target_win=58  hist_mean=9.7
+  Predict: q50=6.7->6.7  q90=7.3->7.3  C=0.832  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=6.8  raw_N_req=1  raw_Q_plan=6.8
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=6.8  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=396  rho=0.857  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 58] win=87367
+  QPS_actual=8.0  QPS_expected=8.0
+  Planning: mode=transformer-direct  horizon=2  target_win=59  hist_mean=9.6
+  Predict: q50=6.1->6.1  q90=6.7->6.7  C=0.837  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=6.2  raw_N_req=1  raw_Q_plan=6.2
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=6.2  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=396  rho=0.857  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 59] win=87368
+  QPS_actual=8.0  QPS_expected=8.0
+  Planning: mode=transformer-direct  horizon=2  target_win=60  hist_mean=9.6
+  Predict: q50=6.9->6.9  q90=7.6->7.6  C=0.810  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=7.0  raw_N_req=1  raw_Q_plan=7.0
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=7.0  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=396  rho=0.857  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 60] win=87369
+  QPS_actual=34.0  QPS_expected=34.0
+  Planning: mode=transformer-direct  horizon=2  target_win=61  hist_mean=9.6
+  Predict: q50=6.8->6.8  q90=7.7->7.7  C=0.776  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=7.0  raw_N_req=1  raw_Q_plan=7.0
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=7.0  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=377  rho=0.791  alpha=0.000  cnt=0  target_pods_now=1
+  [kubectl] patched qwen-00001 min=max=2
+  [scale:up@win61:+19.0s] target_pods 1 -> 2
+
+[Step 61] win=87370
+  QPS_actual=35.0  QPS_expected=35.0
+  Planning: mode=transformer-direct  horizon=2  target_win=62  hist_mean=9.9
+  Predict: q50=10.4->10.4  q90=19.4->19.4  C=0.184  source=model
+  Scale-up gate: horizon=2  N_req=2  Q_plan=17.8  raw_N_req=2  raw_Q_plan=17.8
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=17.8  N_req=2  N_ready=1  N_target=1  N_act=2  [up; up@+19.0s; ready_by=+60.0s; L_p95=40.0s; slack=1.0s]
+  CI=377  rho=0.791  alpha=0.000  cnt=0  target_pods_now=2
+  [kubectl] patched qwen-00001 min=max=3
+  [scale:up@win62:+19.0s] target_pods 2 -> 3
+
+[Step 62] win=87371
+  QPS_actual=35.0  QPS_expected=35.0
+  Planning: mode=transformer-direct  horizon=2  target_win=63  hist_mean=9.9
+  Predict: q50=24.1->24.1  q90=32.3->32.3  C=0.127  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=31.2  raw_N_req=3  raw_Q_plan=31.2
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=31.2  N_req=3  N_ready=2  N_target=2  N_act=3  [up; up@+19.0s; ready_by=+60.0s; L_p95=40.0s; slack=1.0s]
+  CI=377  rho=0.791  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 63] win=87372
+  QPS_actual=38.0  QPS_expected=38.0
+  Planning: mode=transformer-direct  horizon=2  target_win=64  hist_mean=10.2
+  Predict: q50=25.7->25.7  q90=32.8->32.8  C=0.137  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=31.8  raw_N_req=3  raw_Q_plan=31.8
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=31.8  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=377  rho=0.791  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 64] win=87373
+  QPS_actual=29.0  QPS_expected=29.0
+  Planning: mode=transformer-direct  horizon=2  target_win=65  hist_mean=10.5
+  Predict: q50=32.7->32.7  q90=36.2->36.2  C=0.291  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=35.2  raw_N_req=3  raw_Q_plan=35.2
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=35.2  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=374  rho=0.780  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 65] win=87374
+  QPS_actual=40.0  QPS_expected=40.0
+  Planning: mode=transformer-direct  horizon=2  target_win=66  hist_mean=10.8
+  Predict: q50=32.1->32.1  q90=35.6->35.6  C=0.259  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=34.7  raw_N_req=3  raw_Q_plan=34.7
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=34.7  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=374  rho=0.780  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 66] win=87375
+  QPS_actual=36.0  QPS_expected=36.0
+  Planning: mode=transformer-direct  horizon=2  target_win=67  hist_mean=11.1
+  Predict: q50=32.6->32.6  q90=36.3->36.3  C=0.266  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=35.3  raw_N_req=3  raw_Q_plan=35.3
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=35.3  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=374  rho=0.780  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 67] win=87376
+  QPS_actual=38.0  QPS_expected=38.0
+  Planning: mode=transformer-direct  horizon=2  target_win=68  hist_mean=11.4
+  Predict: q50=34.1->34.1  q90=37.3->37.3  C=0.312  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=36.3  raw_N_req=3  raw_Q_plan=36.3
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=36.3  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=374  rho=0.780  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 68] win=87377
+  QPS_actual=38.0  QPS_expected=38.0
+  Planning: mode=transformer-direct  horizon=2  target_win=69  hist_mean=11.7
+  Predict: q50=32.2->32.2  q90=35.6->35.6  C=0.306  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=34.6  raw_N_req=3  raw_Q_plan=34.6
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=34.6  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=348  rho=0.695  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 69] win=87378
+  QPS_actual=38.0  QPS_expected=38.0
+  Planning: mode=transformer-direct  horizon=2  target_win=70  hist_mean=12.0
+  Predict: q50=33.4->33.4  q90=36.6->36.6  C=0.328  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=35.5  raw_N_req=3  raw_Q_plan=35.5
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=35.5  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=348  rho=0.695  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 70] win=87379
+  QPS_actual=40.0  QPS_expected=40.0
+  Planning: mode=transformer-direct  horizon=2  target_win=71  hist_mean=12.3
+  Predict: q50=33.0->33.0  q90=36.1->36.1  C=0.322  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=35.1  raw_N_req=3  raw_Q_plan=35.1
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=35.1  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=348  rho=0.695  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 71] win=87380
+  QPS_actual=36.0  QPS_expected=36.0
+  Planning: mode=transformer-direct  horizon=2  target_win=72  hist_mean=12.7
+  Predict: q50=33.3->33.3  q90=36.5->36.5  C=0.326  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=35.4  raw_N_req=3  raw_Q_plan=35.4
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=35.4  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=348  rho=0.695  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 72] win=87381
+  QPS_actual=36.0  QPS_expected=36.0
+  Planning: mode=transformer-direct  horizon=2  target_win=73  hist_mean=12.9
+  Predict: q50=33.4->33.4  q90=36.5->36.5  C=0.321  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=35.5  raw_N_req=3  raw_Q_plan=35.5
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=35.5  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=349  rho=0.699  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 73] win=87382
+  QPS_actual=40.0  QPS_expected=40.0
+  Planning: mode=transformer-direct  horizon=2  target_win=74  hist_mean=13.2
+  Predict: q50=33.6->33.6  q90=36.8->36.8  C=0.314  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=35.8  raw_N_req=3  raw_Q_plan=35.8
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=35.8  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=349  rho=0.699  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 74] win=87383
+  QPS_actual=34.0  QPS_expected=34.0
+  Planning: mode=transformer-direct  horizon=2  target_win=75  hist_mean=13.6
+  Predict: q50=34.5->34.5  q90=37.7->37.7  C=0.336  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=36.7  raw_N_req=3  raw_Q_plan=36.7
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=36.7  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=349  rho=0.699  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 75] win=87384
+  QPS_actual=33.0  QPS_expected=33.0
+  Planning: mode=transformer-direct  horizon=2  target_win=76  hist_mean=13.8
+  Predict: q50=34.3->34.3  q90=37.5->37.5  C=0.339  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=36.4  raw_N_req=3  raw_Q_plan=36.4
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=36.4  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=348  rho=0.695  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 76] win=87385
+  QPS_actual=34.0  QPS_expected=34.0
+  Planning: mode=transformer-direct  horizon=2  target_win=77  hist_mean=14.1
+  Predict: q50=32.5->32.5  q90=35.6->35.6  C=0.341  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=34.6  raw_N_req=3  raw_Q_plan=34.6
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=34.6  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=348  rho=0.695  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 77] win=87386
+  QPS_actual=36.0  QPS_expected=36.0
+  Planning: mode=transformer-direct  horizon=2  target_win=78  hist_mean=14.3
+  Predict: q50=32.9->32.9  q90=35.9->35.9  C=0.373  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=34.8  raw_N_req=3  raw_Q_plan=34.8
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=34.8  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=348  rho=0.695  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 78] win=87387
+  QPS_actual=40.0  QPS_expected=40.0
+  Planning: mode=transformer-direct  horizon=2  target_win=79  hist_mean=14.6
+  Predict: q50=32.9->32.9  q90=35.9->35.9  C=0.381  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=34.8  raw_N_req=3  raw_Q_plan=34.8
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=34.8  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=348  rho=0.695  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 79] win=87388
+  QPS_actual=43.0  QPS_expected=43.0
+  Planning: mode=transformer-direct  horizon=2  target_win=80  hist_mean=14.9
+  Predict: q50=33.5->33.5  q90=36.6->36.6  C=0.368  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=35.4  raw_N_req=3  raw_Q_plan=35.4
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=35.4  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=359  rho=0.731  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 80] win=87389
+  QPS_actual=35.0  QPS_expected=35.0
+  Planning: mode=transformer-direct  horizon=2  target_win=81  hist_mean=15.2
+  Predict: q50=35.2->35.2  q90=38.3->38.3  C=0.365  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=37.2  raw_N_req=3  raw_Q_plan=37.2
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=37.2  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=359  rho=0.731  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 81] win=87390
+  QPS_actual=38.0  QPS_expected=38.0
+  Planning: mode=transformer-direct  horizon=2  target_win=82  hist_mean=15.4
+  Predict: q50=33.3->33.3  q90=36.4->36.4  C=0.346  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=35.4  raw_N_req=3  raw_Q_plan=35.4
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=35.4  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=359  rho=0.731  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 82] win=87391
+  QPS_actual=37.0  QPS_expected=37.0
+  Planning: mode=transformer-direct  horizon=2  target_win=83  hist_mean=15.7
+  Predict: q50=34.2->34.2  q90=37.2->37.2  C=0.369  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=36.1  raw_N_req=3  raw_Q_plan=36.1
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=36.1  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=359  rho=0.731  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 83] win=87392
+  QPS_actual=37.0  QPS_expected=37.0
+  Planning: mode=transformer-direct  horizon=2  target_win=84  hist_mean=16.0
+  Predict: q50=35.5->35.5  q90=38.5->38.5  C=0.369  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=37.4  raw_N_req=3  raw_Q_plan=37.4
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=37.4  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=368  rho=0.762  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 84] win=87393
+  QPS_actual=39.0  QPS_expected=39.0
+  Planning: mode=transformer-direct  horizon=2  target_win=85  hist_mean=16.2
+  Predict: q50=35.5->35.5  q90=38.5->38.5  C=0.367  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=37.4  raw_N_req=3  raw_Q_plan=37.4
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=37.4  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=368  rho=0.762  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 85] win=87394
+  QPS_actual=36.0  QPS_expected=36.0
+  Planning: mode=transformer-direct  horizon=2  target_win=86  hist_mean=16.5
+  Predict: q50=34.5->34.5  q90=37.6->37.6  C=0.350  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=36.6  raw_N_req=3  raw_Q_plan=36.6
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=36.6  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=368  rho=0.762  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 86] win=87395
+  QPS_actual=38.0  QPS_expected=38.0
+  Planning: mode=transformer-direct  horizon=2  target_win=87  hist_mean=16.8
+  Predict: q50=35.2->35.2  q90=38.1->38.1  C=0.360  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=37.1  raw_N_req=3  raw_Q_plan=37.1
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=37.1  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=368  rho=0.762  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 87] win=87396
+  QPS_actual=39.0  QPS_expected=39.0
+  Planning: mode=transformer-direct  horizon=2  target_win=88  hist_mean=17.1
+  Predict: q50=34.7->34.7  q90=37.7->37.7  C=0.372  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=36.6  raw_N_req=3  raw_Q_plan=36.6
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=36.6  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=366  rho=0.753  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 88] win=87397
+  QPS_actual=37.0  QPS_expected=37.0
+  Planning: mode=transformer-direct  horizon=2  target_win=89  hist_mean=17.3
+  Predict: q50=35.3->35.3  q90=38.1->38.1  C=0.402  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=37.0  raw_N_req=3  raw_Q_plan=37.0
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=37.0  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=366  rho=0.753  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 89] win=87398
+  QPS_actual=36.0  QPS_expected=36.0
+  Planning: mode=transformer-direct  horizon=2  target_win=90  hist_mean=17.6
+  Predict: q50=35.2->35.2  q90=37.9->37.9  C=0.410  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=36.7  raw_N_req=3  raw_Q_plan=36.7
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=36.8  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=366  rho=0.753  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 90] win=87399
+  QPS_actual=38.0  QPS_expected=38.0
+  Planning: mode=transformer-direct  horizon=2  target_win=91  hist_mean=17.8
+  Predict: q50=34.9->34.9  q90=37.6->37.6  C=0.412  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=36.5  raw_N_req=3  raw_Q_plan=36.5
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=36.5  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=335  rho=0.649  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 91] win=87400
+  QPS_actual=33.0  QPS_expected=33.0
+  Planning: mode=transformer-direct  horizon=2  target_win=92  hist_mean=18.1
+  Predict: q50=34.6->34.6  q90=37.4->37.4  C=0.418  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=36.2  raw_N_req=3  raw_Q_plan=36.2
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=36.2  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=335  rho=0.649  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 92] win=87401
+  QPS_actual=31.0  QPS_expected=31.0
+  Planning: mode=transformer-direct  horizon=2  target_win=93  hist_mean=18.4
+  Predict: q50=34.3->34.3  q90=37.0->37.0  C=0.416  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=35.9  raw_N_req=3  raw_Q_plan=35.9
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=35.9  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=335  rho=0.649  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 93] win=87402
+  QPS_actual=34.0  QPS_expected=34.0
+  Planning: mode=transformer-direct  horizon=2  target_win=94  hist_mean=18.5
+  Predict: q50=32.2->32.2  q90=34.9->34.9  C=0.405  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=33.8  raw_N_req=3  raw_Q_plan=33.8
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=33.8  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=335  rho=0.649  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 94] win=87403
+  QPS_actual=30.0  QPS_expected=30.0
+  Planning: mode=transformer-direct  horizon=2  target_win=95  hist_mean=18.8
+  Predict: q50=32.8->32.8  q90=35.5->35.5  C=0.430  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=34.4  raw_N_req=3  raw_Q_plan=34.4
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=34.4  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=338  rho=0.659  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 95] win=87404
+  QPS_actual=30.0  QPS_expected=30.0
+  Planning: mode=transformer-direct  horizon=2  target_win=96  hist_mean=18.9
+  Predict: q50=32.0->32.0  q90=34.8->34.8  C=0.407  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=33.7  raw_N_req=3  raw_Q_plan=33.7
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=33.7  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=338  rho=0.659  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 96] win=87405
+  QPS_actual=32.0  QPS_expected=32.0
+  Planning: mode=transformer-direct  horizon=2  target_win=97  hist_mean=19.1
+  Predict: q50=30.6->30.6  q90=33.4->33.4  C=0.394  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=32.3  raw_N_req=3  raw_Q_plan=32.3
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=32.3  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=338  rho=0.659  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 97] win=87406
+  QPS_actual=36.0  QPS_expected=36.0
+  Planning: mode=transformer-direct  horizon=2  target_win=98  hist_mean=19.4
+  Predict: q50=31.2->31.2  q90=34.0->34.0  C=0.396  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=32.9  raw_N_req=3  raw_Q_plan=32.9
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=32.9  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=338  rho=0.659  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 98] win=87407
+  QPS_actual=39.0  QPS_expected=39.0
+  Planning: mode=transformer-direct  horizon=2  target_win=99  hist_mean=19.6
+  Predict: q50=31.8->31.8  q90=34.6->34.6  C=0.402  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=33.4  raw_N_req=3  raw_Q_plan=33.4
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=33.4  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=279  rho=0.462  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 99] win=87408
+  QPS_actual=33.0  QPS_expected=33.0
+  Planning: mode=transformer-direct  horizon=2  target_win=100  hist_mean=19.8
+  Predict: q50=32.8->32.8  q90=35.5->35.5  C=0.416  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=34.4  raw_N_req=3  raw_Q_plan=34.4
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=34.4  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=279  rho=0.462  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 100] win=87409
+  QPS_actual=36.0  QPS_expected=36.0
+  Planning: mode=transformer-direct  horizon=2  target_win=101  hist_mean=20.1
+  Predict: q50=33.8->33.8  q90=36.5->36.5  C=0.423  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=35.4  raw_N_req=3  raw_Q_plan=35.4
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=35.4  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=279  rho=0.462  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 101] win=87410
+  QPS_actual=31.0  QPS_expected=31.0
+  Planning: mode=transformer-direct  horizon=2  target_win=102  hist_mean=20.3
+  Predict: q50=33.8->33.8  q90=36.5->36.5  C=0.421  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=35.4  raw_N_req=3  raw_Q_plan=35.4
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=35.4  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=279  rho=0.462  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 102] win=87411
+  QPS_actual=33.0  QPS_expected=33.0
+  Planning: mode=transformer-direct  horizon=2  target_win=103  hist_mean=20.5
+  Predict: q50=33.9->33.9  q90=36.5->36.5  C=0.418  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=35.4  raw_N_req=3  raw_Q_plan=35.4
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=35.4  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=280  rho=0.463  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 103] win=87412
+  QPS_actual=31.0  QPS_expected=31.0
+  Planning: mode=transformer-direct  horizon=2  target_win=104  hist_mean=20.7
+  Predict: q50=32.0->32.0  q90=34.7->34.7  C=0.429  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=33.5  raw_N_req=3  raw_Q_plan=33.5
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=33.5  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=280  rho=0.463  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 104] win=87413
+  QPS_actual=37.0  QPS_expected=37.0
+  Planning: mode=transformer-direct  horizon=2  target_win=105  hist_mean=20.9
+  Predict: q50=31.7->31.7  q90=34.3->34.3  C=0.459  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=33.1  raw_N_req=3  raw_Q_plan=33.1
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=33.1  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=279  rho=0.463  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 105] win=87414
+  QPS_actual=33.0  QPS_expected=33.0
+  Planning: mode=transformer-direct  horizon=2  target_win=106  hist_mean=21.2
+  Predict: q50=31.4->31.4  q90=34.0->34.0  C=0.455  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=32.8  raw_N_req=3  raw_Q_plan=32.8
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=32.8  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=254  rho=0.376  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 106] win=87415
+  QPS_actual=34.0  QPS_expected=34.0
+  Planning: mode=transformer-direct  horizon=2  target_win=107  hist_mean=21.4
+  Predict: q50=31.6->31.6  q90=34.1->34.1  C=0.464  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=33.0  raw_N_req=3  raw_Q_plan=33.0
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=33.0  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=254  rho=0.376  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 107] win=87416
+  QPS_actual=34.0  QPS_expected=34.0
+  Planning: mode=transformer-direct  horizon=2  target_win=108  hist_mean=21.6
+  Predict: q50=31.1->31.1  q90=33.6->33.6  C=0.452  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=32.5  raw_N_req=3  raw_Q_plan=32.5
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=32.5  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=253  rho=0.376  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 108] win=87417
+  QPS_actual=32.0  QPS_expected=32.0
+  Planning: mode=transformer-direct  horizon=2  target_win=109  hist_mean=21.9
+  Predict: q50=32.6->32.6  q90=35.1->35.1  C=0.445  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=34.0  raw_N_req=3  raw_Q_plan=34.0
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=34.0  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=253  rho=0.375  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 109] win=87418
+  QPS_actual=37.0  QPS_expected=37.0
+  Planning: mode=transformer-direct  horizon=2  target_win=110  hist_mean=22.0
+  Predict: q50=32.6->32.6  q90=35.3->35.3  C=0.437  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=34.1  raw_N_req=3  raw_Q_plan=34.1
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=34.1  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=254  rho=0.376  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 110] win=87419
+  QPS_actual=38.0  QPS_expected=38.0
+  Planning: mode=transformer-direct  horizon=2  target_win=111  hist_mean=22.3
+  Predict: q50=32.4->32.4  q90=35.1->35.1  C=0.432  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=34.0  raw_N_req=3  raw_Q_plan=34.0
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=34.0  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=254  rho=0.376  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 111] win=87420
+  QPS_actual=39.0  QPS_expected=39.0
+  Planning: mode=transformer-direct  horizon=2  target_win=112  hist_mean=22.6
+  Predict: q50=32.7->32.7  q90=35.4->35.4  C=0.443  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=34.2  raw_N_req=3  raw_Q_plan=34.2
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=34.2  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=254  rho=0.376  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 112] win=87421
+  QPS_actual=39.0  QPS_expected=39.0
+  Planning: mode=transformer-direct  horizon=2  target_win=113  hist_mean=22.8
+  Predict: q50=32.7->32.7  q90=35.3->35.3  C=0.445  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=34.2  raw_N_req=3  raw_Q_plan=34.2
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=34.2  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=254  rho=0.376  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 113] win=87422
+  QPS_actual=35.0  QPS_expected=35.0
+  Planning: mode=transformer-direct  horizon=2  target_win=114  hist_mean=23.1
+  Predict: q50=32.7->32.7  q90=35.2->35.2  C=0.450  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=34.1  raw_N_req=3  raw_Q_plan=34.1
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=34.1  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=237  rho=0.321  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 114] win=87423
+  QPS_actual=33.0  QPS_expected=33.0
+  Planning: mode=transformer-direct  horizon=2  target_win=115  hist_mean=23.4
+  Predict: q50=33.0->33.0  q90=35.5->35.5  C=0.460  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=34.3  raw_N_req=3  raw_Q_plan=34.3
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=34.3  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=237  rho=0.321  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 115] win=87424
+  QPS_actual=36.0  QPS_expected=36.0
+  Planning: mode=transformer-direct  horizon=2  target_win=116  hist_mean=23.6
+  Predict: q50=33.2->33.2  q90=35.7->35.7  C=0.451  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=34.6  raw_N_req=3  raw_Q_plan=34.6
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=34.6  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=237  rho=0.321  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 116] win=87425
+  QPS_actual=36.0  QPS_expected=36.0
+  Planning: mode=transformer-direct  horizon=2  target_win=117  hist_mean=23.8
+  Predict: q50=33.1->33.1  q90=35.7->35.7  C=0.452  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=34.5  raw_N_req=3  raw_Q_plan=34.5
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=34.5  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=237  rho=0.321  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 117] win=87426
+  QPS_actual=32.0  QPS_expected=32.0
+  Planning: mode=transformer-direct  horizon=2  target_win=118  hist_mean=24.1
+  Predict: q50=33.2->33.2  q90=35.7->35.7  C=0.458  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=34.6  raw_N_req=3  raw_Q_plan=34.6
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=34.6  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=239  rho=0.327  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 118] win=87427
+  QPS_actual=38.0  QPS_expected=38.0
+  Planning: mode=transformer-direct  horizon=2  target_win=119  hist_mean=24.3
+  Predict: q50=32.1->32.1  q90=34.7->34.7  C=0.446  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=33.5  raw_N_req=3  raw_Q_plan=33.5
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=33.5  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=239  rho=0.327  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 119] win=87428
+  QPS_actual=37.0  QPS_expected=37.0
+  Planning: mode=transformer-direct  horizon=2  target_win=120  hist_mean=24.5
+  Predict: q50=32.4->32.4  q90=35.0->35.0  C=0.453  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=33.8  raw_N_req=3  raw_Q_plan=33.8
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=33.8  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=239  rho=0.327  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 120] win=87429
+  QPS_actual=34.0  QPS_expected=34.0
+  Planning: mode=transformer-direct  horizon=2  target_win=121  hist_mean=24.8
+  Predict: q50=32.5->32.5  q90=35.1->35.1  C=0.458  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=33.9  raw_N_req=3  raw_Q_plan=33.9
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=33.9  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=226  rho=0.282  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 121] win=87430
+  QPS_actual=35.0  QPS_expected=35.0
+  Planning: mode=transformer-direct  horizon=2  target_win=122  hist_mean=25.1
+  Predict: q50=31.6->31.6  q90=34.2->34.2  C=0.450  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=33.1  raw_N_req=3  raw_Q_plan=33.1
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=33.1  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=226  rho=0.282  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 122] win=87431
+  QPS_actual=32.0  QPS_expected=32.0
+  Planning: mode=transformer-direct  horizon=2  target_win=123  hist_mean=25.3
+  Predict: q50=32.2->32.2  q90=34.7->34.7  C=0.447  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=33.6  raw_N_req=3  raw_Q_plan=33.6
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=33.6  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=226  rho=0.282  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 123] win=87432
+  QPS_actual=35.0  QPS_expected=35.0
+  Planning: mode=transformer-direct  horizon=2  target_win=124  hist_mean=25.5
+  Predict: q50=32.8->32.8  q90=35.4->35.4  C=0.441  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=34.3  raw_N_req=3  raw_Q_plan=34.3
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=34.3  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=226  rho=0.282  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 124] win=87433
+  QPS_actual=35.0  QPS_expected=35.0
+  Planning: mode=transformer-direct  horizon=2  target_win=125  hist_mean=25.8
+  Predict: q50=31.7->31.7  q90=34.3->34.3  C=0.443  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=33.1  raw_N_req=3  raw_Q_plan=33.1
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=33.1  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=227  rho=0.286  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 125] win=87434
+  QPS_actual=40.0  QPS_expected=40.0
+  Planning: mode=transformer-direct  horizon=2  target_win=126  hist_mean=26.0
+  Predict: q50=31.7->31.7  q90=34.2->34.2  C=0.464  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=33.0  raw_N_req=3  raw_Q_plan=33.0
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=33.0  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=227  rho=0.286  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 126] win=87435
+  QPS_actual=32.0  QPS_expected=32.0
+  Planning: mode=transformer-direct  horizon=2  target_win=127  hist_mean=26.3
+  Predict: q50=32.2->32.2  q90=34.8->34.8  C=0.448  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=33.6  raw_N_req=3  raw_Q_plan=33.6
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=33.6  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=227  rho=0.286  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 127] win=87436
+  QPS_actual=38.0  QPS_expected=38.0
+  Planning: mode=transformer-direct  horizon=2  target_win=128  hist_mean=26.6
+  Predict: q50=33.0->33.0  q90=35.6->35.6  C=0.446  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=34.4  raw_N_req=3  raw_Q_plan=34.4
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=34.4  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=227  rho=0.286  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 128] win=87437
+  QPS_actual=36.0  QPS_expected=36.0
+  Planning: mode=transformer-direct  horizon=2  target_win=129  hist_mean=26.9
+  Predict: q50=32.8->32.8  q90=35.6->35.6  C=0.431  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=34.4  raw_N_req=3  raw_Q_plan=34.4
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=34.4  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=213  rho=0.239  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 129] win=87438
+  QPS_actual=36.0  QPS_expected=36.0
+  Planning: mode=transformer-direct  horizon=2  target_win=130  hist_mean=27.1
+  Predict: q50=33.6->33.6  q90=36.3->36.3  C=0.441  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=35.1  raw_N_req=3  raw_Q_plan=35.1
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=35.1  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=213  rho=0.239  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 130] win=87439
+  QPS_actual=37.0  QPS_expected=37.0
+  Planning: mode=transformer-direct  horizon=2  target_win=131  hist_mean=27.4
+  Predict: q50=32.4->32.4  q90=35.1->35.1  C=0.424  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=34.0  raw_N_req=3  raw_Q_plan=34.0
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=34.0  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=213  rho=0.239  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 131] win=87440
+  QPS_actual=35.0  QPS_expected=35.0
+  Planning: mode=transformer-direct  horizon=2  target_win=132  hist_mean=27.7
+  Predict: q50=32.9->32.9  q90=35.5->35.5  C=0.434  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=34.4  raw_N_req=3  raw_Q_plan=34.4
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=34.4  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=213  rho=0.239  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 132] win=87441
+  QPS_actual=43.0  QPS_expected=43.0
+  Planning: mode=transformer-direct  horizon=2  target_win=133  hist_mean=27.9
+  Predict: q50=32.5->32.5  q90=35.2->35.2  C=0.434  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=34.0  raw_N_req=3  raw_Q_plan=34.0
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=34.0  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=213  rho=0.241  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 133] win=87442
+  QPS_actual=34.0  QPS_expected=34.0
+  Planning: mode=transformer-direct  horizon=2  target_win=134  hist_mean=28.2
+  Predict: q50=33.5->33.5  q90=36.3->36.3  C=0.423  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=35.1  raw_N_req=3  raw_Q_plan=35.1
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=35.1  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=213  rho=0.241  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 134] win=87443
+  QPS_actual=41.0  QPS_expected=41.0
+  Planning: mode=transformer-direct  horizon=2  target_win=135  hist_mean=28.5
+  Predict: q50=34.8->34.8  q90=37.6->37.6  C=0.406  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=36.5  raw_N_req=3  raw_Q_plan=36.5
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=36.5  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=213  rho=0.241  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 135] win=87444
+  QPS_actual=26.0  QPS_expected=26.0
+  Planning: mode=transformer-direct  horizon=2  target_win=136  hist_mean=28.8
+  Predict: q50=34.5->34.5  q90=37.5->37.5  C=0.398  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=36.3  raw_N_req=3  raw_Q_plan=36.3
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=36.3  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=209  rho=0.226  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 136] win=87445
+  QPS_actual=39.0  QPS_expected=39.0
+  Planning: mode=transformer-direct  horizon=2  target_win=137  hist_mean=28.9
+  Predict: q50=34.9->34.9  q90=38.0->38.0  C=0.362  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=36.9  raw_N_req=3  raw_Q_plan=36.9
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=36.9  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=209  rho=0.226  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 137] win=87446
+  QPS_actual=32.0  QPS_expected=32.0
+  Planning: mode=transformer-direct  horizon=2  target_win=138  hist_mean=29.2
+  Predict: q50=33.1->33.1  q90=36.3->36.3  C=0.350  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=35.2  raw_N_req=3  raw_Q_plan=35.2
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=35.2  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=209  rho=0.226  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 138] win=87447
+  QPS_actual=40.0  QPS_expected=40.0
+  Planning: mode=transformer-direct  horizon=2  target_win=139  hist_mean=29.4
+  Predict: q50=33.2->33.2  q90=36.2->36.2  C=0.370  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=35.1  raw_N_req=3  raw_Q_plan=35.1
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=35.1  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=209  rho=0.226  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 139] win=87448
+  QPS_actual=35.0  QPS_expected=35.0
+  Planning: mode=transformer-direct  horizon=2  target_win=140  hist_mean=29.8
+  Predict: q50=31.5->31.5  q90=34.9->34.9  C=0.344  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=33.7  raw_N_req=3  raw_Q_plan=33.7
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=33.7  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=209  rho=0.225  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 140] win=87449
+  QPS_actual=33.0  QPS_expected=33.0
+  Planning: mode=transformer-direct  horizon=2  target_win=141  hist_mean=30.0
+  Predict: q50=32.3->32.3  q90=35.3->35.3  C=0.344  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=34.3  raw_N_req=3  raw_Q_plan=34.3
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=34.3  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=209  rho=0.225  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 141] win=87450
+  QPS_actual=35.0  QPS_expected=35.0
+  Planning: mode=transformer-direct  horizon=2  target_win=142  hist_mean=30.2
+  Predict: q50=31.2->31.2  q90=34.2->34.2  C=0.356  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=33.2  raw_N_req=3  raw_Q_plan=33.2
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=33.2  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=209  rho=0.225  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 142] win=87451
+  QPS_actual=36.0  QPS_expected=36.0
+  Planning: mode=transformer-direct  horizon=2  target_win=143  hist_mean=30.5
+  Predict: q50=32.7->32.7  q90=35.8->35.8  C=0.357  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=34.7  raw_N_req=3  raw_Q_plan=34.7
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=34.7  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=209  rho=0.225  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 143] win=87452
+  QPS_actual=42.0  QPS_expected=42.0
+  Planning: mode=transformer-direct  horizon=2  target_win=144  hist_mean=30.8
+  Predict: q50=32.6->32.6  q90=35.7->35.7  C=0.361  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=34.6  raw_N_req=3  raw_Q_plan=34.6
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=34.6  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=200  rho=0.195  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 144] win=87453
+  QPS_actual=45.0  QPS_expected=45.0
+  Planning: mode=transformer-direct  horizon=2  target_win=145  hist_mean=31.2
+  Predict: q50=34.0->34.0  q90=37.2->37.2  C=0.359  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=36.0  raw_N_req=3  raw_Q_plan=36.0
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=36.0  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=200  rho=0.195  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 145] win=87454
+  QPS_actual=41.0  QPS_expected=41.0
+  Planning: mode=transformer-direct  horizon=2  target_win=146  hist_mean=31.6
+  Predict: q50=34.8->34.8  q90=38.1->38.1  C=0.353  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=37.0  raw_N_req=3  raw_Q_plan=37.0
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=37.0  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=200  rho=0.195  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 146] win=87455
+  QPS_actual=33.0  QPS_expected=33.0
+  Planning: mode=transformer-direct  horizon=2  target_win=147  hist_mean=32.0
+  Predict: q50=34.6->34.6  q90=37.8->37.8  C=0.359  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=36.7  raw_N_req=3  raw_Q_plan=36.7
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=36.7  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=200  rho=0.195  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 147] win=87456
+  QPS_actual=35.0  QPS_expected=35.0
+  Planning: mode=transformer-direct  horizon=2  target_win=148  hist_mean=32.2
+  Predict: q50=33.7->33.7  q90=36.7->36.7  C=0.360  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=35.6  raw_N_req=3  raw_Q_plan=35.6
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=35.6  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=196  rho=0.182  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 148] win=87457
+  QPS_actual=31.0  QPS_expected=31.0
+  Planning: mode=transformer-direct  horizon=2  target_win=149  hist_mean=32.5
+  Predict: q50=32.7->32.7  q90=35.8->35.8  C=0.358  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=34.7  raw_N_req=3  raw_Q_plan=34.7
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=34.7  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=196  rho=0.182  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 149] win=87458
+  QPS_actual=36.0  QPS_expected=36.0
+  Planning: mode=transformer-direct  horizon=2  target_win=150  hist_mean=32.7
+  Predict: q50=31.5->31.5  q90=34.6->34.6  C=0.341  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=33.6  raw_N_req=3  raw_Q_plan=33.6
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=33.6  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=196  rho=0.182  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 150] win=87459
+  QPS_actual=8.0  QPS_expected=8.0
+  Planning: mode=transformer-direct  horizon=2  target_win=151  hist_mean=33.0
+  Predict: q50=28.3->28.3  q90=31.9->31.9  C=0.264  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=30.9  raw_N_req=3  raw_Q_plan=30.9
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=30.9  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=171  rho=0.099  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 151] win=87460
+  QPS_actual=9.0  QPS_expected=9.0
+  Planning: mode=transformer-direct  horizon=2  target_win=152  hist_mean=33.0
+  Predict: q50=4.9->4.9  q90=5.3->5.3  C=0.881  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=5.0  raw_N_req=1  raw_Q_plan=5.0
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=5.0  N_req=1  N_ready=3  N_target=3  N_act=1  [down; down@next_window_start]
+  CI=171  rho=0.099  alpha=0.000  cnt=0  target_pods_now=3
+  [kubectl] patched qwen-00001 min=max=1
+  [scale:down@win152:0s] target_pods 3 -> 1
+
+[Step 152] win=87461
+  QPS_actual=7.0  QPS_expected=7.0
+  Planning: mode=transformer-direct  horizon=2  target_win=153  hist_mean=33.0
+  Predict: q50=5.2->5.2  q90=5.7->5.7  C=0.881  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=5.3  raw_N_req=1  raw_Q_plan=5.3
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=5.3  N_req=1  N_ready=2  N_target=1  N_act=1  [down; down@next_window_start]
+  CI=171  rho=0.099  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 153] win=87462
+  QPS_actual=4.0  QPS_expected=4.0
+  Planning: mode=transformer-direct  horizon=2  target_win=154  hist_mean=32.9
+  Predict: q50=5.8->5.8  q90=6.3->6.3  C=0.878  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=5.9  raw_N_req=1  raw_Q_plan=5.9
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=5.9  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=171  rho=0.099  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 154] win=87463
+  QPS_actual=9.0  QPS_expected=9.0
+  Planning: mode=transformer-direct  horizon=2  target_win=155  hist_mean=32.9
+  Predict: q50=5.6->5.6  q90=6.1->6.1  C=0.880  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=5.7  raw_N_req=1  raw_Q_plan=5.7
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=5.7  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=168  rho=0.087  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 155] win=87464
+  QPS_actual=31.0  QPS_expected=31.0
+  Planning: mode=transformer-direct  horizon=2  target_win=156  hist_mean=32.9
+  Predict: q50=5.6->5.6  q90=6.1->6.1  C=0.876  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=5.7  raw_N_req=1  raw_Q_plan=5.7
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=5.7  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=168  rho=0.087  alpha=0.000  cnt=0  target_pods_now=1
+  [kubectl] patched qwen-00001 min=max=3
+  [scale:up@win156:+19.0s] target_pods 1 -> 3
+
+[Step 156] win=87465
+  QPS_actual=21.0  QPS_expected=21.0
+  Planning: mode=transformer-direct  horizon=2  target_win=157  hist_mean=33.2
+  Predict: q50=20.1->20.1  q90=28.3->28.3  C=0.156  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=27.0  raw_N_req=3  raw_Q_plan=27.0
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=27.0  N_req=3  N_ready=1  N_target=1  N_act=3  [up; up@+19.0s; ready_by=+60.0s; L_p95=40.0s; slack=1.0s]
+  CI=168  rho=0.087  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 157] win=87466
+  QPS_actual=42.0  QPS_expected=42.0
+  Planning: mode=transformer-direct  horizon=2  target_win=158  hist_mean=33.3
+  Predict: q50=22.7->22.7  q90=28.0->28.0  C=0.180  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=27.1  raw_N_req=3  raw_Q_plan=27.1
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=27.1  N_req=3  N_ready=3  N_target=3  N_act=3  [hold; hold]
+  CI=168  rho=0.087  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 158] win=87467
+  QPS_actual=8.0  QPS_expected=8.0
+  Planning: mode=transformer-direct  horizon=2  target_win=159  hist_mean=33.7
+  Predict: q50=15.1->15.1  q90=23.7->23.7  C=0.142  source=model
+  Scale-up gate: horizon=2  N_req=2  Q_plan=22.5  raw_N_req=2  raw_Q_plan=22.5
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=22.5  N_req=2  N_ready=3  N_target=3  N_act=2  [down; down@next_window_start]
+  CI=143  rho=0.004  alpha=0.000  cnt=0  target_pods_now=3
+  [kubectl] patched qwen-00001 min=max=2
+  [scale:down@win159:0s] target_pods 3 -> 2
+  [kubectl] patched qwen-00001 min=max=3
+  [scale:up@win159:+19.0s] target_pods 2 -> 3
+
+[Step 159] win=87468
+  QPS_actual=10.0  QPS_expected=10.0
+  Planning: mode=transformer-direct  horizon=2  target_win=160  hist_mean=33.7
+  Predict: q50=26.0->26.0  q90=31.1->31.1  C=0.232  source=model
+  Scale-up gate: horizon=2  N_req=3  Q_plan=29.9  raw_N_req=3  raw_Q_plan=29.9
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=29.9  N_req=3  N_ready=2  N_target=2  N_act=3  [up; up@+19.0s; ready_by=+60.0s; L_p95=40.0s; slack=1.0s]
+  CI=143  rho=0.004  alpha=0.000  cnt=0  target_pods_now=3
+
+[Step 160] win=87469
+  QPS_actual=12.0  QPS_expected=12.0
+  Planning: mode=transformer-direct  horizon=2  target_win=161  hist_mean=33.7
+  Predict: q50=5.0->5.0  q90=5.5->5.5  C=0.879  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=5.1  raw_N_req=1  raw_Q_plan=5.1
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=5.1  N_req=1  N_ready=3  N_target=3  N_act=1  [down; down@next_window_start]
+  CI=143  rho=0.004  alpha=0.000  cnt=0  target_pods_now=3
+  [kubectl] patched qwen-00001 min=max=1
+  [scale:down@win161:0s] target_pods 3 -> 1
+  [kubectl] patched qwen-00001 min=max=2
+  [scale:up@win161:immediate] target_pods 1 -> 2
+
+[Step 161] win=87470
+  QPS_actual=7.0  QPS_expected=7.0
+  Planning: mode=transformer-direct  horizon=2  target_win=162  hist_mean=33.5
+  Predict: q50=14.6->14.6  q90=20.0->20.0  C=0.287  source=model
+  Scale-up gate: horizon=2  N_req=2  Q_plan=18.5  raw_N_req=2  raw_Q_plan=18.5
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=18.5  N_req=2  N_ready=2  N_target=1  N_act=2  [hold; up@immediate; ready_by=+60.0s; L_p95=40.0s; slack=1.0s]
+  CI=143  rho=0.004  alpha=0.000  cnt=0  target_pods_now=2
+
+[Step 162] win=87471
+  QPS_actual=10.0  QPS_expected=10.0
+  Planning: mode=transformer-direct  horizon=2  target_win=163  hist_mean=33.2
+  Predict: q50=7.3->7.3  q90=8.1->8.1  C=0.803  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=7.5  raw_N_req=1  raw_Q_plan=7.5
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=7.5  N_req=1  N_ready=2  N_target=2  N_act=1  [down; down@next_window_start]
+  CI=142  rho=0.000  alpha=0.000  cnt=0  target_pods_now=2
+  [kubectl] patched qwen-00001 min=max=1
+  [scale:down@win163:0s] target_pods 2 -> 1
+
+[Step 163] win=87472
+  QPS_actual=7.0  QPS_expected=7.0
+  Planning: mode=transformer-direct  horizon=2  target_win=164  hist_mean=33.0
+  Predict: q50=8.4->8.4  q90=9.3->9.3  C=0.782  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=8.6  raw_N_req=1  raw_Q_plan=8.6
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=8.6  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=142  rho=0.000  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 164] win=87473
+  QPS_actual=6.0  QPS_expected=6.0
+  Planning: mode=transformer-direct  horizon=2  target_win=165  hist_mean=32.7
+  Predict: q50=10.9->10.9  q90=13.2->13.2  C=0.569  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=11.9  raw_N_req=1  raw_Q_plan=11.9
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=11.9  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=142  rho=0.000  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 165] win=87474
+  QPS_actual=11.0  QPS_expected=11.0
+  Planning: mode=transformer-direct  horizon=2  target_win=166  hist_mean=32.4
+  Predict: q50=9.4->9.4  q90=10.2->10.2  C=0.779  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=9.6  raw_N_req=1  raw_Q_plan=9.6
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=9.6  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=147  rho=0.018  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 166] win=87475
+  QPS_actual=8.0  QPS_expected=8.0
+  Planning: mode=transformer-direct  horizon=2  target_win=167  hist_mean=32.2
+  Predict: q50=8.7->8.7  q90=10.4->10.4  C=0.640  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=9.3  raw_N_req=1  raw_Q_plan=9.3
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=9.3  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=147  rho=0.018  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 167] win=87476
+  QPS_actual=8.0  QPS_expected=8.0
+  Planning: mode=transformer-direct  horizon=2  target_win=168  hist_mean=31.9
+  Predict: q50=8.7->8.7  q90=10.0->10.0  C=0.698  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=9.1  raw_N_req=1  raw_Q_plan=9.1
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=9.1  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=147  rho=0.018  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 168] win=87477
+  QPS_actual=8.0  QPS_expected=8.0
+  Planning: mode=transformer-direct  horizon=2  target_win=169  hist_mean=31.6
+  Predict: q50=8.2->8.2  q90=9.0->9.0  C=0.772  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=8.4  raw_N_req=1  raw_Q_plan=8.4
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=8.4  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=147  rho=0.018  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 169] win=87478
+  QPS_actual=9.0  QPS_expected=9.0
+  Planning: mode=transformer-direct  horizon=2  target_win=170  hist_mean=31.3
+  Predict: q50=7.4->7.4  q90=8.9->8.9  C=0.673  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=7.9  raw_N_req=1  raw_Q_plan=7.9
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=7.9  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=146  rho=0.014  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 170] win=87479
+  QPS_actual=10.0  QPS_expected=10.0
+  Planning: mode=transformer-direct  horizon=2  target_win=171  hist_mean=31.0
+  Predict: q50=6.5->6.5  q90=7.4->7.4  C=0.778  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=6.7  raw_N_req=1  raw_Q_plan=6.7
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=6.7  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=146  rho=0.014  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 171] win=87480
+  QPS_actual=7.0  QPS_expected=7.0
+  Planning: mode=transformer-direct  horizon=2  target_win=172  hist_mean=30.7
+  Predict: q50=9.1->9.1  q90=10.2->10.2  C=0.750  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=9.4  raw_N_req=1  raw_Q_plan=9.4
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=9.4  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=146  rho=0.014  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 172] win=87481
+  QPS_actual=9.0  QPS_expected=9.0
+  Planning: mode=transformer-direct  horizon=2  target_win=173  hist_mean=30.4
+  Predict: q50=7.0->7.0  q90=7.8->7.8  C=0.802  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=7.2  raw_N_req=1  raw_Q_plan=7.2
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=7.2  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=146  rho=0.014  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 173] win=87482
+  QPS_actual=7.0  QPS_expected=7.0
+  Planning: mode=transformer-direct  horizon=2  target_win=174  hist_mean=30.1
+  Predict: q50=9.6->9.6  q90=10.7->10.7  C=0.745  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=9.9  raw_N_req=1  raw_Q_plan=9.9
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=9.9  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=145  rho=0.010  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 174] win=87483
+  QPS_actual=9.0  QPS_expected=9.0
+  Planning: mode=transformer-direct  horizon=2  target_win=175  hist_mean=29.8
+  Predict: q50=7.6->7.6  q90=8.6->8.6  C=0.745  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=7.9  raw_N_req=1  raw_Q_plan=7.9
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=7.9  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=145  rho=0.010  alpha=0.000  cnt=0  target_pods_now=1
+
+[Step 175] win=87484
+  QPS_actual=13.0  QPS_expected=13.0
+  Planning: mode=transformer-direct  horizon=2  target_win=176  hist_mean=29.5
+  Predict: q50=6.5->6.5  q90=7.2->7.2  C=0.820  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=6.6  raw_N_req=1  raw_Q_plan=6.6
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=6.6  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=145  rho=0.010  alpha=0.000  cnt=0  target_pods_now=1
+  [kubectl] patched qwen-00001 min=max=2
+  [scale:up@win176:+19.0s] target_pods 1 -> 2
+
+[Step 176] win=87485
+  QPS_actual=10.0  QPS_expected=10.0
+  Planning: mode=transformer-direct  horizon=2  target_win=177  hist_mean=29.3
+  Predict: q50=13.5->13.5  q90=18.4->18.4  C=0.289  source=model
+  Scale-up gate: horizon=2  N_req=2  Q_plan=17.0  raw_N_req=2  raw_Q_plan=17.0
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=17.0  N_req=2  N_ready=1  N_target=1  N_act=2  [up; up@+19.0s; ready_by=+60.0s; L_p95=40.0s; slack=1.0s]
+  CI=145  rho=0.010  alpha=0.000  cnt=0  target_pods_now=2
+
+[Step 177] win=87486
+  QPS_actual=10.0  QPS_expected=10.0
+  Planning: mode=transformer-direct  horizon=2  target_win=178  hist_mean=29.1
+  Predict: q50=8.9->8.9  q90=10.5->10.5  C=0.650  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=9.4  raw_N_req=1  raw_Q_plan=9.4
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=9.4  N_req=1  N_ready=2  N_target=2  N_act=1  [down; down@next_window_start]
+  CI=146  rho=0.012  alpha=0.000  cnt=0  target_pods_now=2
+  [kubectl] patched qwen-00001 min=max=1
+  [scale:down@win178:0s] target_pods 2 -> 1
+
+[Step 178] win=87487
+  QPS_actual=9.0  QPS_expected=9.0
+  Planning: mode=transformer-direct  horizon=2  target_win=179  hist_mean=28.8
+  Predict: q50=9.0->9.0  q90=10.8->10.8  C=0.626  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=9.7  raw_N_req=1  raw_Q_plan=9.7
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=9.7  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=146  rho=0.012  alpha=0.000  cnt=0  target_pods_now=1
+All windows have been scheduled. Waiting for in-flight requests...
+
+[Step 179] win=87488
+  QPS_actual=8.0  QPS_expected=8.0
+  Planning: mode=transformer-direct  horizon=2  target_win=180  hist_mean=28.5
+  Predict: q50=10.3->10.3  q90=12.1->12.1  C=0.609  source=model
+  Scale-up gate: horizon=2  N_req=1  Q_plan=11.0  raw_N_req=1  raw_Q_plan=11.0
+  Downtrend: skipped (strict_transformer_direct)
+  Queue: mode=none status=disabled usable=False age=NA source=none scraped=0/0
+  Queue plan: B_now=0.0 pending=0.0 in_flight=0.0 B_ready=0.0 A=0.0 C=0.0 correction=0.0 req/window
+  Q_plan=11.0  N_req=1  N_ready=1  N_target=1  N_act=1  [hold; hold]
+  CI=146  rho=0.012  alpha=0.000  cnt=0  target_pods_now=1
+
+========== Replay summary ==========
+[Window 00] expected=14.00 generated=14 sent=14 ok=14 failed=0 avg_latency=3.867s status_counts={'200': 14}
+[Window 01] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=3.130s status_counts={'200': 10}
+[Window 02] expected=12.00 generated=12 sent=12 ok=12 failed=0 avg_latency=4.201s status_counts={'200': 12}
+[Window 03] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=6.373s status_counts={'200': 10}
+[Window 04] expected=13.00 generated=13 sent=13 ok=13 failed=0 avg_latency=5.901s status_counts={'200': 13}
+[Window 05] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=3.921s status_counts={'200': 9}
+[Window 06] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=4.010s status_counts={'200': 11}
+[Window 07] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=4.865s status_counts={'200': 11}
+[Window 08] expected=14.00 generated=14 sent=14 ok=14 failed=0 avg_latency=7.425s status_counts={'200': 14}
+[Window 09] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=4.112s status_counts={'200': 11}
+[Window 10] expected=12.00 generated=12 sent=12 ok=12 failed=0 avg_latency=4.221s status_counts={'200': 12}
+[Window 11] expected=14.00 generated=14 sent=14 ok=14 failed=0 avg_latency=4.466s status_counts={'200': 14}
+[Window 12] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=5.299s status_counts={'200': 8}
+[Window 13] expected=12.00 generated=12 sent=12 ok=12 failed=0 avg_latency=9.229s status_counts={'200': 12}
+[Window 14] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=5.543s status_counts={'200': 9}
+[Window 15] expected=15.00 generated=15 sent=15 ok=15 failed=0 avg_latency=6.451s status_counts={'200': 15}
+[Window 16] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=5.696s status_counts={'200': 8}
+[Window 17] expected=14.00 generated=14 sent=14 ok=14 failed=0 avg_latency=5.307s status_counts={'200': 14}
+[Window 18] expected=12.00 generated=12 sent=12 ok=12 failed=0 avg_latency=5.430s status_counts={'200': 12}
+[Window 19] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=4.362s status_counts={'200': 9}
+[Window 20] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=4.207s status_counts={'200': 9}
+[Window 21] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=5.335s status_counts={'200': 10}
+[Window 22] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=4.736s status_counts={'200': 9}
+[Window 23] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=5.329s status_counts={'200': 10}
+[Window 24] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=6.564s status_counts={'200': 10}
+[Window 25] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=4.270s status_counts={'200': 11}
+[Window 26] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=4.909s status_counts={'200': 9}
+[Window 27] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=5.719s status_counts={'200': 8}
+[Window 28] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=6.161s status_counts={'200': 11}
+[Window 29] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=5.109s status_counts={'200': 8}
+[Window 30] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=4.890s status_counts={'200': 10}
+[Window 31] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=6.545s status_counts={'200': 11}
+[Window 32] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=4.871s status_counts={'200': 10}
+[Window 33] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=4.958s status_counts={'200': 10}
+[Window 34] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=5.197s status_counts={'200': 11}
+[Window 35] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=6.020s status_counts={'200': 11}
+[Window 36] expected=13.00 generated=13 sent=13 ok=13 failed=0 avg_latency=6.362s status_counts={'200': 13}
+[Window 37] expected=6.00 generated=6 sent=6 ok=6 failed=0 avg_latency=3.694s status_counts={'200': 6}
+[Window 38] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=4.256s status_counts={'200': 7}
+[Window 39] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=6.998s status_counts={'200': 11}
+[Window 40] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=5.494s status_counts={'200': 10}
+[Window 41] expected=4.00 generated=4 sent=4 ok=4 failed=0 avg_latency=3.186s status_counts={'200': 4}
+[Window 42] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=6.398s status_counts={'200': 7}
+[Window 43] expected=5.00 generated=5 sent=5 ok=5 failed=0 avg_latency=3.207s status_counts={'200': 5}
+[Window 44] expected=5.00 generated=5 sent=5 ok=5 failed=0 avg_latency=3.099s status_counts={'200': 5}
+[Window 45] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=3.129s status_counts={'200': 7}
+[Window 46] expected=6.00 generated=6 sent=6 ok=6 failed=0 avg_latency=3.271s status_counts={'200': 6}
+[Window 47] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=4.698s status_counts={'200': 8}
+[Window 48] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=9.647s status_counts={'200': 10}
+[Window 49] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=7.877s status_counts={'200': 7}
+[Window 50] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=10.009s status_counts={'200': 11}
+[Window 51] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=10.311s status_counts={'200': 10}
+[Window 52] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=4.581s status_counts={'200': 8}
+[Window 53] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=4.934s status_counts={'200': 7}
+[Window 54] expected=6.00 generated=6 sent=6 ok=6 failed=0 avg_latency=6.002s status_counts={'200': 6}
+[Window 55] expected=5.00 generated=5 sent=5 ok=5 failed=0 avg_latency=4.683s status_counts={'200': 5}
+[Window 56] expected=6.00 generated=6 sent=6 ok=6 failed=0 avg_latency=4.593s status_counts={'200': 6}
+[Window 57] expected=6.00 generated=6 sent=6 ok=6 failed=0 avg_latency=4.711s status_counts={'200': 6}
+[Window 58] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=4.457s status_counts={'200': 8}
+[Window 59] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=4.306s status_counts={'200': 8}
+[Window 60] expected=34.00 generated=34 sent=34 ok=34 failed=0 avg_latency=24.300s status_counts={'200': 34}
+[Window 61] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=34.825s status_counts={'200': 35}
+[Window 62] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=23.894s status_counts={'200': 35}
+[Window 63] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=6.007s status_counts={'200': 38}
+[Window 64] expected=29.00 generated=29 sent=29 ok=29 failed=0 avg_latency=4.292s status_counts={'200': 29}
+[Window 65] expected=40.00 generated=40 sent=40 ok=40 failed=0 avg_latency=4.322s status_counts={'200': 40}
+[Window 66] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=4.359s status_counts={'200': 36}
+[Window 67] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=4.273s status_counts={'200': 38}
+[Window 68] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=4.602s status_counts={'200': 38}
+[Window 69] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=4.523s status_counts={'200': 38}
+[Window 70] expected=40.00 generated=40 sent=40 ok=40 failed=0 avg_latency=4.302s status_counts={'200': 40}
+[Window 71] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=4.307s status_counts={'200': 36}
+[Window 72] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=4.364s status_counts={'200': 36}
+[Window 73] expected=40.00 generated=40 sent=40 ok=40 failed=0 avg_latency=5.184s status_counts={'200': 40}
+[Window 74] expected=34.00 generated=34 sent=34 ok=34 failed=0 avg_latency=4.747s status_counts={'200': 34}
+[Window 75] expected=33.00 generated=33 sent=33 ok=33 failed=0 avg_latency=4.730s status_counts={'200': 33}
+[Window 76] expected=34.00 generated=34 sent=34 ok=34 failed=0 avg_latency=5.246s status_counts={'200': 34}
+[Window 77] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=4.903s status_counts={'200': 36}
+[Window 78] expected=40.00 generated=40 sent=40 ok=40 failed=0 avg_latency=5.417s status_counts={'200': 40}
+[Window 79] expected=43.00 generated=43 sent=43 ok=43 failed=0 avg_latency=6.785s status_counts={'200': 43}
+[Window 80] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=5.300s status_counts={'200': 35}
+[Window 81] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=4.273s status_counts={'200': 38}
+[Window 82] expected=37.00 generated=37 sent=37 ok=37 failed=0 avg_latency=5.283s status_counts={'200': 37}
+[Window 83] expected=37.00 generated=37 sent=37 ok=37 failed=0 avg_latency=5.191s status_counts={'200': 37}
+[Window 84] expected=39.00 generated=39 sent=39 ok=39 failed=0 avg_latency=4.887s status_counts={'200': 39}
+[Window 85] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=4.210s status_counts={'200': 36}
+[Window 86] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=4.210s status_counts={'200': 38}
+[Window 87] expected=39.00 generated=39 sent=39 ok=39 failed=0 avg_latency=4.403s status_counts={'200': 39}
+[Window 88] expected=37.00 generated=37 sent=37 ok=37 failed=0 avg_latency=4.536s status_counts={'200': 37}
+[Window 89] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=4.702s status_counts={'200': 36}
+[Window 90] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=4.683s status_counts={'200': 38}
+[Window 91] expected=33.00 generated=33 sent=33 ok=33 failed=0 avg_latency=4.416s status_counts={'200': 33}
+[Window 92] expected=31.00 generated=31 sent=31 ok=31 failed=0 avg_latency=4.547s status_counts={'200': 31}
+[Window 93] expected=34.00 generated=34 sent=34 ok=34 failed=0 avg_latency=4.321s status_counts={'200': 34}
+[Window 94] expected=30.00 generated=30 sent=30 ok=30 failed=0 avg_latency=5.562s status_counts={'200': 30}
+[Window 95] expected=30.00 generated=30 sent=30 ok=30 failed=0 avg_latency=5.021s status_counts={'200': 30}
+[Window 96] expected=32.00 generated=32 sent=32 ok=32 failed=0 avg_latency=5.470s status_counts={'200': 32}
+[Window 97] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=4.095s status_counts={'200': 36}
+[Window 98] expected=39.00 generated=39 sent=39 ok=39 failed=0 avg_latency=5.036s status_counts={'200': 39}
+[Window 99] expected=33.00 generated=33 sent=33 ok=33 failed=0 avg_latency=4.430s status_counts={'200': 33}
+[Window 100] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=4.177s status_counts={'200': 36}
+[Window 101] expected=31.00 generated=31 sent=31 ok=31 failed=0 avg_latency=4.262s status_counts={'200': 31}
+[Window 102] expected=33.00 generated=33 sent=33 ok=33 failed=0 avg_latency=4.777s status_counts={'200': 33}
+[Window 103] expected=31.00 generated=31 sent=31 ok=31 failed=0 avg_latency=4.654s status_counts={'200': 31}
+[Window 104] expected=37.00 generated=37 sent=37 ok=37 failed=0 avg_latency=5.169s status_counts={'200': 37}
+[Window 105] expected=33.00 generated=33 sent=33 ok=33 failed=0 avg_latency=5.142s status_counts={'200': 33}
+[Window 106] expected=34.00 generated=34 sent=34 ok=34 failed=0 avg_latency=4.469s status_counts={'200': 34}
+[Window 107] expected=34.00 generated=34 sent=34 ok=34 failed=0 avg_latency=4.338s status_counts={'200': 34}
+[Window 108] expected=32.00 generated=32 sent=32 ok=32 failed=0 avg_latency=4.660s status_counts={'200': 32}
+[Window 109] expected=37.00 generated=37 sent=37 ok=37 failed=0 avg_latency=4.238s status_counts={'200': 37}
+[Window 110] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=4.549s status_counts={'200': 38}
+[Window 111] expected=39.00 generated=39 sent=39 ok=39 failed=0 avg_latency=4.159s status_counts={'200': 39}
+[Window 112] expected=39.00 generated=39 sent=39 ok=39 failed=0 avg_latency=5.516s status_counts={'200': 39}
+[Window 113] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=4.286s status_counts={'200': 35}
+[Window 114] expected=33.00 generated=33 sent=33 ok=33 failed=0 avg_latency=4.425s status_counts={'200': 33}
+[Window 115] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=4.350s status_counts={'200': 36}
+[Window 116] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=4.101s status_counts={'200': 36}
+[Window 117] expected=32.00 generated=32 sent=32 ok=32 failed=0 avg_latency=4.251s status_counts={'200': 32}
+[Window 118] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=4.677s status_counts={'200': 38}
+[Window 119] expected=37.00 generated=37 sent=37 ok=37 failed=0 avg_latency=4.291s status_counts={'200': 37}
+[Window 120] expected=34.00 generated=34 sent=34 ok=34 failed=0 avg_latency=4.490s status_counts={'200': 34}
+[Window 121] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=4.736s status_counts={'200': 35}
+[Window 122] expected=32.00 generated=32 sent=32 ok=32 failed=0 avg_latency=5.107s status_counts={'200': 32}
+[Window 123] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=5.338s status_counts={'200': 35}
+[Window 124] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=5.313s status_counts={'200': 35}
+[Window 125] expected=40.00 generated=40 sent=40 ok=40 failed=0 avg_latency=4.676s status_counts={'200': 40}
+[Window 126] expected=32.00 generated=32 sent=32 ok=32 failed=0 avg_latency=4.257s status_counts={'200': 32}
+[Window 127] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=4.229s status_counts={'200': 38}
+[Window 128] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=4.226s status_counts={'200': 36}
+[Window 129] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=4.902s status_counts={'200': 36}
+[Window 130] expected=37.00 generated=37 sent=37 ok=37 failed=0 avg_latency=4.426s status_counts={'200': 37}
+[Window 131] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=4.443s status_counts={'200': 35}
+[Window 132] expected=43.00 generated=43 sent=43 ok=43 failed=0 avg_latency=4.693s status_counts={'200': 43}
+[Window 133] expected=34.00 generated=34 sent=34 ok=34 failed=0 avg_latency=4.951s status_counts={'200': 34}
+[Window 134] expected=41.00 generated=41 sent=41 ok=41 failed=0 avg_latency=4.709s status_counts={'200': 41}
+[Window 135] expected=26.00 generated=26 sent=26 ok=26 failed=0 avg_latency=5.161s status_counts={'200': 26}
+[Window 136] expected=39.00 generated=39 sent=39 ok=39 failed=0 avg_latency=4.409s status_counts={'200': 39}
+[Window 137] expected=32.00 generated=32 sent=32 ok=32 failed=0 avg_latency=4.232s status_counts={'200': 32}
+[Window 138] expected=40.00 generated=40 sent=40 ok=40 failed=0 avg_latency=4.783s status_counts={'200': 40}
+[Window 139] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=4.094s status_counts={'200': 35}
+[Window 140] expected=33.00 generated=33 sent=33 ok=33 failed=0 avg_latency=4.499s status_counts={'200': 33}
+[Window 141] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=4.562s status_counts={'200': 35}
+[Window 142] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=4.632s status_counts={'200': 36}
+[Window 143] expected=42.00 generated=42 sent=42 ok=42 failed=0 avg_latency=5.050s status_counts={'200': 42}
+[Window 144] expected=45.00 generated=45 sent=45 ok=45 failed=0 avg_latency=4.679s status_counts={'200': 45}
+[Window 145] expected=41.00 generated=41 sent=41 ok=41 failed=0 avg_latency=4.631s status_counts={'200': 41}
+[Window 146] expected=33.00 generated=33 sent=33 ok=33 failed=0 avg_latency=4.595s status_counts={'200': 33}
+[Window 147] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=4.857s status_counts={'200': 35}
+[Window 148] expected=31.00 generated=31 sent=31 ok=31 failed=0 avg_latency=4.606s status_counts={'200': 31}
+[Window 149] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=4.506s status_counts={'200': 36}
+[Window 150] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=3.856s status_counts={'200': 8}
+[Window 151] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=6.333s status_counts={'200': 9}
+[Window 152] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=5.639s status_counts={'200': 7}
+[Window 153] expected=4.00 generated=4 sent=4 ok=4 failed=0 avg_latency=3.674s status_counts={'200': 4}
+[Window 154] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=3.752s status_counts={'200': 9}
+[Window 155] expected=31.00 generated=31 sent=31 ok=31 failed=0 avg_latency=27.980s status_counts={'200': 31}
+[Window 156] expected=21.00 generated=21 sent=21 ok=21 failed=0 avg_latency=28.176s status_counts={'200': 21}
+[Window 157] expected=42.00 generated=42 sent=42 ok=42 failed=0 avg_latency=4.318s status_counts={'200': 42}
+[Window 158] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=4.852s status_counts={'200': 8}
+[Window 159] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=6.152s status_counts={'200': 10}
+[Window 160] expected=12.00 generated=12 sent=12 ok=12 failed=0 avg_latency=6.389s status_counts={'200': 12}
+[Window 161] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=4.703s status_counts={'200': 7}
+[Window 162] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=4.446s status_counts={'200': 10}
+[Window 163] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=5.700s status_counts={'200': 7}
+[Window 164] expected=6.00 generated=6 sent=6 ok=6 failed=0 avg_latency=3.816s status_counts={'200': 6}
+[Window 165] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=6.120s status_counts={'200': 11}
+[Window 166] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=5.340s status_counts={'200': 8}
+[Window 167] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=4.743s status_counts={'200': 8}
+[Window 168] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=5.548s status_counts={'200': 8}
+[Window 169] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=4.860s status_counts={'200': 9}
+[Window 170] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=4.696s status_counts={'200': 10}
+[Window 171] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=3.557s status_counts={'200': 7}
+[Window 172] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=4.926s status_counts={'200': 9}
+[Window 173] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=5.637s status_counts={'200': 7}
+[Window 174] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=6.520s status_counts={'200': 9}
+[Window 175] expected=13.00 generated=13 sent=13 ok=13 failed=0 avg_latency=6.370s status_counts={'200': 13}
+[Window 176] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=5.571s status_counts={'200': 10}
+[Window 177] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=4.138s status_counts={'200': 10}
+[Window 178] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=4.321s status_counts={'200': 9}
+[Window 179] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=4.654s status_counts={'200': 8}
+Total status counts: {200: 4118}
+
+Saved replay artifacts:
+  schedule: /home/artifact/online_experiment/results/stage2_transformer_direct_rep01_attempt01_s11708_180min_main_transformer_direct_x3_cold55_no_preflight_gate_20260729_0121_replay_schedule.csv
+  window_summary: /home/artifact/online_experiment/results/stage2_transformer_direct_rep01_attempt01_s11708_180min_main_transformer_direct_x3_cold55_no_preflight_gate_20260729_0121_replay_window_summary.csv
+  metadata: /home/artifact/online_experiment/results/stage2_transformer_direct_rep01_attempt01_s11708_180min_main_transformer_direct_x3_cold55_no_preflight_gate_20260729_0121_replay_metadata.json
+  request_log: /home/artifact/online_experiment/results/stage2_transformer_direct_rep01_attempt01_s11708_180min_main_transformer_direct_x3_cold55_no_preflight_gate_20260729_0121_replay_request_log.csv
+finished=2026-07-29 04:28:49.278626

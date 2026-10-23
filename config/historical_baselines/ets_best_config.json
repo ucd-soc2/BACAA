@@ -1,0 +1,36 @@
+{
+  "purpose": "Best ETS hyperparameters selected offline. Upload this JSON to the VM and pass it to run_ets_baseline_tplus2.py with --ets-config-json.",
+  "selection_metric": "WeightedError",
+  "request_column": "requests_per_60s",
+  "train_csv": "E:\\Users\\Documents\\New project\\02_workload_dataset_construction\\real_burst_5base_100k_capacity_inserted_4c1_cap_mu12p5_60s\\replay_format_mu12p5_60s\\train_workload_burst.csv",
+  "val_csv": "E:\\Users\\Documents\\New project\\02_workload_dataset_construction\\real_burst_5base_100k_capacity_inserted_4c1_cap_mu12p5_60s\\replay_format_mu12p5_60s\\val_workload_burst.csv",
+  "prediction_horizon": 2,
+  "validation_points": 25199,
+  "under_prediction_weight": 3.0,
+  "best_config": {
+    "trend": "none",
+    "seasonal": "none",
+    "seasonal_periods": null,
+    "history_window_size": 30,
+    "min_history_windows": 5,
+    "prediction_horizon": 2,
+    "pod_capacity_per_window": 12.5,
+    "min_pods": 1,
+    "max_pods": 4,
+    "smoothing_level": null,
+    "smoothing_trend": null,
+    "smoothing_seasonal": null
+  },
+  "best_validation_metrics": {
+    "MAE": 3.32096339816697,
+    "RMSE": 5.5917553800444555,
+    "UnderMAE": 1.614770530173505,
+    "OverMAE": 1.706192867993465,
+    "WeightedError": 6.55050445851398,
+    "MeanDesiredPods": 1.2572324298583277,
+    "PodMAE": 0.19750783761260368,
+    "MeanCapacityShortfall": 0.6267907456645105,
+    "MaxCapacityShortfall": 36.5,
+    "MeanCapacityWaste": 5.880987340767491
+  }
+}

@@ -1,0 +1,769 @@
+{
+  "ablation_manifest": {
+    "changed_params": {
+      "controller_q_plan_mode": "q50_only",
+      "uncertainty_planning_enabled": false
+    },
+    "code_sha256": {
+      "ablation_launcher": "956609e4e92ca85c079b6a6147a0808cd08eb14ffd94a22c7f469fcabfe75cbc",
+      "common_launcher_module": "8b1896d4b088a46c90430c500b166c2c441410a4f176ab0773bc3fe28f0c6df7",
+      "stage2_controller": "b95b265f2943d7cf123166ff028b3b8a041ecd6d7e89e2ae4284d84cb7f8e4d1",
+      "stage2_runner": "b4a7577b75cff052878c10c2637f94a68fdb0565e0769d198f049203316c0b5c"
+    },
+    "config_snapshot": {
+      "cold_start_threshold_seconds": 55.0,
+      "runner_argv": [
+        "--batch",
+        "decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554",
+        "--methods",
+        "proposed",
+        "--repetitions",
+        "1",
+        "--max-attempts-per-run",
+        "3",
+        "--start-row",
+        "11708",
+        "--duration-minutes",
+        "180",
+        "--ci-window-seconds",
+        "480",
+        "--ci-time-scale",
+        "8.0",
+        "--initial-pods",
+        "2",
+        "--initial-placement-nodes",
+        "llm-node-1,llm-node2",
+        "--initial-placement-recovery-attempts",
+        "4",
+        "--initial-placement-recovery-delay-seconds",
+        "10",
+        "--pre-warmup-settle-seconds",
+        "20",
+        "--warmup-duration-seconds",
+        "60",
+        "--warmup-targeted-requests-per-pod",
+        "8",
+        "--warmup-targeted-concurrency",
+        "2",
+        "--warmup-targeted-min-cpu-delta",
+        "0.05",
+        "--drain-seconds",
+        "30",
+        "--cooldown-seconds",
+        "300",
+        "--formal-start-delay-seconds",
+        "30",
+        "--api-outage-grace-seconds",
+        "180",
+        "--ready-latency-p95-seconds",
+        "40",
+        "--api-health-checks",
+        "1",
+        "--api-health-interval-seconds",
+        "0",
+        "--api-health-timeout-seconds",
+        "15",
+        "--pod-sample-seconds",
+        "60",
+        "--legacy-metrics-poll-seconds",
+        "60",
+        "--prometheus-step-seconds",
+        "10",
+        "--pod-capacity-per-window",
+        "12.5",
+        "--proposed-queue-mode",
+        "ready",
+        "--allow-workload-slice-overrides",
+        "--controller-q-plan-mode",
+        "q50_only"
+      ]
+    },
+    "description": "Use q50-only Q_plan while keeping q90/confidence logged.",
+    "method": "proposed_wo_confidence_upper_quantile_planning",
+    "preserved_runner_steps": [
+      "initial placement recovery inside run_method",
+      "targeted pod-IP warmup",
+      "service warmup",
+      "drain before formal replay",
+      "formal replay",
+      "per-attempt cleanup",
+      "per-attempt cooldown"
+    ],
+    "skipped_prelaunch_steps": [
+      "yaml_contract",
+      "yaml_image_precheck",
+      "image_precheck",
+      "controller_mu_dry_run",
+      "batch_start_hpa_metrics_preflight",
+      "initial_health",
+      "initial_cleanup",
+      "initial_cooldown",
+      "final_health"
+    ],
+    "unchanged_config": {
+      "allow_workload_slice_overrides": true,
+      "api_health_checks": 1,
+      "api_health_interval_seconds": 0,
+      "api_health_timeout_seconds": 15,
+      "api_outage_grace_seconds": 180,
+      "ci_time_scale": 8.0,
+      "ci_window_seconds": 480,
+      "cooldown_seconds": 300,
+      "drain_seconds": 30,
+      "duration_minutes": 180,
+      "formal_start_delay_seconds": 30,
+      "initial_placement_nodes": "llm-node-1,llm-node2",
+      "initial_placement_recovery_attempts": 4,
+      "initial_placement_recovery_delay_seconds": 10,
+      "initial_pods": 2,
+      "legacy_metrics_poll_seconds": 60,
+      "max_attempts_per_run": 3,
+      "methods": [
+        "proposed"
+      ],
+      "pod_capacity_per_window": 12.5,
+      "pod_sample_seconds": 60,
+      "pre_warmup_settle_seconds": 20,
+      "prometheus_step_seconds": 10,
+      "ready_latency_p95_seconds": 40,
+      "repetitions": 1,
+      "start_row": 11708,
+      "warmup_duration_seconds": 60,
+      "warmup_targeted_concurrency": 2,
+      "warmup_targeted_min_cpu_delta": 0.05,
+      "warmup_targeted_requests_per_pod": 8
+    }
+  },
+  "aggregate": {
+    "aggregate_metrics": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/method_aggregate_metrics.csv",
+    "aggregate_metrics_wide": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/method_aggregate_metrics_wide.csv",
+    "complete": true,
+    "counts": {
+      "proposed": 1
+    },
+    "expected_run_count": 1,
+    "per_run_metrics": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/per_run_metrics.csv",
+    "report": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/FINAL_REPORT.md",
+    "teacher_requirements_summary_json": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/TEACHER_REQUIREMENTS_SUMMARY.json",
+    "teacher_requirements_summary_md": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/TEACHER_REQUIREMENTS_SUMMARY.md",
+    "valid_run_count": 1
+  },
+  "args": {
+    "allow_mu_sensitivity_overrides": false,
+    "allow_oracle_control_run": false,
+    "allow_smoke_overrides": false,
+    "allow_workload_slice_overrides": true,
+    "api_health_checks": 1,
+    "api_health_interval_seconds": 0.0,
+    "api_health_timeout_seconds": 15.0,
+    "api_outage_grace_seconds": 180.0,
+    "batch": "decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554",
+    "carbon_intensity_csv": "stage2/data/carbon_intensity_ie_2025-09-20_24h.csv",
+    "carbon_lookup_window_seconds": 60.0,
+    "ci_time_scale": 8.0,
+    "ci_trace_start": "2025-09-20 00:00:00+00:00",
+    "ci_window_seconds": 480.0,
+    "cleanup_timeout_seconds": 240.0,
+    "cold_start_model_joules": 10.38,
+    "cold_start_window_seconds": 30.0,
+    "collect_extra_prometheus_monitoring": false,
+    "collect_hpa_diagnostics_on_success": false,
+    "controller_allow_missing_queue": false,
+    "controller_alpha_base": null,
+    "controller_alpha_max": null,
+    "controller_alpha_min": null,
+    "controller_disable_downtrend": false,
+    "controller_k_ci": null,
+    "controller_k_g": null,
+    "controller_q_plan_mode": "q50_only",
+    "controller_scale_down_confirm_windows": null,
+    "controller_scale_down_cooldown_seconds": 0.0,
+    "cooldown_seconds": 300.0,
+    "cpu_joules_per_core_second": 10.8,
+    "drain_seconds": 30.0,
+    "duration_minutes": 180.0,
+    "expected_qwen_image": "ko.local/qwen-local@sha256:b48add5d8f2db57bcb85e1c58992eb6519d5d17aed7143b67de108b88160d76d",
+    "first_patch_lead_seconds": 1.0,
+    "formal_start_delay_seconds": 30.0,
+    "image_precheck_only": false,
+    "image_precheck_timeout_seconds": 120.0,
+    "initial_placement_nodes": [
+      "llm-node-1",
+      "llm-node2"
+    ],
+    "initial_placement_recovery_attempts": 4,
+    "initial_placement_recovery_delay_seconds": 10.0,
+    "initial_pods": 2,
+    "kpa_ready_guard_enabled": true,
+    "kpa_ready_guard_min_ready_pods": 1,
+    "kpa_ready_guard_poll_seconds": 10.0,
+    "kpa_ready_guard_recovery_pods": 2,
+    "kpa_ready_guard_stable_seconds": 120.0,
+    "kpa_scale_down_guard_seconds": 120.0,
+    "kpa_scale_down_min_ready_pods": 1,
+    "kpa_scale_down_post_check_poll_seconds": 10.0,
+    "kpa_scale_down_post_check_seconds": 30.0,
+    "legacy_metrics_poll_seconds": 60.0,
+    "max_attempts_per_run": 3,
+    "memory_joules_per_gb_second": 0.3725,
+    "methods": [
+      "proposed"
+    ],
+    "node_notready_wait_poll_seconds": 30.0,
+    "node_notready_wait_seconds": 0.0,
+    "oracle_confidence": 1.0,
+    "oracle_interval_pad": 0.0,
+    "pod_capacity_per_window": 12.5,
+    "pod_sample_seconds": 60.0,
+    "pre_warmup_settle_seconds": 20.0,
+    "prometheus_cpu_rate_window_seconds": 30.0,
+    "prometheus_query_delay_seconds": 20.0,
+    "prometheus_step_seconds": 10.0,
+    "prometheus_url": "http://10.43.143.194:9090",
+    "proposed_oracle_predictor": false,
+    "proposed_queue_mode": "ready",
+    "queue_max_sample_age_seconds": 10.0,
+    "queue_query_timeout_seconds": 1.5,
+    "queue_sample_period_seconds": 2.0,
+    "ready_latency_p95_seconds": 40.0,
+    "repetitions": 1,
+    "request_timeout_seconds": 60.0,
+    "run_attempt_pre_health_checks": false,
+    "run_post_health_checks": false,
+    "scale_up_slack_seconds": 1.0,
+    "seed": 42,
+    "start_row": 11708,
+    "wait_ready_seconds": 300.0,
+    "warmup_attempts": 2,
+    "warmup_concurrency": 2,
+    "warmup_cpu_query_delay_seconds": 10.0,
+    "warmup_duration_seconds": 60.0,
+    "warmup_max_tokens": 100,
+    "warmup_min_cpu_delta": 0.001,
+    "warmup_min_success": 30,
+    "warmup_qps": 1.5,
+    "warmup_request_timeout_seconds": 60.0,
+    "warmup_targeted_concurrency": 2,
+    "warmup_targeted_min_cpu_delta": 0.05,
+    "warmup_targeted_min_success_per_pod": null,
+    "warmup_targeted_requests_per_pod": 8,
+    "workload": "/home/artifact/online_experiment/data/test_workload_burst.csv"
+  },
+  "batch": "decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554",
+  "batch_start_hpa_metrics_preflight": {
+    "reason": "user_no_preflight_gate_override",
+    "skipped": true
+  },
+  "complete": true,
+  "config_snapshot": {
+    "copied_files": {
+      "baseline_metrics": {
+        "bytes": 32333,
+        "sha256": "04610e90c9ade0693c0c5a5b99e551b2f33edebf98d92375d7229249036e123f",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/baseline_metrics.py",
+        "source": "/home/artifact/online_experiment/baseline_metrics.py"
+      },
+      "bilstm_direct_runner": {
+        "bytes": 34870,
+        "sha256": "c5ffb967982e6495c097f7145295513653144690440158e713be7e0b1fa363bd",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/code/run_bilstm_baseline_tplus2.py",
+        "source": "/home/artifact/online_experiment/code/run_bilstm_baseline_tplus2.py"
+      },
+      "bilstm_kpa_runner": {
+        "bytes": 74040,
+        "sha256": "12f226380cfe724e6fc802ec970ff131d17fb35490ebbaea74ab3adf717a414b",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/code/run_bilstm_kpa_baseline_tplus2.py",
+        "source": "/home/artifact/online_experiment/code/run_bilstm_kpa_baseline_tplus2.py"
+      },
+      "carbon_csv": {
+        "bytes": 37573,
+        "sha256": "0583b07dd9640e46c7128c8afefb697126609f5a7e11d65440c1139dcc331707",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/stage2/data/carbon_intensity_ie_2025-09-20_24h.csv",
+        "source": "/home/artifact/online_experiment/stage2/data/carbon_intensity_ie_2025-09-20_24h.csv"
+      },
+      "decision": {
+        "bytes": 18030,
+        "sha256": "cf26158343751d9669c664c27c7ab935a006d44fcc9ae7785d517ee6c90b98f9",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/decision.py",
+        "source": "/home/artifact/online_experiment/decision.py"
+      },
+      "ets_config": {
+        "bytes": 1513,
+        "sha256": "8f12d3357e3b4eaed2ab34d94dcfaf4c331f1805e2b9ff03c0f3f7fde37348f8",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/results/ets_best_config.json",
+        "source": "/home/artifact/online_experiment/results/ets_best_config.json"
+      },
+      "ets_direct_runner": {
+        "bytes": 34842,
+        "sha256": "bfc3e73f60528cb32dc485447fcfad8c98df77bd512d60ada7fdbc812c0d385d",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/code/run_ets_baseline_tplus2.py",
+        "source": "/home/artifact/online_experiment/code/run_ets_baseline_tplus2.py"
+      },
+      "ets_kpa_runner": {
+        "bytes": 60925,
+        "sha256": "66ff244c582ba912942fea5f4e5724d3281efba229ac055153606918d7e74177",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/code/run_ets_kpa_baseline_tplus2.py",
+        "source": "/home/artifact/online_experiment/code/run_ets_kpa_baseline_tplus2.py"
+      },
+      "frozen_protocol": {
+        "bytes": 14084,
+        "sha256": "e69377efeb3ef814358d9eff26b61b0856b4bad781b39b7be886184384076a6c",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/stage2/FROZEN_PROTOCOL.md",
+        "source": "/home/artifact/online_experiment/stage2/FROZEN_PROTOCOL.md"
+      },
+      "hpa_runner": {
+        "bytes": 11152,
+        "sha256": "8598031e004128f137162d2b62beda12939eb49094886ecf9577db40136ead3a",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/run_hpa_baseline.py",
+        "source": "/home/artifact/online_experiment/run_hpa_baseline.py"
+      },
+      "inference": {
+        "bytes": 11486,
+        "sha256": "847025e7302a838ed4eae0c5433542495e5b8819720cbff378aff191eccec6fe",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/inference.py",
+        "source": "/home/artifact/online_experiment/inference.py"
+      },
+      "kpa_runner": {
+        "bytes": 8396,
+        "sha256": "c0734f025a0aac1c215edc8e39f78c68b0f8577de02e667cd2548b3fcffce37f",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/run_kpa_baseline.py",
+        "source": "/home/artifact/online_experiment/run_kpa_baseline.py"
+      },
+      "prometheus_energy": {
+        "bytes": 37709,
+        "sha256": "c10bf4d86304042a6f224eddb6a4dcbbed4364f8376274e06a225df59a951bc8",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/prometheus_energy_metrics.py",
+        "source": "/home/artifact/online_experiment/prometheus_energy_metrics.py"
+      },
+      "sanity_runner": {
+        "bytes": 61043,
+        "sha256": "bda0fe1646957deed8619fa73cc6253629ba343dbd93cd350d3ec457248c22c3",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/run_e2e_sanity_check.py",
+        "source": "/home/artifact/online_experiment/run_e2e_sanity_check.py"
+      },
+      "stage2_controller": {
+        "bytes": 105363,
+        "sha256": "b95b265f2943d7cf123166ff028b3b8a041ecd6d7e89e2ae4284d84cb7f8e4d1",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/stage2/controller_stage2.py",
+        "source": "/home/artifact/online_experiment/stage2/controller_stage2.py"
+      },
+      "stage2_runner": {
+        "bytes": 132408,
+        "sha256": "b4a7577b75cff052878c10c2637f94a68fdb0565e0769d198f049203316c0b5c",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/stage2/run_stage2_baselines_x3.py",
+        "source": "/home/artifact/online_experiment/stage2/run_stage2_baselines_x3.py"
+      },
+      "workload_replayer": {
+        "bytes": 21398,
+        "sha256": "ececd703d1ad01851d64cf1f7269dee4056f2599e2fb1ad19cbdaa7319129341",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/workload_replayer.py",
+        "source": "/home/artifact/online_experiment/workload_replayer.py"
+      },
+      "yaml_bilstm_direct": {
+        "bytes": 3032,
+        "sha256": "1ead6a7e90b0fa5940c6f964ec9bacf08d5293a1e2b944ec204c3a0340ecdbe4",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/stage2/yamls/qwen-bilstm.yaml",
+        "source": "/home/artifact/online_experiment/stage2/yamls/qwen-bilstm.yaml"
+      },
+      "yaml_bilstm_kpa": {
+        "bytes": 3034,
+        "sha256": "89567f1e2a4e4b0dc28d540ffe2895ba3533e707ed8dfbe7867221424bc2d6a3",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/stage2/yamls/qwen-bilstm-kpa.yaml",
+        "source": "/home/artifact/online_experiment/stage2/yamls/qwen-bilstm-kpa.yaml"
+      },
+      "yaml_ets_direct": {
+        "bytes": 3029,
+        "sha256": "072f45ecfc398be7f8ad14396daf4119f4e5fff7d5e63d4b4b3204f580775c52",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/stage2/yamls/qwen-ets.yaml",
+        "source": "/home/artifact/online_experiment/stage2/yamls/qwen-ets.yaml"
+      },
+      "yaml_ets_kpa": {
+        "bytes": 3031,
+        "sha256": "8a2f1a717c493e91cca02e40873661abd311a45b2386bf8f6a8fbc659100993e",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/stage2/yamls/qwen-ets-kpa.yaml",
+        "source": "/home/artifact/online_experiment/stage2/yamls/qwen-ets-kpa.yaml"
+      },
+      "yaml_hpa": {
+        "bytes": 3021,
+        "sha256": "f4f000b1c53ad9646d83f564257fd0c540cb1c52ab2c2bfbf4fa26ddbaca71d6",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/stage2/yamls/qwen-hpa.yaml",
+        "source": "/home/artifact/online_experiment/stage2/yamls/qwen-hpa.yaml"
+      },
+      "yaml_kpa": {
+        "bytes": 3028,
+        "sha256": "3e92ed6380f27c1975afa29be38b79ded86315caeffa4567ce7368145f607ffc",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/stage2/yamls/qwen-kpa.yaml",
+        "source": "/home/artifact/online_experiment/stage2/yamls/qwen-kpa.yaml"
+      },
+      "yaml_proposed": {
+        "bytes": 3037,
+        "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/stage2/yamls/qwen-transformer.yaml",
+        "source": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml"
+      },
+      "yaml_proposed_current_queue": {
+        "bytes": 3037,
+        "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/stage2/yamls/qwen-transformer.yaml",
+        "source": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml"
+      },
+      "yaml_proposed_no_queue": {
+        "bytes": 3037,
+        "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/stage2/yamls/qwen-transformer.yaml",
+        "source": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml"
+      },
+      "yaml_proposed_oracle": {
+        "bytes": 3037,
+        "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/stage2/yamls/qwen-transformer.yaml",
+        "source": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml"
+      },
+      "yaml_proposed_ready_queue": {
+        "bytes": 3037,
+        "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/stage2/yamls/qwen-transformer.yaml",
+        "source": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml"
+      },
+      "yaml_transformer_direct": {
+        "bytes": 3037,
+        "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/files/stage2/yamls/qwen-transformer.yaml",
+        "source": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml"
+      }
+    },
+    "created_at_utc": "2026-07-28T16:45:26+00:00",
+    "effective_args": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/effective_args.json",
+    "frozen_inputs": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554/config_snapshot/frozen_inputs.json"
+  },
+  "controller_mu_dry_run": {
+    "reason": "user_no_preflight_gate_override",
+    "skipped": true
+  },
+  "events": [
+    {
+      "attempt": 1,
+      "cleanup": {
+        "checked_at_utc": "2026-07-28T19:56:09+00:00",
+        "label": "rep01_proposed_attempt01",
+        "status": "completed",
+        "wait_seconds": 0.0
+      },
+      "cold_start_latency_max_seconds": 49.0,
+      "cold_start_threshold_seconds": 55.0,
+      "finished_at_utc": "2026-07-28T20:01:09+00:00",
+      "method": "proposed",
+      "passed": true,
+      "post_health": {
+        "reason": "post_attempt_health_check_disabled_by_user_override",
+        "skipped": true
+      },
+      "pre_health": {
+        "reason": "attempt_pre_health_check_disabled_by_user_override",
+        "skipped": true
+      },
+      "repetition": 1,
+      "repetition_order": [
+        "proposed"
+      ],
+      "run_id": "stage2_proposed_rep01_attempt01_s11708_180min_decision_ablation_wo_confidence_quantile_single_cold55_no_preflight_gate_20260728_101554",
+      "seed": 42,
+      "started_at_utc": "2026-07-28T16:45:26+00:00"
+    }
+  ],
+  "final_health": {
+    "reason": "user_no_preflight_gate_override",
+    "skipped": true
+  },
+  "finished_at_utc": "2026-07-28T20:01:09+00:00",
+  "formal_repetition_order_indexes": {
+    "1": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "2": [
+      3,
+      6,
+      0,
+      5,
+      1,
+      4,
+      2
+    ],
+    "3": [
+      5,
+      2,
+      4,
+      1,
+      6,
+      0,
+      3
+    ]
+  },
+  "formal_repetition_seeds": {
+    "1": 42
+  },
+  "frozen_inputs": {
+    "carbon": {
+      "carbon_lookup_window_seconds": 60.0,
+      "ci_time_scale": 8.0,
+      "ci_trace_start": "2025-09-20 00:00:00+00:00",
+      "ci_window_seconds": 480.0,
+      "first_timestamp": "2025-09-20T00:00:00.000000",
+      "last_timestamp": "2025-09-20T23:55:00.000000",
+      "rows": 288
+    },
+    "checked_at_utc": "2026-07-28T16:45:26+00:00",
+    "llm_request": {
+      "max_tokens": 100,
+      "model": "qwen",
+      "prompt": "A SaaS app suddenly receives 10 times more user requests after a product launch. Explain in simple language why autoscaling is needed, what could happen if scaling is too slow, and name one metric the system could monitor to decide when to add more servers. Give one short example. Keep the answer around 75 words.",
+      "source": "/home/artifact/online_experiment/workload_replayer.py",
+      "temperature": 0.0
+    },
+    "paths": {
+      "baseline_metrics": {
+        "bytes": 32333,
+        "path": "/home/artifact/online_experiment/baseline_metrics.py",
+        "sha256": "04610e90c9ade0693c0c5a5b99e551b2f33edebf98d92375d7229249036e123f"
+      },
+      "bilstm_direct_runner": {
+        "bytes": 34870,
+        "path": "/home/artifact/online_experiment/code/run_bilstm_baseline_tplus2.py",
+        "sha256": "c5ffb967982e6495c097f7145295513653144690440158e713be7e0b1fa363bd"
+      },
+      "bilstm_kpa_runner": {
+        "bytes": 74040,
+        "path": "/home/artifact/online_experiment/code/run_bilstm_kpa_baseline_tplus2.py",
+        "sha256": "12f226380cfe724e6fc802ec970ff131d17fb35490ebbaea74ab3adf717a414b"
+      },
+      "bilstm_model": {
+        "bytes": 176671,
+        "path": "/home/artifact/online_experiment/code/bilstm_autoscaler_model.pt",
+        "sha256": "1169265b85f9a2111b62f98b61206e1a9affcb5e6c1fc4def38dd46a257f92fc"
+      },
+      "carbon_csv": {
+        "bytes": 37573,
+        "path": "/home/artifact/online_experiment/stage2/data/carbon_intensity_ie_2025-09-20_24h.csv",
+        "sha256": "0583b07dd9640e46c7128c8afefb697126609f5a7e11d65440c1139dcc331707"
+      },
+      "decision": {
+        "bytes": 18030,
+        "path": "/home/artifact/online_experiment/decision.py",
+        "sha256": "cf26158343751d9669c664c27c7ab935a006d44fcc9ae7785d517ee6c90b98f9"
+      },
+      "ets_config": {
+        "bytes": 1513,
+        "path": "/home/artifact/online_experiment/results/ets_best_config.json",
+        "sha256": "8f12d3357e3b4eaed2ab34d94dcfaf4c331f1805e2b9ff03c0f3f7fde37348f8"
+      },
+      "ets_direct_runner": {
+        "bytes": 34842,
+        "path": "/home/artifact/online_experiment/code/run_ets_baseline_tplus2.py",
+        "sha256": "bfc3e73f60528cb32dc485447fcfad8c98df77bd512d60ada7fdbc812c0d385d"
+      },
+      "ets_kpa_runner": {
+        "bytes": 60925,
+        "path": "/home/artifact/online_experiment/code/run_ets_kpa_baseline_tplus2.py",
+        "sha256": "66ff244c582ba912942fea5f4e5724d3281efba229ac055153606918d7e74177"
+      },
+      "frozen_protocol": {
+        "bytes": 14084,
+        "path": "/home/artifact/online_experiment/stage2/FROZEN_PROTOCOL.md",
+        "sha256": "e69377efeb3ef814358d9eff26b61b0856b4bad781b39b7be886184384076a6c"
+      },
+      "hpa_runner": {
+        "bytes": 11152,
+        "path": "/home/artifact/online_experiment/run_hpa_baseline.py",
+        "sha256": "8598031e004128f137162d2b62beda12939eb49094886ecf9577db40136ead3a"
+      },
+      "inference": {
+        "bytes": 11486,
+        "path": "/home/artifact/online_experiment/inference.py",
+        "sha256": "847025e7302a838ed4eae0c5433542495e5b8819720cbff378aff191eccec6fe"
+      },
+      "kpa_runner": {
+        "bytes": 8396,
+        "path": "/home/artifact/online_experiment/run_kpa_baseline.py",
+        "sha256": "c0734f025a0aac1c215edc8e39f78c68b0f8577de02e667cd2548b3fcffce37f"
+      },
+      "prometheus_energy": {
+        "bytes": 37709,
+        "path": "/home/artifact/online_experiment/prometheus_energy_metrics.py",
+        "sha256": "c10bf4d86304042a6f224eddb6a4dcbbed4364f8376274e06a225df59a951bc8"
+      },
+      "sanity_runner": {
+        "bytes": 61043,
+        "path": "/home/artifact/online_experiment/run_e2e_sanity_check.py",
+        "sha256": "bda0fe1646957deed8619fa73cc6253629ba343dbd93cd350d3ec457248c22c3"
+      },
+      "stage2_controller": {
+        "bytes": 105363,
+        "path": "/home/artifact/online_experiment/stage2/controller_stage2.py",
+        "sha256": "b95b265f2943d7cf123166ff028b3b8a041ecd6d7e89e2ae4284d84cb7f8e4d1"
+      },
+      "stage2_runner": {
+        "bytes": 132408,
+        "path": "/home/artifact/online_experiment/stage2/run_stage2_baselines_x3.py",
+        "sha256": "b4a7577b75cff052878c10c2637f94a68fdb0565e0769d198f049203316c0b5c"
+      },
+      "train_workload": {
+        "bytes": 1488557,
+        "path": "/home/artifact/online_experiment/data/train_workload_burst.csv",
+        "sha256": "da94c42c435a36c9bdca1ee4ffa018c6f2f3b9e5234e6881600ad9008d48b777"
+      },
+      "transformer_model": {
+        "bytes": 7928386,
+        "path": "/home/artifact/online_experiment/checkpoints_transformer_h2/best_model.pt",
+        "sha256": "7e601e3f50a7ea1456fd769b1f9b2a8e226e2a8bffbb89e7f6b095b3aaec7d47"
+      },
+      "workload": {
+        "bytes": 760963,
+        "path": "/home/artifact/online_experiment/data/test_workload_burst.csv",
+        "sha256": "09fa4f32746e6851315f1e7c6fa90288b27d6ed792626f7133490811fe9c982b"
+      },
+      "workload_replayer": {
+        "bytes": 21398,
+        "path": "/home/artifact/online_experiment/workload_replayer.py",
+        "sha256": "ececd703d1ad01851d64cf1f7269dee4056f2599e2fb1ad19cbdaa7319129341"
+      },
+      "yaml_bilstm_direct": {
+        "bytes": 3032,
+        "path": "/home/artifact/online_experiment/stage2/yamls/qwen-bilstm.yaml",
+        "sha256": "1ead6a7e90b0fa5940c6f964ec9bacf08d5293a1e2b944ec204c3a0340ecdbe4"
+      },
+      "yaml_bilstm_kpa": {
+        "bytes": 3034,
+        "path": "/home/artifact/online_experiment/stage2/yamls/qwen-bilstm-kpa.yaml",
+        "sha256": "89567f1e2a4e4b0dc28d540ffe2895ba3533e707ed8dfbe7867221424bc2d6a3"
+      },
+      "yaml_ets_direct": {
+        "bytes": 3029,
+        "path": "/home/artifact/online_experiment/stage2/yamls/qwen-ets.yaml",
+        "sha256": "072f45ecfc398be7f8ad14396daf4119f4e5fff7d5e63d4b4b3204f580775c52"
+      },
+      "yaml_ets_kpa": {
+        "bytes": 3031,
+        "path": "/home/artifact/online_experiment/stage2/yamls/qwen-ets-kpa.yaml",
+        "sha256": "8a2f1a717c493e91cca02e40873661abd311a45b2386bf8f6a8fbc659100993e"
+      },
+      "yaml_hpa": {
+        "bytes": 3021,
+        "path": "/home/artifact/online_experiment/stage2/yamls/qwen-hpa.yaml",
+        "sha256": "f4f000b1c53ad9646d83f564257fd0c540cb1c52ab2c2bfbf4fa26ddbaca71d6"
+      },
+      "yaml_kpa": {
+        "bytes": 3028,
+        "path": "/home/artifact/online_experiment/stage2/yamls/qwen-kpa.yaml",
+        "sha256": "3e92ed6380f27c1975afa29be38b79ded86315caeffa4567ce7368145f607ffc"
+      },
+      "yaml_proposed": {
+        "bytes": 3037,
+        "path": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml",
+        "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d"
+      },
+      "yaml_proposed_current_queue": {
+        "bytes": 3037,
+        "path": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml",
+        "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d"
+      },
+      "yaml_proposed_no_queue": {
+        "bytes": 3037,
+        "path": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml",
+        "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d"
+      },
+      "yaml_proposed_oracle": {
+        "bytes": 3037,
+        "path": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml",
+        "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d"
+      },
+      "yaml_proposed_ready_queue": {
+        "bytes": 3037,
+        "path": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml",
+        "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d"
+      },
+      "yaml_transformer_direct": {
+        "bytes": 3037,
+        "path": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml",
+        "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d"
+      }
+    },
+    "workload": {
+      "decision_windows": 180,
+      "first_window_id": 87309,
+      "last_window_id": 87488,
+      "max_requests_per_window": 45.0,
+      "mean_requests_per_window": 22.877777777777776,
+      "min_requests_per_window": 4.0,
+      "normal_and_burst_note": "The frozen Azure-derived trace slice preserves low/normal windows and burst windows; see the selected request statistics above and per-window replay schedules for the exact mix.",
+      "start_row": 11708,
+      "total_selected_requests": 4118.0
+    }
+  },
+  "image_precheck": {
+    "reason": "user_no_preflight_gate_override",
+    "skipped": true
+  },
+  "initial_cleanup": {
+    "reason": "user_no_preflight_gate_override",
+    "skipped": true
+  },
+  "initial_cooldown": {
+    "reason": "user_no_preflight_gate_override",
+    "skipped": true
+  },
+  "initial_health": {
+    "reason": "user_no_preflight_gate_override",
+    "skipped": true
+  },
+  "no_preflight_gate_override": {
+    "cold_start_restart_policy": {
+      "action": "mark attempt invalid and retry the same method",
+      "max_attempts_per_run": 3,
+      "metric": "cold_start_latency_max_seconds",
+      "threshold_seconds": 55.0
+    },
+    "preserved_runner_steps": [
+      "initial placement recovery inside run_method",
+      "targeted pod-IP warmup",
+      "service warmup",
+      "drain before formal replay",
+      "formal replay",
+      "per-attempt cleanup",
+      "per-attempt cooldown"
+    ],
+    "skipped_prelaunch_steps": [
+      "yaml_contract",
+      "yaml_image_precheck",
+      "image_precheck",
+      "controller_mu_dry_run",
+      "batch_start_hpa_metrics_preflight",
+      "initial_health",
+      "initial_cleanup",
+      "initial_cooldown",
+      "final_health"
+    ],
+    "user_override": "skip preflight/gate preliminary tests for this run"
+  },
+  "passed": true,
+  "repetitions": 1,
+  "resume_count": 0,
+  "selected_methods": [
+    "proposed"
+  ],
+  "started_at_utc": "2026-07-28T16:45:26+00:00",
+  "workload": "/home/artifact/online_experiment/data/test_workload_burst.csv",
+  "yaml_contract": {
+    "reason": "user_no_preflight_gate_override",
+    "skipped": true
+  },
+  "yaml_image_precheck": {
+    "reason": "user_no_preflight_gate_override",
+    "skipped": true
+  }
+}

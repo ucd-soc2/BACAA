@@ -1,0 +1,19 @@
++ /home/artifact/online_experiment/.venv/bin/python prometheus_energy_metrics.py --method proposed --run-id stage2_proposed_rep02_attempt01_s11708_180min_decision_ablation_wo_carbon_fusion_x2_cold55_no_preflight_gate_20260803_1438 --output-dir /home/artifact/online_experiment/results --prometheus-url http://10.43.143.194:9090 --start-epoch 1785779911.518 --end-epoch 1785790812.100 --step-seconds 10.0 --cpu-rate-window-seconds 30.0 --window-size-seconds 60.0 --carbon-lookup-window-seconds 60.0 --pod-capacity-per-window 12.5 --carbon-intensity-csv stage2/data/carbon_intensity_ie_2025-09-20_24h.csv --carbon-start-index 11708 --cpu-joules-per-core-second 10.8 --memory-joules-per-gb-second 0.3725 --cold-start-model-joules 10.38 --cold-start-window-seconds 30.0 --ci-trace-start 2025-09-20 00:00:00+00:00 --ci-window-seconds 480.0 --ci-time-scale 8.0
+{
+  "resource_samples_csv": "/home/artifact/online_experiment/results/stage2_proposed_rep02_attempt01_s11708_180min_decision_ablation_wo_carbon_fusion_x2_cold55_no_preflight_gate_20260803_1438_prometheus_resource_samples.csv",
+  "window_metrics_csv": "/home/artifact/online_experiment/results/stage2_proposed_rep02_attempt01_s11708_180min_decision_ablation_wo_carbon_fusion_x2_cold55_no_preflight_gate_20260803_1438_prometheus_windows.csv",
+  "sensitivity_csv": "/home/artifact/online_experiment/results/stage2_proposed_rep02_attempt01_s11708_180min_decision_ablation_wo_carbon_fusion_x2_cold55_no_preflight_gate_20260803_1438_prometheus_sensitivity.csv",
+  "summary_json": "/home/artifact/online_experiment/results/stage2_proposed_rep02_attempt01_s11708_180min_decision_ablation_wo_carbon_fusion_x2_cold55_no_preflight_gate_20260803_1438_prometheus_summary.json",
+  "summary_csv": "/home/artifact/online_experiment/results/stage2_proposed_rep02_attempt01_s11708_180min_decision_ablation_wo_carbon_fusion_x2_cold55_no_preflight_gate_20260803_1438_prometheus_summary.csv"
+}
+{
+  "run_id": "stage2_proposed_rep02_attempt01_s11708_180min_decision_ablation_wo_carbon_fusion_x2_cold55_no_preflight_gate_20260803_1438",
+  "method": "proposed",
+  "successful_requests": 4117,
+  "p95_latency_seconds": 8.687586027194628,
+  "p99_latency_seconds": 22.350523508600332,
+  "estimated_total_energy_j": 174199.80689073275,
+  "estimated_total_carbon_gco2e": 14.092195419238504,
+  "energy_per_successful_request_j": 42.31231646605119,
+  "carbon_per_successful_request_gco2e": 0.0034229282048186794
+}

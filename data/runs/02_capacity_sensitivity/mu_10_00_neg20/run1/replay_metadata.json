@@ -1,0 +1,39 @@
+{
+  "run_id": "stage2_proposed_rep01_attempt02_s11708_180min_mu_sensitivity_proposed_mu10p00_neg20_cold55_no_preflight_gate_20260729_1518",
+  "baseline_name": "proposed",
+  "csv": "/home/artifact/online_experiment/data/test_workload_burst.csv",
+  "url": "http://192.168.10.101:31011/v1/chat/completions",
+  "host": "qwen.default.example.com",
+  "window_size_seconds": 60,
+  "duration_minutes": 180.0,
+  "start_row": 11708,
+  "scale": 1.0,
+  "seed": 42,
+  "timeout_seconds": 60.0,
+  "connector_limit": 0,
+  "save_request_log": true,
+  "artifact_complete": true,
+  "partial_reason": null,
+  "result_count": 4118,
+  "schedule_count": 180,
+  "window_summary_count": 180,
+  "runtime_snapshot": {
+    "planned_requests": 4118,
+    "due_requests": 4118,
+    "started_requests": 4118,
+    "completed_requests": 4118,
+    "pending_requests": 0,
+    "in_flight_requests": 0,
+    "active_requests": 0,
+    "status_counts": {
+      "200": 4118
+    }
+  },
+  "created_at": "2026-07-30T10:04:51",
+  "saved_paths": {
+    "schedule": "/home/artifact/online_experiment/results/stage2_proposed_rep01_attempt02_s11708_180min_mu_sensitivity_proposed_mu10p00_neg20_cold55_no_preflight_gate_20260729_1518_replay_schedule.csv",
+    "window_summary": "/home/artifact/online_experiment/results/stage2_proposed_rep01_attempt02_s11708_180min_mu_sensitivity_proposed_mu10p00_neg20_cold55_no_preflight_gate_20260729_1518_replay_window_summary.csv",
+    "metadata": "/home/artifact/online_experiment/results/stage2_proposed_rep01_attempt02_s11708_180min_mu_sensitivity_proposed_mu10p00_neg20_cold55_no_preflight_gate_20260729_1518_replay_metadata.json",
+    "request_log": "/home/artifact/online_experiment/results/stage2_proposed_rep01_attempt02_s11708_180min_mu_sensitivity_proposed_mu10p00_neg20_cold55_no_preflight_gate_20260729_1518_replay_request_log.csv"
+  }
+}

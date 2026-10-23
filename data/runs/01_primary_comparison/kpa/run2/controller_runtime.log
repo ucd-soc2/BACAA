@@ -1,0 +1,399 @@
++ /home/artifact/online_experiment/.venv/bin/python run_kpa_baseline.py --csv /home/artifact/online_experiment/data/test_workload_burst.csv --skip-prepare-kpa-service --min-scale 2 --max-scale 4 --start-row 11708 --duration-minutes 180.0 --window-size-seconds 60.0 --seed 42 --timeout-seconds 60.0 --start-delay-seconds 30.0 --run-id stage2_kpa_rep01_attempt01_s11708_180min_six_baselines_currentci_x2_20260720_1724 --output-dir /home/artifact/online_experiment/results --save-request-log --collect-pod-metrics --metrics-poll-seconds 30.0 --pod-metrics-selector revision --pod-metrics-revision-name qwen-00001 --metrics-pod-capacity-per-window 12.5 --power-active-watts 3.46 --power-idle-watts 0.024 --cold-start-energy-joules 10.38 --carbon-intensity-csv stage2/data/carbon_intensity_ie_2025-09-20_24h.csv
+========== KPA baseline ==========
+External controller: disabled
+Autoscaling: Knative KPA
+kpa_metric=concurrency
+kpa_target=1
+scale_bounds=[2, 4]
+[KPA Prepare] skipped by --skip-prepare-kpa-service
+========== Poisson workload replay ==========
+baseline_name=kpa
+start_time=2026-07-20 09:45:53.958772
+csv=/home/artifact/online_experiment/data/test_workload_burst.csv
+url=http://192.168.10.101:31011/v1/chat/completions
+host=qwen.default.example.com
+request_column=requests_per_60s
+window_size_seconds=60.0
+duration_minutes=180.0
+windows=180
+scale=1.0
+seed=42
+run_id=stage2_kpa_rep01_attempt01_s11708_180min_six_baselines_currentci_x2_20260720_1724
+output_dir=/home/artifact/online_experiment/results
+[Schedule] local_window=0 csv_window_id=87309 timestamp=5238480 type=Periodic peaks expected=14.00 poisson_generated=14
+[Schedule] local_window=1 csv_window_id=87310 timestamp=5238540 type=Periodic peaks expected=10.00 poisson_generated=10
+[Schedule] local_window=2 csv_window_id=87311 timestamp=5238600 type=Periodic peaks expected=12.00 poisson_generated=12
+[Schedule] local_window=3 csv_window_id=87312 timestamp=5238660 type=Periodic peaks expected=10.00 poisson_generated=10
+[Schedule] local_window=4 csv_window_id=87313 timestamp=5238720 type=Periodic peaks expected=13.00 poisson_generated=13
+[Schedule] local_window=5 csv_window_id=87314 timestamp=5238780 type=Periodic peaks expected=9.00 poisson_generated=9
+[Schedule] local_window=6 csv_window_id=87315 timestamp=5238840 type=Periodic peaks expected=11.00 poisson_generated=11
+[Schedule] local_window=7 csv_window_id=87316 timestamp=5238900 type=Periodic peaks expected=11.00 poisson_generated=11
+[Schedule] local_window=8 csv_window_id=87317 timestamp=5238960 type=Periodic peaks expected=14.00 poisson_generated=14
+[Schedule] local_window=9 csv_window_id=87318 timestamp=5239020 type=Periodic peaks expected=11.00 poisson_generated=11
+[Schedule] local_window=10 csv_window_id=87319 timestamp=5239080 type=Periodic peaks expected=12.00 poisson_generated=12
+[Schedule] local_window=11 csv_window_id=87320 timestamp=5239140 type=Periodic peaks expected=14.00 poisson_generated=14
+[Schedule] local_window=12 csv_window_id=87321 timestamp=5239200 type=Periodic peaks expected=8.00 poisson_generated=8
+[Schedule] local_window=13 csv_window_id=87322 timestamp=5239260 type=Periodic peaks expected=12.00 poisson_generated=12
+[Schedule] local_window=14 csv_window_id=87323 timestamp=5239320 type=Periodic peaks expected=9.00 poisson_generated=9
+[Schedule] local_window=15 csv_window_id=87324 timestamp=5239380 type=Periodic peaks expected=15.00 poisson_generated=15
+[Schedule] local_window=16 csv_window_id=87325 timestamp=5239440 type=Periodic peaks expected=8.00 poisson_generated=8
+[Schedule] local_window=17 csv_window_id=87326 timestamp=5239500 type=Periodic peaks expected=14.00 poisson_generated=14
+[Schedule] local_window=18 csv_window_id=87327 timestamp=5239560 type=Periodic peaks expected=12.00 poisson_generated=12
+[Schedule] local_window=19 csv_window_id=87328 timestamp=5239620 type=Periodic peaks expected=9.00 poisson_generated=9
+[Schedule] local_window=20 csv_window_id=87329 timestamp=5239680 type=Periodic peaks expected=9.00 poisson_generated=9
+[Schedule] local_window=21 csv_window_id=87330 timestamp=5239740 type=Periodic peaks expected=10.00 poisson_generated=10
+[Schedule] local_window=22 csv_window_id=87331 timestamp=5239800 type=Periodic peaks expected=9.00 poisson_generated=9
+[Schedule] local_window=23 csv_window_id=87332 timestamp=5239860 type=Periodic peaks expected=10.00 poisson_generated=10
+[Schedule] local_window=24 csv_window_id=87333 timestamp=5239920 type=Periodic peaks expected=10.00 poisson_generated=10
+[Schedule] local_window=25 csv_window_id=87334 timestamp=5239980 type=Periodic peaks expected=11.00 poisson_generated=11
+[Schedule] local_window=26 csv_window_id=87335 timestamp=5240040 type=Periodic peaks expected=9.00 poisson_generated=9
+[Schedule] local_window=27 csv_window_id=87336 timestamp=5240100 type=Periodic peaks expected=8.00 poisson_generated=8
+[Schedule] local_window=28 csv_window_id=87337 timestamp=5240160 type=Periodic peaks expected=11.00 poisson_generated=11
+[Schedule] local_window=29 csv_window_id=87338 timestamp=5240220 type=Periodic peaks expected=8.00 poisson_generated=8
+[Schedule] local_window=30 csv_window_id=87339 timestamp=5240280 type=Periodic peaks expected=10.00 poisson_generated=10
+[Schedule] local_window=31 csv_window_id=87340 timestamp=5240340 type=Periodic peaks expected=11.00 poisson_generated=11
+[Schedule] local_window=32 csv_window_id=87341 timestamp=5240400 type=Periodic peaks expected=10.00 poisson_generated=10
+[Schedule] local_window=33 csv_window_id=87342 timestamp=5240460 type=Periodic peaks expected=10.00 poisson_generated=10
+[Schedule] local_window=34 csv_window_id=87343 timestamp=5240520 type=Periodic peaks expected=11.00 poisson_generated=11
+[Schedule] local_window=35 csv_window_id=87344 timestamp=5240580 type=Periodic peaks expected=11.00 poisson_generated=11
+[Schedule] local_window=36 csv_window_id=87345 timestamp=5240640 type=Periodic peaks expected=13.00 poisson_generated=13
+[Schedule] local_window=37 csv_window_id=87346 timestamp=5240700 type=normal expected=6.00 poisson_generated=6
+[Schedule] local_window=38 csv_window_id=87347 timestamp=5240760 type=normal expected=7.00 poisson_generated=7
+[Schedule] local_window=39 csv_window_id=87348 timestamp=5240820 type=normal expected=11.00 poisson_generated=11
+[Schedule] local_window=40 csv_window_id=87349 timestamp=5240880 type=normal expected=10.00 poisson_generated=10
+[Schedule] local_window=41 csv_window_id=87350 timestamp=5240940 type=normal expected=4.00 poisson_generated=4
+[Schedule] local_window=42 csv_window_id=87351 timestamp=5241000 type=normal expected=7.00 poisson_generated=7
+[Schedule] local_window=43 csv_window_id=87352 timestamp=5241060 type=normal expected=5.00 poisson_generated=5
+[Schedule] local_window=44 csv_window_id=87353 timestamp=5241120 type=normal expected=5.00 poisson_generated=5
+[Schedule] local_window=45 csv_window_id=87354 timestamp=5241180 type=normal expected=7.00 poisson_generated=7
+[Schedule] local_window=46 csv_window_id=87355 timestamp=5241240 type=normal expected=6.00 poisson_generated=6
+[Schedule] local_window=47 csv_window_id=87356 timestamp=5241300 type=normal expected=8.00 poisson_generated=8
+[Schedule] local_window=48 csv_window_id=87357 timestamp=5241360 type=normal expected=10.00 poisson_generated=10
+[Schedule] local_window=49 csv_window_id=87358 timestamp=5241420 type=normal expected=7.00 poisson_generated=7
+[Schedule] local_window=50 csv_window_id=87359 timestamp=5241480 type=normal expected=11.00 poisson_generated=11
+[Schedule] local_window=51 csv_window_id=87360 timestamp=5241540 type=normal expected=10.00 poisson_generated=10
+[Schedule] local_window=52 csv_window_id=87361 timestamp=5241600 type=normal expected=8.00 poisson_generated=8
+[Schedule] local_window=53 csv_window_id=87362 timestamp=5241660 type=normal expected=7.00 poisson_generated=7
+[Schedule] local_window=54 csv_window_id=87363 timestamp=5241720 type=normal expected=6.00 poisson_generated=6
+[Schedule] local_window=55 csv_window_id=87364 timestamp=5241780 type=normal expected=5.00 poisson_generated=5
+[Schedule] local_window=56 csv_window_id=87365 timestamp=5241840 type=normal expected=6.00 poisson_generated=6
+[Schedule] local_window=57 csv_window_id=87366 timestamp=5241900 type=normal expected=6.00 poisson_generated=6
+[Schedule] local_window=58 csv_window_id=87367 timestamp=5241960 type=normal expected=8.00 poisson_generated=8
+[Schedule] local_window=59 csv_window_id=87368 timestamp=5242020 type=normal expected=8.00 poisson_generated=8
+[Schedule] local_window=60 csv_window_id=87369 timestamp=5242080 type=Pattern shift expected=34.00 poisson_generated=34
+[Schedule] local_window=61 csv_window_id=87370 timestamp=5242140 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=62 csv_window_id=87371 timestamp=5242200 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=63 csv_window_id=87372 timestamp=5242260 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=64 csv_window_id=87373 timestamp=5242320 type=Pattern shift expected=29.00 poisson_generated=29
+[Schedule] local_window=65 csv_window_id=87374 timestamp=5242380 type=Pattern shift expected=40.00 poisson_generated=40
+[Schedule] local_window=66 csv_window_id=87375 timestamp=5242440 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=67 csv_window_id=87376 timestamp=5242500 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=68 csv_window_id=87377 timestamp=5242560 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=69 csv_window_id=87378 timestamp=5242620 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=70 csv_window_id=87379 timestamp=5242680 type=Pattern shift expected=40.00 poisson_generated=40
+[Schedule] local_window=71 csv_window_id=87380 timestamp=5242740 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=72 csv_window_id=87381 timestamp=5242800 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=73 csv_window_id=87382 timestamp=5242860 type=Pattern shift expected=40.00 poisson_generated=40
+[Schedule] local_window=74 csv_window_id=87383 timestamp=5242920 type=Pattern shift expected=34.00 poisson_generated=34
+[Schedule] local_window=75 csv_window_id=87384 timestamp=5242980 type=Pattern shift expected=33.00 poisson_generated=33
+[Schedule] local_window=76 csv_window_id=87385 timestamp=5243040 type=Pattern shift expected=34.00 poisson_generated=34
+[Schedule] local_window=77 csv_window_id=87386 timestamp=5243100 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=78 csv_window_id=87387 timestamp=5243160 type=Pattern shift expected=40.00 poisson_generated=40
+[Schedule] local_window=79 csv_window_id=87388 timestamp=5243220 type=Pattern shift expected=43.00 poisson_generated=43
+[Schedule] local_window=80 csv_window_id=87389 timestamp=5243280 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=81 csv_window_id=87390 timestamp=5243340 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=82 csv_window_id=87391 timestamp=5243400 type=Pattern shift expected=37.00 poisson_generated=37
+[Schedule] local_window=83 csv_window_id=87392 timestamp=5243460 type=Pattern shift expected=37.00 poisson_generated=37
+[Schedule] local_window=84 csv_window_id=87393 timestamp=5243520 type=Pattern shift expected=39.00 poisson_generated=39
+[Schedule] local_window=85 csv_window_id=87394 timestamp=5243580 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=86 csv_window_id=87395 timestamp=5243640 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=87 csv_window_id=87396 timestamp=5243700 type=Pattern shift expected=39.00 poisson_generated=39
+[Schedule] local_window=88 csv_window_id=87397 timestamp=5243760 type=Pattern shift expected=37.00 poisson_generated=37
+[Schedule] local_window=89 csv_window_id=87398 timestamp=5243820 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=90 csv_window_id=87399 timestamp=5243880 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=91 csv_window_id=87400 timestamp=5243940 type=Pattern shift expected=33.00 poisson_generated=33
+[Schedule] local_window=92 csv_window_id=87401 timestamp=5244000 type=Pattern shift expected=31.00 poisson_generated=31
+[Schedule] local_window=93 csv_window_id=87402 timestamp=5244060 type=Pattern shift expected=34.00 poisson_generated=34
+[Schedule] local_window=94 csv_window_id=87403 timestamp=5244120 type=Pattern shift expected=30.00 poisson_generated=30
+[Schedule] local_window=95 csv_window_id=87404 timestamp=5244180 type=Pattern shift expected=30.00 poisson_generated=30
+[Schedule] local_window=96 csv_window_id=87405 timestamp=5244240 type=Pattern shift expected=32.00 poisson_generated=32
+[Schedule] local_window=97 csv_window_id=87406 timestamp=5244300 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=98 csv_window_id=87407 timestamp=5244360 type=Pattern shift expected=39.00 poisson_generated=39
+[Schedule] local_window=99 csv_window_id=87408 timestamp=5244420 type=Pattern shift expected=33.00 poisson_generated=33
+[Schedule] local_window=100 csv_window_id=87409 timestamp=5244480 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=101 csv_window_id=87410 timestamp=5244540 type=Pattern shift expected=31.00 poisson_generated=31
+[Schedule] local_window=102 csv_window_id=87411 timestamp=5244600 type=Pattern shift expected=33.00 poisson_generated=33
+[Schedule] local_window=103 csv_window_id=87412 timestamp=5244660 type=Pattern shift expected=31.00 poisson_generated=31
+[Schedule] local_window=104 csv_window_id=87413 timestamp=5244720 type=Pattern shift expected=37.00 poisson_generated=37
+[Schedule] local_window=105 csv_window_id=87414 timestamp=5244780 type=Pattern shift expected=33.00 poisson_generated=33
+[Schedule] local_window=106 csv_window_id=87415 timestamp=5244840 type=Pattern shift expected=34.00 poisson_generated=34
+[Schedule] local_window=107 csv_window_id=87416 timestamp=5244900 type=Pattern shift expected=34.00 poisson_generated=34
+[Schedule] local_window=108 csv_window_id=87417 timestamp=5244960 type=Pattern shift expected=32.00 poisson_generated=32
+[Schedule] local_window=109 csv_window_id=87418 timestamp=5245020 type=Pattern shift expected=37.00 poisson_generated=37
+[Schedule] local_window=110 csv_window_id=87419 timestamp=5245080 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=111 csv_window_id=87420 timestamp=5245140 type=Pattern shift expected=39.00 poisson_generated=39
+[Schedule] local_window=112 csv_window_id=87421 timestamp=5245200 type=Pattern shift expected=39.00 poisson_generated=39
+[Schedule] local_window=113 csv_window_id=87422 timestamp=5245260 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=114 csv_window_id=87423 timestamp=5245320 type=Pattern shift expected=33.00 poisson_generated=33
+[Schedule] local_window=115 csv_window_id=87424 timestamp=5245380 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=116 csv_window_id=87425 timestamp=5245440 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=117 csv_window_id=87426 timestamp=5245500 type=Pattern shift expected=32.00 poisson_generated=32
+[Schedule] local_window=118 csv_window_id=87427 timestamp=5245560 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=119 csv_window_id=87428 timestamp=5245620 type=Pattern shift expected=37.00 poisson_generated=37
+[Schedule] local_window=120 csv_window_id=87429 timestamp=5245680 type=Pattern shift expected=34.00 poisson_generated=34
+[Schedule] local_window=121 csv_window_id=87430 timestamp=5245740 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=122 csv_window_id=87431 timestamp=5245800 type=Pattern shift expected=32.00 poisson_generated=32
+[Schedule] local_window=123 csv_window_id=87432 timestamp=5245860 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=124 csv_window_id=87433 timestamp=5245920 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=125 csv_window_id=87434 timestamp=5245980 type=Pattern shift expected=40.00 poisson_generated=40
+[Schedule] local_window=126 csv_window_id=87435 timestamp=5246040 type=Pattern shift expected=32.00 poisson_generated=32
+[Schedule] local_window=127 csv_window_id=87436 timestamp=5246100 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=128 csv_window_id=87437 timestamp=5246160 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=129 csv_window_id=87438 timestamp=5246220 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=130 csv_window_id=87439 timestamp=5246280 type=Pattern shift expected=37.00 poisson_generated=37
+[Schedule] local_window=131 csv_window_id=87440 timestamp=5246340 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=132 csv_window_id=87441 timestamp=5246400 type=Pattern shift expected=43.00 poisson_generated=43
+[Schedule] local_window=133 csv_window_id=87442 timestamp=5246460 type=Pattern shift expected=34.00 poisson_generated=34
+[Schedule] local_window=134 csv_window_id=87443 timestamp=5246520 type=Pattern shift expected=41.00 poisson_generated=41
+[Schedule] local_window=135 csv_window_id=87444 timestamp=5246580 type=Pattern shift expected=26.00 poisson_generated=26
+[Schedule] local_window=136 csv_window_id=87445 timestamp=5246640 type=Pattern shift expected=39.00 poisson_generated=39
+[Schedule] local_window=137 csv_window_id=87446 timestamp=5246700 type=Pattern shift expected=32.00 poisson_generated=32
+[Schedule] local_window=138 csv_window_id=87447 timestamp=5246760 type=Pattern shift expected=40.00 poisson_generated=40
+[Schedule] local_window=139 csv_window_id=87448 timestamp=5246820 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=140 csv_window_id=87449 timestamp=5246880 type=Pattern shift expected=33.00 poisson_generated=33
+[Schedule] local_window=141 csv_window_id=87450 timestamp=5246940 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=142 csv_window_id=87451 timestamp=5247000 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=143 csv_window_id=87452 timestamp=5247060 type=Pattern shift expected=42.00 poisson_generated=42
+[Schedule] local_window=144 csv_window_id=87453 timestamp=5247120 type=Pattern shift expected=45.00 poisson_generated=45
+[Schedule] local_window=145 csv_window_id=87454 timestamp=5247180 type=Pattern shift expected=41.00 poisson_generated=41
+[Schedule] local_window=146 csv_window_id=87455 timestamp=5247240 type=Pattern shift expected=33.00 poisson_generated=33
+[Schedule] local_window=147 csv_window_id=87456 timestamp=5247300 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=148 csv_window_id=87457 timestamp=5247360 type=Pattern shift expected=31.00 poisson_generated=31
+[Schedule] local_window=149 csv_window_id=87458 timestamp=5247420 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=150 csv_window_id=87459 timestamp=5247480 type=normal expected=8.00 poisson_generated=8
+[Schedule] local_window=151 csv_window_id=87460 timestamp=5247540 type=normal expected=9.00 poisson_generated=9
+[Schedule] local_window=152 csv_window_id=87461 timestamp=5247600 type=normal expected=7.00 poisson_generated=7
+[Schedule] local_window=153 csv_window_id=87462 timestamp=5247660 type=normal expected=4.00 poisson_generated=4
+[Schedule] local_window=154 csv_window_id=87463 timestamp=5247720 type=normal expected=9.00 poisson_generated=9
+[Schedule] local_window=155 csv_window_id=87464 timestamp=5247780 type=Sudden spike expected=31.00 poisson_generated=31
+[Schedule] local_window=156 csv_window_id=87465 timestamp=5247840 type=Sudden spike expected=21.00 poisson_generated=21
+[Schedule] local_window=157 csv_window_id=87466 timestamp=5247900 type=Sudden spike expected=42.00 poisson_generated=42
+[Schedule] local_window=158 csv_window_id=87467 timestamp=5247960 type=Sudden spike expected=8.00 poisson_generated=8
+[Schedule] local_window=159 csv_window_id=87468 timestamp=5248020 type=normal expected=10.00 poisson_generated=10
+[Schedule] local_window=160 csv_window_id=87469 timestamp=5248080 type=normal expected=12.00 poisson_generated=12
+[Schedule] local_window=161 csv_window_id=87470 timestamp=5248140 type=normal expected=7.00 poisson_generated=7
+[Schedule] local_window=162 csv_window_id=87471 timestamp=5248200 type=normal expected=10.00 poisson_generated=10
+[Schedule] local_window=163 csv_window_id=87472 timestamp=5248260 type=normal expected=7.00 poisson_generated=7
+[Schedule] local_window=164 csv_window_id=87473 timestamp=5248320 type=normal expected=6.00 poisson_generated=6
+[Schedule] local_window=165 csv_window_id=87474 timestamp=5248380 type=normal expected=11.00 poisson_generated=11
+[Schedule] local_window=166 csv_window_id=87475 timestamp=5248440 type=normal expected=8.00 poisson_generated=8
+[Schedule] local_window=167 csv_window_id=87476 timestamp=5248500 type=normal expected=8.00 poisson_generated=8
+[Schedule] local_window=168 csv_window_id=87477 timestamp=5248560 type=normal expected=8.00 poisson_generated=8
+[Schedule] local_window=169 csv_window_id=87478 timestamp=5248620 type=normal expected=9.00 poisson_generated=9
+[Schedule] local_window=170 csv_window_id=87479 timestamp=5248680 type=Irregular bursts expected=10.00 poisson_generated=10
+[Schedule] local_window=171 csv_window_id=87480 timestamp=5248740 type=Irregular bursts expected=7.00 poisson_generated=7
+[Schedule] local_window=172 csv_window_id=87481 timestamp=5248800 type=Irregular bursts expected=9.00 poisson_generated=9
+[Schedule] local_window=173 csv_window_id=87482 timestamp=5248860 type=Irregular bursts expected=7.00 poisson_generated=7
+[Schedule] local_window=174 csv_window_id=87483 timestamp=5248920 type=Irregular bursts expected=9.00 poisson_generated=9
+[Schedule] local_window=175 csv_window_id=87484 timestamp=5248980 type=Irregular bursts expected=13.00 poisson_generated=13
+[Schedule] local_window=176 csv_window_id=87485 timestamp=5249040 type=Irregular bursts expected=10.00 poisson_generated=10
+[Schedule] local_window=177 csv_window_id=87486 timestamp=5249100 type=Irregular bursts expected=10.00 poisson_generated=10
+[Schedule] local_window=178 csv_window_id=87487 timestamp=5249160 type=Irregular bursts expected=9.00 poisson_generated=9
+[Schedule] local_window=179 csv_window_id=87488 timestamp=5249220 type=Irregular bursts expected=8.00 poisson_generated=8
+
+Replay will start in 30.0 seconds and run until about 2026-07-20 12:46:24.141696.
+All windows have been scheduled. Waiting for in-flight requests...
+
+========== Replay summary ==========
+[Window 00] expected=14.00 generated=14 sent=14 ok=14 failed=0 avg_latency=5.535s status_counts={'200': 14}
+[Window 01] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=3.970s status_counts={'200': 10}
+[Window 02] expected=12.00 generated=12 sent=12 ok=12 failed=0 avg_latency=4.723s status_counts={'200': 12}
+[Window 03] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=4.963s status_counts={'200': 10}
+[Window 04] expected=13.00 generated=13 sent=13 ok=13 failed=0 avg_latency=4.880s status_counts={'200': 13}
+[Window 05] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=3.620s status_counts={'200': 9}
+[Window 06] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=5.485s status_counts={'200': 11}
+[Window 07] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=5.252s status_counts={'200': 11}
+[Window 08] expected=14.00 generated=14 sent=14 ok=14 failed=0 avg_latency=4.706s status_counts={'200': 14}
+[Window 09] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=4.535s status_counts={'200': 11}
+[Window 10] expected=12.00 generated=12 sent=12 ok=12 failed=0 avg_latency=6.018s status_counts={'200': 12}
+[Window 11] expected=14.00 generated=14 sent=14 ok=11 failed=3 avg_latency=6.270s status_counts={'0': 1, '200': 11, '502': 2}
+[Window 12] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=5.994s status_counts={'200': 8}
+[Window 13] expected=12.00 generated=12 sent=12 ok=12 failed=0 avg_latency=7.389s status_counts={'200': 12}
+[Window 14] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=4.907s status_counts={'200': 9}
+[Window 15] expected=15.00 generated=15 sent=15 ok=15 failed=0 avg_latency=5.973s status_counts={'200': 15}
+[Window 16] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=4.635s status_counts={'200': 8}
+[Window 17] expected=14.00 generated=14 sent=14 ok=14 failed=0 avg_latency=5.318s status_counts={'200': 14}
+[Window 18] expected=12.00 generated=12 sent=12 ok=12 failed=0 avg_latency=5.032s status_counts={'200': 12}
+[Window 19] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=5.579s status_counts={'200': 9}
+[Window 20] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=5.850s status_counts={'200': 9}
+[Window 21] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=4.721s status_counts={'200': 10}
+[Window 22] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=4.909s status_counts={'200': 9}
+[Window 23] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=5.542s status_counts={'200': 10}
+[Window 24] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=6.284s status_counts={'200': 10}
+[Window 25] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=5.040s status_counts={'200': 11}
+[Window 26] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=4.736s status_counts={'200': 9}
+[Window 27] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=6.216s status_counts={'200': 8}
+[Window 28] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=6.299s status_counts={'200': 11}
+[Window 29] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=6.741s status_counts={'200': 8}
+[Window 30] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=3.859s status_counts={'200': 10}
+[Window 31] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=4.595s status_counts={'200': 11}
+[Window 32] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=5.025s status_counts={'200': 10}
+[Window 33] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=6.083s status_counts={'200': 10}
+[Window 34] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=4.960s status_counts={'200': 11}
+[Window 35] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=5.263s status_counts={'200': 11}
+[Window 36] expected=13.00 generated=13 sent=13 ok=13 failed=0 avg_latency=4.660s status_counts={'200': 13}
+[Window 37] expected=6.00 generated=6 sent=6 ok=6 failed=0 avg_latency=3.957s status_counts={'200': 6}
+[Window 38] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=6.194s status_counts={'200': 7}
+[Window 39] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=6.616s status_counts={'200': 11}
+[Window 40] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=4.854s status_counts={'200': 10}
+[Window 41] expected=4.00 generated=4 sent=4 ok=4 failed=0 avg_latency=4.436s status_counts={'200': 4}
+[Window 42] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=4.512s status_counts={'200': 7}
+[Window 43] expected=5.00 generated=5 sent=5 ok=5 failed=0 avg_latency=4.945s status_counts={'200': 5}
+[Window 44] expected=5.00 generated=5 sent=5 ok=5 failed=0 avg_latency=3.338s status_counts={'200': 5}
+[Window 45] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=3.462s status_counts={'200': 7}
+[Window 46] expected=6.00 generated=6 sent=6 ok=6 failed=0 avg_latency=3.060s status_counts={'200': 6}
+[Window 47] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=4.468s status_counts={'200': 8}
+[Window 48] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=6.190s status_counts={'200': 10}
+[Window 49] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=4.620s status_counts={'200': 7}
+[Window 50] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=6.510s status_counts={'200': 11}
+[Window 51] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=6.299s status_counts={'200': 10}
+[Window 52] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=5.112s status_counts={'200': 8}
+[Window 53] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=5.550s status_counts={'200': 7}
+[Window 54] expected=6.00 generated=6 sent=6 ok=6 failed=0 avg_latency=3.591s status_counts={'200': 6}
+[Window 55] expected=5.00 generated=5 sent=5 ok=5 failed=0 avg_latency=5.190s status_counts={'200': 5}
+[Window 56] expected=6.00 generated=6 sent=6 ok=6 failed=0 avg_latency=5.927s status_counts={'200': 6}
+[Window 57] expected=6.00 generated=6 sent=6 ok=6 failed=0 avg_latency=5.130s status_counts={'200': 6}
+[Window 58] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=3.953s status_counts={'200': 8}
+[Window 59] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=4.216s status_counts={'200': 8}
+[Window 60] expected=34.00 generated=34 sent=34 ok=34 failed=0 avg_latency=5.114s status_counts={'200': 34}
+[Window 61] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=8.403s status_counts={'200': 35}
+[Window 62] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=7.990s status_counts={'200': 35}
+[Window 63] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=7.450s status_counts={'200': 38}
+[Window 64] expected=29.00 generated=29 sent=29 ok=29 failed=0 avg_latency=7.746s status_counts={'200': 29}
+[Window 65] expected=40.00 generated=40 sent=40 ok=40 failed=0 avg_latency=9.118s status_counts={'200': 40}
+[Window 66] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=8.332s status_counts={'200': 36}
+[Window 67] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=10.227s status_counts={'200': 38}
+[Window 68] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=9.004s status_counts={'200': 38}
+[Window 69] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=9.908s status_counts={'200': 38}
+[Window 70] expected=40.00 generated=40 sent=40 ok=40 failed=0 avg_latency=11.428s status_counts={'200': 40}
+[Window 71] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=9.647s status_counts={'200': 36}
+[Window 72] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=8.187s status_counts={'200': 36}
+[Window 73] expected=40.00 generated=40 sent=40 ok=40 failed=0 avg_latency=11.028s status_counts={'200': 40}
+[Window 74] expected=34.00 generated=34 sent=34 ok=34 failed=0 avg_latency=7.413s status_counts={'200': 34}
+[Window 75] expected=33.00 generated=33 sent=33 ok=33 failed=0 avg_latency=7.954s status_counts={'200': 33}
+[Window 76] expected=34.00 generated=34 sent=34 ok=34 failed=0 avg_latency=8.538s status_counts={'200': 34}
+[Window 77] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=8.194s status_counts={'200': 36}
+[Window 78] expected=40.00 generated=40 sent=40 ok=39 failed=1 avg_latency=11.859s status_counts={'200': 39, '502': 1}
+[Window 79] expected=43.00 generated=43 sent=43 ok=43 failed=0 avg_latency=13.410s status_counts={'200': 43}
+[Window 80] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=10.511s status_counts={'200': 35}
+[Window 81] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=10.465s status_counts={'200': 38}
+[Window 82] expected=37.00 generated=37 sent=37 ok=37 failed=0 avg_latency=10.576s status_counts={'200': 37}
+[Window 83] expected=37.00 generated=37 sent=37 ok=37 failed=0 avg_latency=12.593s status_counts={'200': 37}
+[Window 84] expected=39.00 generated=39 sent=39 ok=39 failed=0 avg_latency=11.511s status_counts={'200': 39}
+[Window 85] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=8.669s status_counts={'200': 36}
+[Window 86] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=15.084s status_counts={'200': 38}
+[Window 87] expected=39.00 generated=39 sent=39 ok=39 failed=0 avg_latency=10.553s status_counts={'200': 39}
+[Window 88] expected=37.00 generated=37 sent=37 ok=37 failed=0 avg_latency=11.833s status_counts={'200': 37}
+[Window 89] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=11.475s status_counts={'200': 36}
+[Window 90] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=10.964s status_counts={'200': 38}
+[Window 91] expected=33.00 generated=33 sent=33 ok=33 failed=0 avg_latency=11.461s status_counts={'200': 33}
+[Window 92] expected=31.00 generated=31 sent=31 ok=31 failed=0 avg_latency=8.843s status_counts={'200': 31}
+[Window 93] expected=34.00 generated=34 sent=34 ok=34 failed=0 avg_latency=10.040s status_counts={'200': 34}
+[Window 94] expected=30.00 generated=30 sent=30 ok=30 failed=0 avg_latency=8.704s status_counts={'200': 30}
+[Window 95] expected=30.00 generated=30 sent=30 ok=30 failed=0 avg_latency=8.050s status_counts={'200': 30}
+[Window 96] expected=32.00 generated=32 sent=32 ok=32 failed=0 avg_latency=8.126s status_counts={'200': 32}
+[Window 97] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=8.904s status_counts={'200': 36}
+[Window 98] expected=39.00 generated=39 sent=39 ok=39 failed=0 avg_latency=10.106s status_counts={'200': 39}
+[Window 99] expected=33.00 generated=33 sent=33 ok=33 failed=0 avg_latency=9.856s status_counts={'200': 33}
+[Window 100] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=12.793s status_counts={'200': 36}
+[Window 101] expected=31.00 generated=31 sent=31 ok=31 failed=0 avg_latency=9.105s status_counts={'200': 31}
+[Window 102] expected=33.00 generated=33 sent=33 ok=33 failed=0 avg_latency=8.508s status_counts={'200': 33}
+[Window 103] expected=31.00 generated=31 sent=31 ok=31 failed=0 avg_latency=9.155s status_counts={'200': 31}
+[Window 104] expected=37.00 generated=37 sent=37 ok=37 failed=0 avg_latency=11.438s status_counts={'200': 37}
+[Window 105] expected=33.00 generated=33 sent=33 ok=33 failed=0 avg_latency=9.298s status_counts={'200': 33}
+[Window 106] expected=34.00 generated=34 sent=34 ok=34 failed=0 avg_latency=8.853s status_counts={'200': 34}
+[Window 107] expected=34.00 generated=34 sent=34 ok=34 failed=0 avg_latency=9.718s status_counts={'200': 34}
+[Window 108] expected=32.00 generated=32 sent=32 ok=32 failed=0 avg_latency=9.142s status_counts={'200': 32}
+[Window 109] expected=37.00 generated=37 sent=37 ok=37 failed=0 avg_latency=10.521s status_counts={'200': 37}
+[Window 110] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=9.205s status_counts={'200': 38}
+[Window 111] expected=39.00 generated=39 sent=39 ok=39 failed=0 avg_latency=8.177s status_counts={'200': 39}
+[Window 112] expected=39.00 generated=39 sent=39 ok=39 failed=0 avg_latency=14.314s status_counts={'200': 39}
+[Window 113] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=10.812s status_counts={'200': 35}
+[Window 114] expected=33.00 generated=33 sent=33 ok=33 failed=0 avg_latency=10.186s status_counts={'200': 33}
+[Window 115] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=10.127s status_counts={'200': 36}
+[Window 116] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=8.392s status_counts={'200': 36}
+[Window 117] expected=32.00 generated=32 sent=32 ok=32 failed=0 avg_latency=8.343s status_counts={'200': 32}
+[Window 118] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=9.989s status_counts={'200': 38}
+[Window 119] expected=37.00 generated=37 sent=37 ok=37 failed=0 avg_latency=9.773s status_counts={'200': 37}
+[Window 120] expected=34.00 generated=34 sent=34 ok=34 failed=0 avg_latency=9.663s status_counts={'200': 34}
+[Window 121] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=8.507s status_counts={'200': 35}
+[Window 122] expected=32.00 generated=32 sent=32 ok=32 failed=0 avg_latency=7.136s status_counts={'200': 32}
+[Window 123] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=9.609s status_counts={'200': 35}
+[Window 124] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=12.439s status_counts={'200': 35}
+[Window 125] expected=40.00 generated=40 sent=40 ok=40 failed=0 avg_latency=9.678s status_counts={'200': 40}
+[Window 126] expected=32.00 generated=32 sent=32 ok=32 failed=0 avg_latency=10.807s status_counts={'200': 32}
+[Window 127] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=13.367s status_counts={'200': 38}
+[Window 128] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=8.308s status_counts={'200': 36}
+[Window 129] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=11.203s status_counts={'200': 36}
+[Window 130] expected=37.00 generated=37 sent=37 ok=37 failed=0 avg_latency=9.373s status_counts={'200': 37}
+[Window 131] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=10.975s status_counts={'200': 35}
+[Window 132] expected=43.00 generated=43 sent=43 ok=43 failed=0 avg_latency=13.481s status_counts={'200': 43}
+[Window 133] expected=34.00 generated=34 sent=34 ok=34 failed=0 avg_latency=14.540s status_counts={'200': 34}
+[Window 134] expected=41.00 generated=41 sent=41 ok=41 failed=0 avg_latency=8.316s status_counts={'200': 41}
+[Window 135] expected=26.00 generated=26 sent=26 ok=26 failed=0 avg_latency=8.665s status_counts={'200': 26}
+[Window 136] expected=39.00 generated=39 sent=39 ok=39 failed=0 avg_latency=9.001s status_counts={'200': 39}
+[Window 137] expected=32.00 generated=32 sent=32 ok=32 failed=0 avg_latency=10.200s status_counts={'200': 32}
+[Window 138] expected=40.00 generated=40 sent=40 ok=39 failed=1 avg_latency=8.650s status_counts={'200': 39, '502': 1}
+[Window 139] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=9.254s status_counts={'200': 35}
+[Window 140] expected=33.00 generated=33 sent=33 ok=33 failed=0 avg_latency=10.087s status_counts={'200': 33}
+[Window 141] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=11.180s status_counts={'200': 35}
+[Window 142] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=12.151s status_counts={'200': 36}
+[Window 143] expected=42.00 generated=42 sent=42 ok=42 failed=0 avg_latency=11.050s status_counts={'200': 42}
+[Window 144] expected=45.00 generated=45 sent=45 ok=45 failed=0 avg_latency=13.035s status_counts={'200': 45}
+[Window 145] expected=41.00 generated=41 sent=41 ok=41 failed=0 avg_latency=10.165s status_counts={'200': 41}
+[Window 146] expected=33.00 generated=33 sent=33 ok=33 failed=0 avg_latency=11.190s status_counts={'200': 33}
+[Window 147] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=9.945s status_counts={'200': 35}
+[Window 148] expected=31.00 generated=31 sent=31 ok=31 failed=0 avg_latency=9.393s status_counts={'200': 31}
+[Window 149] expected=36.00 generated=36 sent=36 ok=32 failed=4 avg_latency=21.700s status_counts={'0': 4, '200': 32}
+[Window 150] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=28.311s status_counts={'200': 8}
+[Window 151] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=6.031s status_counts={'200': 9}
+[Window 152] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=5.086s status_counts={'200': 7}
+[Window 153] expected=4.00 generated=4 sent=4 ok=4 failed=0 avg_latency=5.596s status_counts={'200': 4}
+[Window 154] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=6.805s status_counts={'200': 9}
+[Window 155] expected=31.00 generated=31 sent=31 ok=31 failed=0 avg_latency=22.485s status_counts={'200': 31}
+[Window 156] expected=21.00 generated=21 sent=21 ok=21 failed=0 avg_latency=38.631s status_counts={'200': 21}
+[Window 157] expected=42.00 generated=42 sent=42 ok=23 failed=19 avg_latency=42.850s status_counts={'0': 19, '200': 23}
+[Window 158] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=42.236s status_counts={'200': 8}
+[Window 159] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=15.065s status_counts={'200': 10}
+[Window 160] expected=12.00 generated=12 sent=12 ok=12 failed=0 avg_latency=7.036s status_counts={'200': 12}
+[Window 161] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=5.050s status_counts={'200': 7}
+[Window 162] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=7.037s status_counts={'200': 10}
+[Window 163] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=6.300s status_counts={'200': 7}
+[Window 164] expected=6.00 generated=6 sent=6 ok=6 failed=0 avg_latency=5.398s status_counts={'200': 6}
+[Window 165] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=6.747s status_counts={'200': 11}
+[Window 166] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=5.769s status_counts={'200': 8}
+[Window 167] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=6.413s status_counts={'200': 8}
+[Window 168] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=5.284s status_counts={'200': 8}
+[Window 169] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=3.963s status_counts={'200': 9}
+[Window 170] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=5.911s status_counts={'200': 10}
+[Window 171] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=5.360s status_counts={'200': 7}
+[Window 172] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=5.094s status_counts={'200': 9}
+[Window 173] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=5.151s status_counts={'200': 7}
+[Window 174] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=4.103s status_counts={'200': 9}
+[Window 175] expected=13.00 generated=13 sent=13 ok=13 failed=0 avg_latency=5.453s status_counts={'200': 13}
+[Window 176] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=3.963s status_counts={'200': 10}
+[Window 177] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=4.317s status_counts={'200': 10}
+[Window 178] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=5.170s status_counts={'200': 9}
+[Window 179] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=5.159s status_counts={'200': 8}
+Total status counts: {0: 24, 200: 4090, 502: 4}
+
+Saved replay artifacts:
+  schedule: /home/artifact/online_experiment/results/stage2_kpa_rep01_attempt01_s11708_180min_six_baselines_currentci_x2_20260720_1724_replay_schedule.csv
+  window_summary: /home/artifact/online_experiment/results/stage2_kpa_rep01_attempt01_s11708_180min_six_baselines_currentci_x2_20260720_1724_replay_window_summary.csv
+  metadata: /home/artifact/online_experiment/results/stage2_kpa_rep01_attempt01_s11708_180min_six_baselines_currentci_x2_20260720_1724_replay_metadata.json
+  request_log: /home/artifact/online_experiment/results/stage2_kpa_rep01_attempt01_s11708_180min_six_baselines_currentci_x2_20260720_1724_replay_request_log.csv
+finished=2026-07-20 12:46:25.097516
+
+Saved computed metrics:
+  metrics_summary: /home/artifact/online_experiment/results/stage2_kpa_rep01_attempt01_s11708_180min_six_baselines_currentci_x2_20260720_1724_metrics_summary.json
+  pod_metrics: /home/artifact/online_experiment/results/stage2_kpa_rep01_attempt01_s11708_180min_six_baselines_currentci_x2_20260720_1724_pod_metrics.csv

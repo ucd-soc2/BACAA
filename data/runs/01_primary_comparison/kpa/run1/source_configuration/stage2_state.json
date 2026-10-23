@@ -1,0 +1,1745 @@
+{
+  "aggregate": {
+    "aggregate_metrics": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/method_aggregate_metrics.csv",
+    "complete": true,
+    "counts": {
+      "bilstm_direct": 1,
+      "bilstm_kpa": 1,
+      "ets_direct": 1,
+      "ets_kpa": 1,
+      "hpa": 1,
+      "kpa": 1,
+      "transformer_direct": 1
+    },
+    "expected_run_count": 7,
+    "per_run_metrics": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/per_run_metrics.csv",
+    "report": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/FINAL_REPORT.md",
+    "valid_run_count": 7
+  },
+  "args": {
+    "allow_mu_sensitivity_overrides": false,
+    "allow_oracle_control_run": false,
+    "allow_smoke_overrides": false,
+    "allow_workload_slice_overrides": true,
+    "api_health_checks": 3,
+    "api_health_interval_seconds": 5.0,
+    "api_health_timeout_seconds": 15.0,
+    "api_outage_grace_seconds": 180.0,
+    "batch": "seven_baselines_currentci_1rep_20260719_1315",
+    "carbon_intensity_csv": "stage2/data/carbon_intensity_ie_2025-09-20_24h.csv",
+    "carbon_lookup_window_seconds": 60.0,
+    "ci_time_scale": 8.0,
+    "ci_trace_start": "2025-09-20 00:00:00+00:00",
+    "ci_window_seconds": 480.0,
+    "cleanup_timeout_seconds": 240.0,
+    "cold_start_model_joules": 10.38,
+    "cold_start_window_seconds": 30.0,
+    "controller_allow_missing_queue": false,
+    "controller_alpha_base": null,
+    "controller_alpha_max": null,
+    "controller_alpha_min": null,
+    "controller_disable_downtrend": false,
+    "controller_k_ci": null,
+    "controller_k_g": null,
+    "controller_scale_down_confirm_windows": null,
+    "controller_scale_down_cooldown_seconds": 0.0,
+    "cooldown_seconds": 300.0,
+    "cpu_joules_per_core_second": 10.8,
+    "drain_seconds": 30.0,
+    "duration_minutes": 180.0,
+    "expected_qwen_image": "ko.local/qwen-local@sha256:b48add5d8f2db57bcb85e1c58992eb6519d5d17aed7143b67de108b88160d76d",
+    "first_patch_lead_seconds": 1.0,
+    "formal_start_delay_seconds": 30.0,
+    "image_precheck_only": false,
+    "image_precheck_timeout_seconds": 120.0,
+    "initial_placement_nodes": [
+      "llm-node-1",
+      "llm-node2"
+    ],
+    "initial_placement_recovery_attempts": 4,
+    "initial_placement_recovery_delay_seconds": 10.0,
+    "initial_pods": 2,
+    "kpa_ready_guard_enabled": true,
+    "kpa_ready_guard_min_ready_pods": 1,
+    "kpa_ready_guard_poll_seconds": 10.0,
+    "kpa_ready_guard_recovery_pods": 2,
+    "kpa_ready_guard_stable_seconds": 120.0,
+    "kpa_scale_down_guard_seconds": 120.0,
+    "kpa_scale_down_min_ready_pods": 1,
+    "kpa_scale_down_post_check_poll_seconds": 10.0,
+    "kpa_scale_down_post_check_seconds": 30.0,
+    "legacy_metrics_poll_seconds": 30.0,
+    "max_attempts_per_run": 2,
+    "memory_joules_per_gb_second": 0.3725,
+    "methods": [
+      "kpa",
+      "hpa",
+      "ets_direct",
+      "bilstm_direct",
+      "transformer_direct",
+      "ets_kpa",
+      "bilstm_kpa"
+    ],
+    "oracle_confidence": 1.0,
+    "oracle_interval_pad": 0.0,
+    "pod_capacity_per_window": 12.5,
+    "pod_sample_seconds": 30.0,
+    "pre_warmup_settle_seconds": 20.0,
+    "prometheus_cpu_rate_window_seconds": 30.0,
+    "prometheus_query_delay_seconds": 20.0,
+    "prometheus_step_seconds": 5.0,
+    "prometheus_url": "http://10.43.143.194:9090",
+    "proposed_oracle_predictor": false,
+    "proposed_queue_mode": "ready",
+    "queue_max_sample_age_seconds": 10.0,
+    "queue_query_timeout_seconds": 1.5,
+    "queue_sample_period_seconds": 2.0,
+    "ready_latency_p95_seconds": 40.0,
+    "repetitions": 1,
+    "request_timeout_seconds": 60.0,
+    "scale_up_slack_seconds": 1.0,
+    "seed": 42,
+    "start_row": 11708,
+    "wait_ready_seconds": 300.0,
+    "warmup_attempts": 2,
+    "warmup_concurrency": 2,
+    "warmup_cpu_query_delay_seconds": 10.0,
+    "warmup_duration_seconds": 60.0,
+    "warmup_max_tokens": 100,
+    "warmup_min_cpu_delta": 0.001,
+    "warmup_min_success": 30,
+    "warmup_qps": 1.5,
+    "warmup_request_timeout_seconds": 60.0,
+    "warmup_targeted_concurrency": 2,
+    "warmup_targeted_min_cpu_delta": 0.05,
+    "warmup_targeted_min_success_per_pod": null,
+    "warmup_targeted_requests_per_pod": 8,
+    "workload": "/home/artifact/online_experiment/data/test_workload_burst.csv"
+  },
+  "batch": "seven_baselines_currentci_1rep_20260719_1315",
+  "complete": true,
+  "config_snapshot": {
+    "copied_files": {
+      "baseline_metrics": {
+        "bytes": 32333,
+        "sha256": "04610e90c9ade0693c0c5a5b99e551b2f33edebf98d92375d7229249036e123f",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/baseline_metrics.py",
+        "source": "/home/artifact/online_experiment/baseline_metrics.py"
+      },
+      "bilstm_direct_runner": {
+        "bytes": 34870,
+        "sha256": "c5ffb967982e6495c097f7145295513653144690440158e713be7e0b1fa363bd",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/code/run_bilstm_baseline_tplus2.py",
+        "source": "/home/artifact/online_experiment/code/run_bilstm_baseline_tplus2.py"
+      },
+      "bilstm_kpa_runner": {
+        "bytes": 70915,
+        "sha256": "4fb5f2104c47d2114da9c49d257558a3e319f5c4bec06052b6ae5fef6996d72c",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/code/run_bilstm_kpa_baseline_tplus2.py",
+        "source": "/home/artifact/online_experiment/code/run_bilstm_kpa_baseline_tplus2.py"
+      },
+      "carbon_csv": {
+        "bytes": 37573,
+        "sha256": "0583b07dd9640e46c7128c8afefb697126609f5a7e11d65440c1139dcc331707",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/stage2/data/carbon_intensity_ie_2025-09-20_24h.csv",
+        "source": "/home/artifact/online_experiment/stage2/data/carbon_intensity_ie_2025-09-20_24h.csv"
+      },
+      "decision": {
+        "bytes": 18030,
+        "sha256": "cf26158343751d9669c664c27c7ab935a006d44fcc9ae7785d517ee6c90b98f9",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/decision.py",
+        "source": "/home/artifact/online_experiment/decision.py"
+      },
+      "ets_config": {
+        "bytes": 1513,
+        "sha256": "8f12d3357e3b4eaed2ab34d94dcfaf4c331f1805e2b9ff03c0f3f7fde37348f8",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/results/ets_best_config.json",
+        "source": "/home/artifact/online_experiment/results/ets_best_config.json"
+      },
+      "ets_direct_runner": {
+        "bytes": 34842,
+        "sha256": "bfc3e73f60528cb32dc485447fcfad8c98df77bd512d60ada7fdbc812c0d385d",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/code/run_ets_baseline_tplus2.py",
+        "source": "/home/artifact/online_experiment/code/run_ets_baseline_tplus2.py"
+      },
+      "ets_kpa_runner": {
+        "bytes": 57816,
+        "sha256": "11408f7cd0c27731bc6a4a7b5f667ddc1107373617f312f045b687cc26346289",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/code/run_ets_kpa_baseline_tplus2.py",
+        "source": "/home/artifact/online_experiment/code/run_ets_kpa_baseline_tplus2.py"
+      },
+      "frozen_protocol": {
+        "bytes": 14084,
+        "sha256": "e69377efeb3ef814358d9eff26b61b0856b4bad781b39b7be886184384076a6c",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/stage2/FROZEN_PROTOCOL.md",
+        "source": "/home/artifact/online_experiment/stage2/FROZEN_PROTOCOL.md"
+      },
+      "hpa_runner": {
+        "bytes": 11152,
+        "sha256": "8598031e004128f137162d2b62beda12939eb49094886ecf9577db40136ead3a",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/run_hpa_baseline.py",
+        "source": "/home/artifact/online_experiment/run_hpa_baseline.py"
+      },
+      "inference": {
+        "bytes": 8372,
+        "sha256": "ce9c7bfac0200031ffb2696137c1fd8cf72725e7464483f8751a2f571d8abf3e",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/inference.py",
+        "source": "/home/artifact/online_experiment/inference.py"
+      },
+      "kpa_runner": {
+        "bytes": 8396,
+        "sha256": "c0734f025a0aac1c215edc8e39f78c68b0f8577de02e667cd2548b3fcffce37f",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/run_kpa_baseline.py",
+        "source": "/home/artifact/online_experiment/run_kpa_baseline.py"
+      },
+      "prometheus_energy": {
+        "bytes": 37709,
+        "sha256": "c10bf4d86304042a6f224eddb6a4dcbbed4364f8376274e06a225df59a951bc8",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/prometheus_energy_metrics.py",
+        "source": "/home/artifact/online_experiment/prometheus_energy_metrics.py"
+      },
+      "sanity_runner": {
+        "bytes": 60629,
+        "sha256": "3c0326c13c0b64157a196afdead072b8e359007bacca70d9bd5cf1c014d80f78",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/run_e2e_sanity_check.py",
+        "source": "/home/artifact/online_experiment/run_e2e_sanity_check.py"
+      },
+      "stage2_controller": {
+        "bytes": 98942,
+        "sha256": "74a14f2da5da453fe07f281cfc5d398506cf79b1704dab8191433f02479ea41a",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/stage2/controller_stage2.py",
+        "source": "/home/artifact/online_experiment/stage2/controller_stage2.py"
+      },
+      "stage2_runner": {
+        "bytes": 101133,
+        "sha256": "3ab8c83f2efef95969cc4755c323e76268759b63a504c3172692b905994dc3e1",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/stage2/run_stage2_baselines_x3.py",
+        "source": "/home/artifact/online_experiment/stage2/run_stage2_baselines_x3.py"
+      },
+      "workload_replayer": {
+        "bytes": 21398,
+        "sha256": "ececd703d1ad01851d64cf1f7269dee4056f2599e2fb1ad19cbdaa7319129341",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/workload_replayer.py",
+        "source": "/home/artifact/online_experiment/workload_replayer.py"
+      },
+      "yaml_bilstm_direct": {
+        "bytes": 3032,
+        "sha256": "1ead6a7e90b0fa5940c6f964ec9bacf08d5293a1e2b944ec204c3a0340ecdbe4",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/stage2/yamls/qwen-bilstm.yaml",
+        "source": "/home/artifact/online_experiment/stage2/yamls/qwen-bilstm.yaml"
+      },
+      "yaml_bilstm_kpa": {
+        "bytes": 3034,
+        "sha256": "89567f1e2a4e4b0dc28d540ffe2895ba3533e707ed8dfbe7867221424bc2d6a3",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/stage2/yamls/qwen-bilstm-kpa.yaml",
+        "source": "/home/artifact/online_experiment/stage2/yamls/qwen-bilstm-kpa.yaml"
+      },
+      "yaml_ets_direct": {
+        "bytes": 3029,
+        "sha256": "072f45ecfc398be7f8ad14396daf4119f4e5fff7d5e63d4b4b3204f580775c52",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/stage2/yamls/qwen-ets.yaml",
+        "source": "/home/artifact/online_experiment/stage2/yamls/qwen-ets.yaml"
+      },
+      "yaml_ets_kpa": {
+        "bytes": 3031,
+        "sha256": "8a2f1a717c493e91cca02e40873661abd311a45b2386bf8f6a8fbc659100993e",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/stage2/yamls/qwen-ets-kpa.yaml",
+        "source": "/home/artifact/online_experiment/stage2/yamls/qwen-ets-kpa.yaml"
+      },
+      "yaml_hpa": {
+        "bytes": 3021,
+        "sha256": "f4f000b1c53ad9646d83f564257fd0c540cb1c52ab2c2bfbf4fa26ddbaca71d6",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/stage2/yamls/qwen-hpa.yaml",
+        "source": "/home/artifact/online_experiment/stage2/yamls/qwen-hpa.yaml"
+      },
+      "yaml_kpa": {
+        "bytes": 3028,
+        "sha256": "3e92ed6380f27c1975afa29be38b79ded86315caeffa4567ce7368145f607ffc",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/stage2/yamls/qwen-kpa.yaml",
+        "source": "/home/artifact/online_experiment/stage2/yamls/qwen-kpa.yaml"
+      },
+      "yaml_proposed": {
+        "bytes": 3037,
+        "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/stage2/yamls/qwen-transformer.yaml",
+        "source": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml"
+      },
+      "yaml_proposed_current_queue": {
+        "bytes": 3037,
+        "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/stage2/yamls/qwen-transformer.yaml",
+        "source": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml"
+      },
+      "yaml_proposed_no_queue": {
+        "bytes": 3037,
+        "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/stage2/yamls/qwen-transformer.yaml",
+        "source": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml"
+      },
+      "yaml_proposed_oracle": {
+        "bytes": 3037,
+        "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/stage2/yamls/qwen-transformer.yaml",
+        "source": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml"
+      },
+      "yaml_proposed_ready_queue": {
+        "bytes": 3037,
+        "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/stage2/yamls/qwen-transformer.yaml",
+        "source": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml"
+      },
+      "yaml_transformer_direct": {
+        "bytes": 3037,
+        "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d",
+        "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/files/stage2/yamls/qwen-transformer.yaml",
+        "source": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml"
+      }
+    },
+    "created_at_utc": "2026-07-19T05:24:19+00:00",
+    "effective_args": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/effective_args.json",
+    "frozen_inputs": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_seven_baselines_currentci_1rep_20260719_1315/config_snapshot/frozen_inputs.json"
+  },
+  "events": [
+    {
+      "attempt": 1,
+      "finished_at_utc": "2026-07-19T08:44:59+00:00",
+      "method": "kpa",
+      "passed": true,
+      "post_health": {
+        "checked_at_utc": "2026-07-19T08:51:36+00:00",
+        "label": "rep01_kpa_attempt01_post",
+        "readyz": "ok",
+        "readyz_samples": [
+          {
+            "check": 1,
+            "checked_at_utc": "2026-07-19T08:51:17+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 2,
+            "checked_at_utc": "2026-07-19T08:51:23+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 3,
+            "checked_at_utc": "2026-07-19T08:51:32+00:00",
+            "readyz": "ok"
+          }
+        ],
+        "webhook_endpoints": [
+          "10.42.0.174"
+        ],
+        "worker_nodes": [
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node-1",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node2",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node3",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          }
+        ]
+      },
+      "pre_health": {
+        "checked_at_utc": "2026-07-19T05:32:10+00:00",
+        "label": "rep01_kpa_attempt01_pre",
+        "readyz": "ok",
+        "readyz_samples": [
+          {
+            "check": 1,
+            "checked_at_utc": "2026-07-19T05:31:39+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 2,
+            "checked_at_utc": "2026-07-19T05:31:47+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 3,
+            "checked_at_utc": "2026-07-19T05:31:57+00:00",
+            "readyz": "ok"
+          }
+        ],
+        "webhook_endpoints": [
+          "10.42.0.174"
+        ],
+        "worker_nodes": [
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node-1",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node2",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node3",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          }
+        ]
+      },
+      "repetition": 1,
+      "repetition_order": [
+        "kpa",
+        "hpa",
+        "ets_direct",
+        "bilstm_direct",
+        "transformer_direct",
+        "ets_kpa",
+        "bilstm_kpa"
+      ],
+      "run_id": "stage2_kpa_rep01_attempt01_s11708_180min_seven_baselines_currentci_1rep_20260719_1315",
+      "seed": 42,
+      "started_at_utc": "2026-07-19T05:31:29+00:00"
+    },
+    {
+      "attempt": 1,
+      "finished_at_utc": "2026-07-19T12:01:31+00:00",
+      "hpa_metrics_preflight": {
+        "checked_at_utc": "2026-07-19T08:52:00+00:00",
+        "label": "rep01_hpa_attempt01_metrics",
+        "metrics_api": {
+          "available": true,
+          "last_transition_time": "2026-07-18T03:15:38Z",
+          "message": "all checks passed",
+          "reason": "Passed",
+          "status": "True"
+        },
+        "metrics_server_endpoints": [
+          "10.42.0.178"
+        ],
+        "top_nodes": "NAME         CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   \nllm-node     1239m        20%      3800Mi          47%         \nllm-node-1   87m          1%       1176Mi          14%         \nllm-node2    52m          0%       1202Mi          15%         \nllm-node3    99m          1%       1169Mi          14%"
+      },
+      "method": "hpa",
+      "passed": true,
+      "post_health": {
+        "checked_at_utc": "2026-07-19T12:08:03+00:00",
+        "label": "rep01_hpa_attempt01_post",
+        "readyz": "ok",
+        "readyz_samples": [
+          {
+            "check": 1,
+            "checked_at_utc": "2026-07-19T12:07:42+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 2,
+            "checked_at_utc": "2026-07-19T12:07:50+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 3,
+            "checked_at_utc": "2026-07-19T12:07:58+00:00",
+            "readyz": "ok"
+          }
+        ],
+        "webhook_endpoints": [
+          "10.42.0.174"
+        ],
+        "worker_nodes": [
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node-1",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node2",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node3",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          }
+        ]
+      },
+      "pre_health": {
+        "checked_at_utc": "2026-07-19T08:52:00+00:00",
+        "label": "rep01_hpa_attempt01_pre",
+        "readyz": "ok",
+        "readyz_samples": [
+          {
+            "check": 1,
+            "checked_at_utc": "2026-07-19T08:51:42+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 2,
+            "checked_at_utc": "2026-07-19T08:51:49+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 3,
+            "checked_at_utc": "2026-07-19T08:51:56+00:00",
+            "readyz": "ok"
+          }
+        ],
+        "webhook_endpoints": [
+          "10.42.0.174"
+        ],
+        "worker_nodes": [
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node-1",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node2",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node3",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          }
+        ]
+      },
+      "repetition": 1,
+      "repetition_order": [
+        "kpa",
+        "hpa",
+        "ets_direct",
+        "bilstm_direct",
+        "transformer_direct",
+        "ets_kpa",
+        "bilstm_kpa"
+      ],
+      "run_id": "stage2_hpa_rep01_attempt01_s11708_180min_seven_baselines_currentci_1rep_20260719_1315",
+      "seed": 42,
+      "started_at_utc": "2026-07-19T08:51:36+00:00"
+    },
+    {
+      "attempt": 1,
+      "finished_at_utc": "2026-07-19T15:16:33+00:00",
+      "method": "ets_direct",
+      "passed": true,
+      "post_health": {
+        "checked_at_utc": "2026-07-19T15:23:22+00:00",
+        "label": "rep01_ets_direct_attempt01_post",
+        "readyz": "ok",
+        "readyz_samples": [
+          {
+            "check": 1,
+            "checked_at_utc": "2026-07-19T15:23:06+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 2,
+            "checked_at_utc": "2026-07-19T15:23:13+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 3,
+            "checked_at_utc": "2026-07-19T15:23:21+00:00",
+            "readyz": "ok"
+          }
+        ],
+        "webhook_endpoints": [
+          "10.42.0.174"
+        ],
+        "worker_nodes": [
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node-1",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node2",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node3",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          }
+        ]
+      },
+      "pre_health": {
+        "checked_at_utc": "2026-07-19T12:08:31+00:00",
+        "label": "rep01_ets_direct_attempt01_pre",
+        "readyz": "ok",
+        "readyz_samples": [
+          {
+            "check": 1,
+            "checked_at_utc": "2026-07-19T12:08:11+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 2,
+            "checked_at_utc": "2026-07-19T12:08:19+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 3,
+            "checked_at_utc": "2026-07-19T12:08:27+00:00",
+            "readyz": "ok"
+          }
+        ],
+        "webhook_endpoints": [
+          "10.42.0.174"
+        ],
+        "worker_nodes": [
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node-1",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node2",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node3",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          }
+        ]
+      },
+      "repetition": 1,
+      "repetition_order": [
+        "kpa",
+        "hpa",
+        "ets_direct",
+        "bilstm_direct",
+        "transformer_direct",
+        "ets_kpa",
+        "bilstm_kpa"
+      ],
+      "run_id": "stage2_ets_direct_rep01_attempt01_s11708_180min_seven_baselines_currentci_1rep_20260719_1315",
+      "seed": 42,
+      "started_at_utc": "2026-07-19T12:08:04+00:00"
+    },
+    {
+      "attempt": 1,
+      "finished_at_utc": "2026-07-19T18:32:55+00:00",
+      "method": "bilstm_direct",
+      "passed": true,
+      "post_health": {
+        "checked_at_utc": "2026-07-19T18:39:05+00:00",
+        "label": "rep01_bilstm_direct_attempt01_post",
+        "readyz": "ok",
+        "readyz_samples": [
+          {
+            "check": 1,
+            "checked_at_utc": "2026-07-19T18:38:49+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 2,
+            "checked_at_utc": "2026-07-19T18:38:54+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 3,
+            "checked_at_utc": "2026-07-19T18:39:02+00:00",
+            "readyz": "ok"
+          }
+        ],
+        "webhook_endpoints": [
+          "10.42.0.174"
+        ],
+        "worker_nodes": [
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node-1",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node2",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node3",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          }
+        ]
+      },
+      "pre_health": {
+        "checked_at_utc": "2026-07-19T15:23:45+00:00",
+        "label": "rep01_bilstm_direct_attempt01_pre",
+        "readyz": "ok",
+        "readyz_samples": [
+          {
+            "check": 1,
+            "checked_at_utc": "2026-07-19T15:23:25+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 2,
+            "checked_at_utc": "2026-07-19T15:23:33+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 3,
+            "checked_at_utc": "2026-07-19T15:23:40+00:00",
+            "readyz": "ok"
+          }
+        ],
+        "webhook_endpoints": [
+          "10.42.0.174"
+        ],
+        "worker_nodes": [
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node-1",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node2",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node3",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          }
+        ]
+      },
+      "repetition": 1,
+      "repetition_order": [
+        "kpa",
+        "hpa",
+        "ets_direct",
+        "bilstm_direct",
+        "transformer_direct",
+        "ets_kpa",
+        "bilstm_kpa"
+      ],
+      "run_id": "stage2_bilstm_direct_rep01_attempt01_s11708_180min_seven_baselines_currentci_1rep_20260719_1315",
+      "seed": 42,
+      "started_at_utc": "2026-07-19T15:23:22+00:00"
+    },
+    {
+      "attempt": 1,
+      "finished_at_utc": "2026-07-19T21:47:43+00:00",
+      "method": "transformer_direct",
+      "passed": true,
+      "post_health": {
+        "checked_at_utc": "2026-07-19T21:54:05+00:00",
+        "label": "rep01_transformer_direct_attempt01_post",
+        "readyz": "ok",
+        "readyz_samples": [
+          {
+            "check": 1,
+            "checked_at_utc": "2026-07-19T21:53:50+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 2,
+            "checked_at_utc": "2026-07-19T21:53:56+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 3,
+            "checked_at_utc": "2026-07-19T21:54:03+00:00",
+            "readyz": "ok"
+          }
+        ],
+        "webhook_endpoints": [
+          "10.42.0.174"
+        ],
+        "worker_nodes": [
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node-1",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node2",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node3",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          }
+        ]
+      },
+      "pre_health": {
+        "checked_at_utc": "2026-07-19T18:39:25+00:00",
+        "label": "rep01_transformer_direct_attempt01_pre",
+        "readyz": "ok",
+        "readyz_samples": [
+          {
+            "check": 1,
+            "checked_at_utc": "2026-07-19T18:39:09+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 2,
+            "checked_at_utc": "2026-07-19T18:39:15+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 3,
+            "checked_at_utc": "2026-07-19T18:39:23+00:00",
+            "readyz": "ok"
+          }
+        ],
+        "webhook_endpoints": [
+          "10.42.0.174"
+        ],
+        "worker_nodes": [
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node-1",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node2",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node3",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          }
+        ]
+      },
+      "repetition": 1,
+      "repetition_order": [
+        "kpa",
+        "hpa",
+        "ets_direct",
+        "bilstm_direct",
+        "transformer_direct",
+        "ets_kpa",
+        "bilstm_kpa"
+      ],
+      "run_id": "stage2_transformer_direct_rep01_attempt01_s11708_180min_seven_baselines_currentci_1rep_20260719_1315",
+      "seed": 42,
+      "started_at_utc": "2026-07-19T18:39:05+00:00"
+    },
+    {
+      "attempt": 1,
+      "finished_at_utc": "2026-07-20T01:05:15+00:00",
+      "method": "ets_kpa",
+      "passed": true,
+      "post_health": {
+        "checked_at_utc": "2026-07-20T01:11:54+00:00",
+        "label": "rep01_ets_kpa_attempt01_post",
+        "readyz": "ok",
+        "readyz_samples": [
+          {
+            "check": 1,
+            "checked_at_utc": "2026-07-20T01:11:39+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 2,
+            "checked_at_utc": "2026-07-20T01:11:46+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 3,
+            "checked_at_utc": "2026-07-20T01:11:52+00:00",
+            "readyz": "ok"
+          }
+        ],
+        "webhook_endpoints": [
+          "10.42.0.174"
+        ],
+        "worker_nodes": [
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node-1",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node2",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node3",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          }
+        ]
+      },
+      "pre_health": {
+        "checked_at_utc": "2026-07-19T21:54:28+00:00",
+        "label": "rep01_ets_kpa_attempt01_pre",
+        "readyz": "ok",
+        "readyz_samples": [
+          {
+            "check": 1,
+            "checked_at_utc": "2026-07-19T21:54:09+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 2,
+            "checked_at_utc": "2026-07-19T21:54:16+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 3,
+            "checked_at_utc": "2026-07-19T21:54:25+00:00",
+            "readyz": "ok"
+          }
+        ],
+        "webhook_endpoints": [
+          "10.42.0.174"
+        ],
+        "worker_nodes": [
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node-1",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node2",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node3",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          }
+        ]
+      },
+      "repetition": 1,
+      "repetition_order": [
+        "kpa",
+        "hpa",
+        "ets_direct",
+        "bilstm_direct",
+        "transformer_direct",
+        "ets_kpa",
+        "bilstm_kpa"
+      ],
+      "run_id": "stage2_ets_kpa_rep01_attempt01_s11708_180min_seven_baselines_currentci_1rep_20260719_1315",
+      "seed": 42,
+      "started_at_utc": "2026-07-19T21:54:05+00:00"
+    },
+    {
+      "attempt": 1,
+      "finished_at_utc": "2026-07-20T04:22:34+00:00",
+      "method": "bilstm_kpa",
+      "passed": true,
+      "post_health": {
+        "checked_at_utc": "2026-07-20T04:29:07+00:00",
+        "label": "rep01_bilstm_kpa_attempt01_post",
+        "readyz": "ok",
+        "readyz_samples": [
+          {
+            "check": 1,
+            "checked_at_utc": "2026-07-20T04:28:51+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 2,
+            "checked_at_utc": "2026-07-20T04:28:58+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 3,
+            "checked_at_utc": "2026-07-20T04:29:05+00:00",
+            "readyz": "ok"
+          }
+        ],
+        "webhook_endpoints": [
+          "10.42.0.174"
+        ],
+        "worker_nodes": [
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node-1",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node2",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node3",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          }
+        ]
+      },
+      "pre_health": {
+        "checked_at_utc": "2026-07-20T01:12:14+00:00",
+        "label": "rep01_bilstm_kpa_attempt01_pre",
+        "readyz": "ok",
+        "readyz_samples": [
+          {
+            "check": 1,
+            "checked_at_utc": "2026-07-20T01:11:57+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 2,
+            "checked_at_utc": "2026-07-20T01:12:04+00:00",
+            "readyz": "ok"
+          },
+          {
+            "check": 3,
+            "checked_at_utc": "2026-07-20T01:12:10+00:00",
+            "readyz": "ok"
+          }
+        ],
+        "webhook_endpoints": [
+          "10.42.0.174"
+        ],
+        "worker_nodes": [
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node-1",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node2",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "message": "kubelet is posting ready status",
+            "node": "llm-node3",
+            "ready": true,
+            "ready_status": "True",
+            "reason": "KubeletReady"
+          }
+        ]
+      },
+      "repetition": 1,
+      "repetition_order": [
+        "kpa",
+        "hpa",
+        "ets_direct",
+        "bilstm_direct",
+        "transformer_direct",
+        "ets_kpa",
+        "bilstm_kpa"
+      ],
+      "run_id": "stage2_bilstm_kpa_rep01_attempt01_s11708_180min_seven_baselines_currentci_1rep_20260719_1315",
+      "seed": 42,
+      "started_at_utc": "2026-07-20T01:11:54+00:00"
+    }
+  ],
+  "final_health": {
+    "checked_at_utc": "2026-07-20T04:29:28+00:00",
+    "label": "final",
+    "readyz": "ok",
+    "readyz_samples": [
+      {
+        "check": 1,
+        "checked_at_utc": "2026-07-20T04:29:10+00:00",
+        "readyz": "ok"
+      },
+      {
+        "check": 2,
+        "checked_at_utc": "2026-07-20T04:29:20+00:00",
+        "readyz": "ok"
+      },
+      {
+        "check": 3,
+        "checked_at_utc": "2026-07-20T04:29:26+00:00",
+        "readyz": "ok"
+      }
+    ],
+    "webhook_endpoints": [
+      "10.42.0.174"
+    ],
+    "worker_nodes": [
+      {
+        "message": "kubelet is posting ready status",
+        "node": "llm-node-1",
+        "ready": true,
+        "ready_status": "True",
+        "reason": "KubeletReady"
+      },
+      {
+        "message": "kubelet is posting ready status",
+        "node": "llm-node2",
+        "ready": true,
+        "ready_status": "True",
+        "reason": "KubeletReady"
+      },
+      {
+        "message": "kubelet is posting ready status",
+        "node": "llm-node3",
+        "ready": true,
+        "ready_status": "True",
+        "reason": "KubeletReady"
+      }
+    ]
+  },
+  "finished_at_utc": "2026-07-20T04:29:07+00:00",
+  "formal_repetition_order_indexes": {
+    "1": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "2": [
+      3,
+      6,
+      0,
+      5,
+      1,
+      4,
+      2
+    ],
+    "3": [
+      5,
+      2,
+      4,
+      1,
+      6,
+      0,
+      3
+    ]
+  },
+  "formal_repetition_seeds": {
+    "1": 42
+  },
+  "frozen_inputs": {
+    "carbon": {
+      "carbon_lookup_window_seconds": 60.0,
+      "ci_time_scale": 8.0,
+      "ci_trace_start": "2025-09-20 00:00:00+00:00",
+      "ci_window_seconds": 480.0,
+      "first_timestamp": "2025-09-20T00:00:00.000000",
+      "last_timestamp": "2025-09-20T23:55:00.000000",
+      "rows": 288
+    },
+    "checked_at_utc": "2026-07-19T05:24:19+00:00",
+    "paths": {
+      "baseline_metrics": {
+        "bytes": 32333,
+        "path": "/home/artifact/online_experiment/baseline_metrics.py",
+        "sha256": "04610e90c9ade0693c0c5a5b99e551b2f33edebf98d92375d7229249036e123f"
+      },
+      "bilstm_direct_runner": {
+        "bytes": 34870,
+        "path": "/home/artifact/online_experiment/code/run_bilstm_baseline_tplus2.py",
+        "sha256": "c5ffb967982e6495c097f7145295513653144690440158e713be7e0b1fa363bd"
+      },
+      "bilstm_kpa_runner": {
+        "bytes": 70915,
+        "path": "/home/artifact/online_experiment/code/run_bilstm_kpa_baseline_tplus2.py",
+        "sha256": "4fb5f2104c47d2114da9c49d257558a3e319f5c4bec06052b6ae5fef6996d72c"
+      },
+      "bilstm_model": {
+        "bytes": 176671,
+        "path": "/home/artifact/online_experiment/code/bilstm_autoscaler_model.pt",
+        "sha256": "1169265b85f9a2111b62f98b61206e1a9affcb5e6c1fc4def38dd46a257f92fc"
+      },
+      "carbon_csv": {
+        "bytes": 37573,
+        "path": "/home/artifact/online_experiment/stage2/data/carbon_intensity_ie_2025-09-20_24h.csv",
+        "sha256": "0583b07dd9640e46c7128c8afefb697126609f5a7e11d65440c1139dcc331707"
+      },
+      "decision": {
+        "bytes": 18030,
+        "path": "/home/artifact/online_experiment/decision.py",
+        "sha256": "cf26158343751d9669c664c27c7ab935a006d44fcc9ae7785d517ee6c90b98f9"
+      },
+      "ets_config": {
+        "bytes": 1513,
+        "path": "/home/artifact/online_experiment/results/ets_best_config.json",
+        "sha256": "8f12d3357e3b4eaed2ab34d94dcfaf4c331f1805e2b9ff03c0f3f7fde37348f8"
+      },
+      "ets_direct_runner": {
+        "bytes": 34842,
+        "path": "/home/artifact/online_experiment/code/run_ets_baseline_tplus2.py",
+        "sha256": "bfc3e73f60528cb32dc485447fcfad8c98df77bd512d60ada7fdbc812c0d385d"
+      },
+      "ets_kpa_runner": {
+        "bytes": 57816,
+        "path": "/home/artifact/online_experiment/code/run_ets_kpa_baseline_tplus2.py",
+        "sha256": "11408f7cd0c27731bc6a4a7b5f667ddc1107373617f312f045b687cc26346289"
+      },
+      "frozen_protocol": {
+        "bytes": 14084,
+        "path": "/home/artifact/online_experiment/stage2/FROZEN_PROTOCOL.md",
+        "sha256": "e69377efeb3ef814358d9eff26b61b0856b4bad781b39b7be886184384076a6c"
+      },
+      "hpa_runner": {
+        "bytes": 11152,
+        "path": "/home/artifact/online_experiment/run_hpa_baseline.py",
+        "sha256": "8598031e004128f137162d2b62beda12939eb49094886ecf9577db40136ead3a"
+      },
+      "inference": {
+        "bytes": 8372,
+        "path": "/home/artifact/online_experiment/inference.py",
+        "sha256": "ce9c7bfac0200031ffb2696137c1fd8cf72725e7464483f8751a2f571d8abf3e"
+      },
+      "kpa_runner": {
+        "bytes": 8396,
+        "path": "/home/artifact/online_experiment/run_kpa_baseline.py",
+        "sha256": "c0734f025a0aac1c215edc8e39f78c68b0f8577de02e667cd2548b3fcffce37f"
+      },
+      "prometheus_energy": {
+        "bytes": 37709,
+        "path": "/home/artifact/online_experiment/prometheus_energy_metrics.py",
+        "sha256": "c10bf4d86304042a6f224eddb6a4dcbbed4364f8376274e06a225df59a951bc8"
+      },
+      "sanity_runner": {
+        "bytes": 60629,
+        "path": "/home/artifact/online_experiment/run_e2e_sanity_check.py",
+        "sha256": "3c0326c13c0b64157a196afdead072b8e359007bacca70d9bd5cf1c014d80f78"
+      },
+      "stage2_controller": {
+        "bytes": 98942,
+        "path": "/home/artifact/online_experiment/stage2/controller_stage2.py",
+        "sha256": "74a14f2da5da453fe07f281cfc5d398506cf79b1704dab8191433f02479ea41a"
+      },
+      "stage2_runner": {
+        "bytes": 101133,
+        "path": "/home/artifact/online_experiment/stage2/run_stage2_baselines_x3.py",
+        "sha256": "3ab8c83f2efef95969cc4755c323e76268759b63a504c3172692b905994dc3e1"
+      },
+      "train_workload": {
+        "bytes": 1488557,
+        "path": "/home/artifact/online_experiment/data/train_workload_burst.csv",
+        "sha256": "da94c42c435a36c9bdca1ee4ffa018c6f2f3b9e5234e6881600ad9008d48b777"
+      },
+      "transformer_model": {
+        "bytes": 7922562,
+        "path": "/home/artifact/online_experiment/checkpoints_transformer_h2/best_model.pt",
+        "sha256": "b893c709ef4bbb245fe9d53883d9a24cfeb0f8cc45c2661714cc6b19fd5705ae"
+      },
+      "workload": {
+        "bytes": 760963,
+        "path": "/home/artifact/online_experiment/data/test_workload_burst.csv",
+        "sha256": "09fa4f32746e6851315f1e7c6fa90288b27d6ed792626f7133490811fe9c982b"
+      },
+      "workload_replayer": {
+        "bytes": 21398,
+        "path": "/home/artifact/online_experiment/workload_replayer.py",
+        "sha256": "ececd703d1ad01851d64cf1f7269dee4056f2599e2fb1ad19cbdaa7319129341"
+      },
+      "yaml_bilstm_direct": {
+        "bytes": 3032,
+        "path": "/home/artifact/online_experiment/stage2/yamls/qwen-bilstm.yaml",
+        "sha256": "1ead6a7e90b0fa5940c6f964ec9bacf08d5293a1e2b944ec204c3a0340ecdbe4"
+      },
+      "yaml_bilstm_kpa": {
+        "bytes": 3034,
+        "path": "/home/artifact/online_experiment/stage2/yamls/qwen-bilstm-kpa.yaml",
+        "sha256": "89567f1e2a4e4b0dc28d540ffe2895ba3533e707ed8dfbe7867221424bc2d6a3"
+      },
+      "yaml_ets_direct": {
+        "bytes": 3029,
+        "path": "/home/artifact/online_experiment/stage2/yamls/qwen-ets.yaml",
+        "sha256": "072f45ecfc398be7f8ad14396daf4119f4e5fff7d5e63d4b4b3204f580775c52"
+      },
+      "yaml_ets_kpa": {
+        "bytes": 3031,
+        "path": "/home/artifact/online_experiment/stage2/yamls/qwen-ets-kpa.yaml",
+        "sha256": "8a2f1a717c493e91cca02e40873661abd311a45b2386bf8f6a8fbc659100993e"
+      },
+      "yaml_hpa": {
+        "bytes": 3021,
+        "path": "/home/artifact/online_experiment/stage2/yamls/qwen-hpa.yaml",
+        "sha256": "f4f000b1c53ad9646d83f564257fd0c540cb1c52ab2c2bfbf4fa26ddbaca71d6"
+      },
+      "yaml_kpa": {
+        "bytes": 3028,
+        "path": "/home/artifact/online_experiment/stage2/yamls/qwen-kpa.yaml",
+        "sha256": "3e92ed6380f27c1975afa29be38b79ded86315caeffa4567ce7368145f607ffc"
+      },
+      "yaml_proposed": {
+        "bytes": 3037,
+        "path": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml",
+        "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d"
+      },
+      "yaml_proposed_current_queue": {
+        "bytes": 3037,
+        "path": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml",
+        "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d"
+      },
+      "yaml_proposed_no_queue": {
+        "bytes": 3037,
+        "path": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml",
+        "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d"
+      },
+      "yaml_proposed_oracle": {
+        "bytes": 3037,
+        "path": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml",
+        "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d"
+      },
+      "yaml_proposed_ready_queue": {
+        "bytes": 3037,
+        "path": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml",
+        "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d"
+      },
+      "yaml_transformer_direct": {
+        "bytes": 3037,
+        "path": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml",
+        "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d"
+      }
+    },
+    "workload": {
+      "decision_windows": 180,
+      "first_window_id": 87309,
+      "last_window_id": 87488,
+      "start_row": 11708
+    }
+  },
+  "hpa_metrics_preflight": {
+    "checked_at_utc": "2026-07-19T05:25:11+00:00",
+    "label": "batch_start_hpa_metrics",
+    "metrics_api": {
+      "available": true,
+      "last_transition_time": "2026-07-18T03:15:38Z",
+      "message": "all checks passed",
+      "reason": "Passed",
+      "status": "True"
+    },
+    "metrics_server_endpoints": [
+      "10.42.0.178"
+    ],
+    "top_nodes": "NAME         CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   \nllm-node     1634m        27%      3696Mi          46%         \nllm-node-1   136m         2%       1165Mi          14%         \nllm-node2    70m          1%       1198Mi          15%         \nllm-node3    176m         2%       1167Mi          14%"
+  },
+  "image_precheck": {
+    "expected_image": "ko.local/qwen-local@sha256:b48add5d8f2db57bcb85e1c58992eb6519d5d17aed7143b67de108b88160d76d",
+    "expected_nodes": [
+      "llm-node-1",
+      "llm-node2",
+      "llm-node3"
+    ],
+    "finished_at_utc": "2026-07-19T05:24:51+00:00",
+    "image_pull_policy": "Never",
+    "node_image_digests": {
+      "llm-node-1": "b48add5d8f2db57bcb85e1c58992eb6519d5d17aed7143b67de108b88160d76d",
+      "llm-node2": "b48add5d8f2db57bcb85e1c58992eb6519d5d17aed7143b67de108b88160d76d",
+      "llm-node3": "b48add5d8f2db57bcb85e1c58992eb6519d5d17aed7143b67de108b88160d76d"
+    },
+    "node_image_ids": {
+      "llm-node-1": "ko.local/qwen-local@sha256:b48add5d8f2db57bcb85e1c58992eb6519d5d17aed7143b67de108b88160d76d",
+      "llm-node2": "ko.local/qwen-local@sha256:b48add5d8f2db57bcb85e1c58992eb6519d5d17aed7143b67de108b88160d76d",
+      "llm-node3": "ko.local/qwen-local@sha256:b48add5d8f2db57bcb85e1c58992eb6519d5d17aed7143b67de108b88160d76d"
+    },
+    "node_observations": [
+      {
+        "message": "kubelet is posting ready status",
+        "node": "llm-node-1",
+        "ready": true,
+        "ready_status": "True",
+        "reason": "KubeletReady"
+      },
+      {
+        "message": "kubelet is posting ready status",
+        "node": "llm-node2",
+        "ready": true,
+        "ready_status": "True",
+        "reason": "KubeletReady"
+      },
+      {
+        "message": "kubelet is posting ready status",
+        "node": "llm-node3",
+        "ready": true,
+        "ready_status": "True",
+        "reason": "KubeletReady"
+      }
+    ],
+    "observations": [
+      {
+        "image_id": "ko.local/qwen-local@sha256:b48add5d8f2db57bcb85e1c58992eb6519d5d17aed7143b67de108b88160d76d",
+        "node": "llm-node-1",
+        "phase": "Running",
+        "pod": "qwen-image-precheck-llm-node-1",
+        "ready": true,
+        "runtime_digest": "b48add5d8f2db57bcb85e1c58992eb6519d5d17aed7143b67de108b88160d76d",
+        "runtime_image": "ko.local/qwen-local:v1",
+        "spec_image": "ko.local/qwen-local@sha256:b48add5d8f2db57bcb85e1c58992eb6519d5d17aed7143b67de108b88160d76d",
+        "state": {
+          "running": {
+            "startedAt": "2026-07-19T05:24:45Z"
+          }
+        }
+      },
+      {
+        "image_id": "ko.local/qwen-local@sha256:b48add5d8f2db57bcb85e1c58992eb6519d5d17aed7143b67de108b88160d76d",
+        "node": "llm-node2",
+        "phase": "Running",
+        "pod": "qwen-image-precheck-llm-node2",
+        "ready": true,
+        "runtime_digest": "b48add5d8f2db57bcb85e1c58992eb6519d5d17aed7143b67de108b88160d76d",
+        "runtime_image": "ko.local/qwen-local:v1",
+        "spec_image": "ko.local/qwen-local@sha256:b48add5d8f2db57bcb85e1c58992eb6519d5d17aed7143b67de108b88160d76d",
+        "state": {
+          "running": {
+            "startedAt": "2026-07-19T05:24:21Z"
+          }
+        }
+      },
+      {
+        "image_id": "ko.local/qwen-local@sha256:b48add5d8f2db57bcb85e1c58992eb6519d5d17aed7143b67de108b88160d76d",
+        "node": "llm-node3",
+        "phase": "Running",
+        "pod": "qwen-image-precheck-llm-node3",
+        "ready": true,
+        "runtime_digest": "b48add5d8f2db57bcb85e1c58992eb6519d5d17aed7143b67de108b88160d76d",
+        "runtime_image": "ko.local/qwen-local:v1",
+        "spec_image": "ko.local/qwen-local@sha256:b48add5d8f2db57bcb85e1c58992eb6519d5d17aed7143b67de108b88160d76d",
+        "state": {
+          "running": {
+            "startedAt": "2026-07-19T05:24:46Z"
+          }
+        }
+      }
+    ],
+    "passed": true,
+    "started_at_utc": "2026-07-19T05:24:19+00:00"
+  },
+  "initial_health": {
+    "checked_at_utc": "2026-07-19T05:25:52+00:00",
+    "label": "initial",
+    "readyz": "ok",
+    "readyz_samples": [
+      {
+        "check": 1,
+        "checked_at_utc": "2026-07-19T05:25:27+00:00",
+        "readyz": "ok"
+      },
+      {
+        "check": 2,
+        "checked_at_utc": "2026-07-19T05:25:36+00:00",
+        "readyz": "ok"
+      },
+      {
+        "check": 3,
+        "checked_at_utc": "2026-07-19T05:25:48+00:00",
+        "readyz": "ok"
+      }
+    ],
+    "webhook_endpoints": [
+      "10.42.0.174"
+    ],
+    "worker_nodes": [
+      {
+        "message": "kubelet is posting ready status",
+        "node": "llm-node-1",
+        "ready": true,
+        "ready_status": "True",
+        "reason": "KubeletReady"
+      },
+      {
+        "message": "kubelet is posting ready status",
+        "node": "llm-node2",
+        "ready": true,
+        "ready_status": "True",
+        "reason": "KubeletReady"
+      },
+      {
+        "message": "kubelet is posting ready status",
+        "node": "llm-node3",
+        "ready": true,
+        "ready_status": "True",
+        "reason": "KubeletReady"
+      }
+    ]
+  },
+  "passed": true,
+  "repetitions": 1,
+  "resume_count": 0,
+  "selected_methods": [
+    "kpa",
+    "hpa",
+    "ets_direct",
+    "bilstm_direct",
+    "transformer_direct",
+    "ets_kpa",
+    "bilstm_kpa"
+  ],
+  "started_at_utc": "2026-07-19T05:24:19+00:00",
+  "workload": "/home/artifact/online_experiment/data/test_workload_burst.csv",
+  "yaml_contract": [
+    {
+      "args": {
+        "--cache-ram": "0",
+        "--parallel": "2",
+        "--threads-batch": "2",
+        "-c": "4096",
+        "-t": "2"
+      },
+      "container_concurrency": 2,
+      "cpu_limit": "2",
+      "cpu_request": "2",
+      "flags": [
+        "--ignore-eos",
+        "--no-cache-prompt"
+      ],
+      "max_scale": 4,
+      "method": "kpa",
+      "min_scale": 2,
+      "yaml": "/home/artifact/online_experiment/stage2/yamls/qwen-kpa.yaml"
+    },
+    {
+      "args": {
+        "--cache-ram": "0",
+        "--parallel": "2",
+        "--threads-batch": "2",
+        "-c": "4096",
+        "-t": "2"
+      },
+      "container_concurrency": 2,
+      "cpu_limit": "2",
+      "cpu_request": "2",
+      "flags": [
+        "--ignore-eos",
+        "--no-cache-prompt"
+      ],
+      "max_scale": 4,
+      "method": "hpa",
+      "min_scale": 2,
+      "yaml": "/home/artifact/online_experiment/stage2/yamls/qwen-hpa.yaml"
+    },
+    {
+      "args": {
+        "--cache-ram": "0",
+        "--parallel": "2",
+        "--threads-batch": "2",
+        "-c": "4096",
+        "-t": "2"
+      },
+      "container_concurrency": 2,
+      "cpu_limit": "2",
+      "cpu_request": "2",
+      "flags": [
+        "--ignore-eos",
+        "--no-cache-prompt"
+      ],
+      "max_scale": 4,
+      "method": "ets_direct",
+      "min_scale": 2,
+      "yaml": "/home/artifact/online_experiment/stage2/yamls/qwen-ets.yaml"
+    },
+    {
+      "args": {
+        "--cache-ram": "0",
+        "--parallel": "2",
+        "--threads-batch": "2",
+        "-c": "4096",
+        "-t": "2"
+      },
+      "container_concurrency": 2,
+      "cpu_limit": "2",
+      "cpu_request": "2",
+      "flags": [
+        "--ignore-eos",
+        "--no-cache-prompt"
+      ],
+      "max_scale": 4,
+      "method": "bilstm_direct",
+      "min_scale": 2,
+      "yaml": "/home/artifact/online_experiment/stage2/yamls/qwen-bilstm.yaml"
+    },
+    {
+      "args": {
+        "--cache-ram": "0",
+        "--parallel": "2",
+        "--threads-batch": "2",
+        "-c": "4096",
+        "-t": "2"
+      },
+      "container_concurrency": 2,
+      "cpu_limit": "2",
+      "cpu_request": "2",
+      "flags": [
+        "--ignore-eos",
+        "--no-cache-prompt"
+      ],
+      "max_scale": 4,
+      "method": "transformer_direct",
+      "min_scale": 2,
+      "yaml": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml"
+    },
+    {
+      "args": {
+        "--cache-ram": "0",
+        "--parallel": "2",
+        "--threads-batch": "2",
+        "-c": "4096",
+        "-t": "2"
+      },
+      "container_concurrency": 2,
+      "cpu_limit": "2",
+      "cpu_request": "2",
+      "flags": [
+        "--ignore-eos",
+        "--no-cache-prompt"
+      ],
+      "max_scale": 4,
+      "method": "ets_kpa",
+      "min_scale": 2,
+      "yaml": "/home/artifact/online_experiment/stage2/yamls/qwen-ets-kpa.yaml"
+    },
+    {
+      "args": {
+        "--cache-ram": "0",
+        "--parallel": "2",
+        "--threads-batch": "2",
+        "-c": "4096",
+        "-t": "2"
+      },
+      "container_concurrency": 2,
+      "cpu_limit": "2",
+      "cpu_request": "2",
+      "flags": [
+        "--ignore-eos",
+        "--no-cache-prompt"
+      ],
+      "max_scale": 4,
+      "method": "bilstm_kpa",
+      "min_scale": 2,
+      "yaml": "/home/artifact/online_experiment/stage2/yamls/qwen-bilstm-kpa.yaml"
+    }
+  ],
+  "yaml_image_precheck": [
+    {
+      "image": "ko.local/qwen-local@sha256:b48add5d8f2db57bcb85e1c58992eb6519d5d17aed7143b67de108b88160d76d",
+      "image_pull_policy": "Never",
+      "method": "kpa",
+      "yaml": "/home/artifact/online_experiment/stage2/yamls/qwen-kpa.yaml"
+    },
+    {
+      "image": "ko.local/qwen-local@sha256:b48add5d8f2db57bcb85e1c58992eb6519d5d17aed7143b67de108b88160d76d",
+      "image_pull_policy": "Never",
+      "method": "hpa",
+      "yaml": "/home/artifact/online_experiment/stage2/yamls/qwen-hpa.yaml"
+    },
+    {
+      "image": "ko.local/qwen-local@sha256:b48add5d8f2db57bcb85e1c58992eb6519d5d17aed7143b67de108b88160d76d",
+      "image_pull_policy": "Never",
+      "method": "ets_direct",
+      "yaml": "/home/artifact/online_experiment/stage2/yamls/qwen-ets.yaml"
+    },
+    {
+      "image": "ko.local/qwen-local@sha256:b48add5d8f2db57bcb85e1c58992eb6519d5d17aed7143b67de108b88160d76d",
+      "image_pull_policy": "Never",
+      "method": "bilstm_direct",
+      "yaml": "/home/artifact/online_experiment/stage2/yamls/qwen-bilstm.yaml"
+    },
+    {
+      "image": "ko.local/qwen-local@sha256:b48add5d8f2db57bcb85e1c58992eb6519d5d17aed7143b67de108b88160d76d",
+      "image_pull_policy": "Never",
+      "method": "transformer_direct",
+      "yaml": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml"
+    },
+    {
+      "image": "ko.local/qwen-local@sha256:b48add5d8f2db57bcb85e1c58992eb6519d5d17aed7143b67de108b88160d76d",
+      "image_pull_policy": "Never",
+      "method": "ets_kpa",
+      "yaml": "/home/artifact/online_experiment/stage2/yamls/qwen-ets-kpa.yaml"
+    },
+    {
+      "image": "ko.local/qwen-local@sha256:b48add5d8f2db57bcb85e1c58992eb6519d5d17aed7143b67de108b88160d76d",
+      "image_pull_policy": "Never",
+      "method": "bilstm_kpa",
+      "yaml": "/home/artifact/online_experiment/stage2/yamls/qwen-bilstm-kpa.yaml"
+    }
+  ]
+}

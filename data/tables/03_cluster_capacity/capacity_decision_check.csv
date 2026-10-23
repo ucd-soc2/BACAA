@@ -1,0 +1,6 @@
+load_requests_per_min,n_runs,all_success_rates_ge_99_9_pct,zero_status0_requests,zero_pod_restarts,meets_conservative_criteria
+46,3,True,True,True,True
+48,3,True,True,True,True
+50,3,True,True,True,True
+52,3,True,False,False,False
+54,3,True,True,True,True

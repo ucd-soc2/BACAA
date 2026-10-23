@@ -1,0 +1,181 @@
+{
+  "copied_files": {
+    "baseline_metrics": {
+      "bytes": 32333,
+      "sha256": "04610e90c9ade0693c0c5a5b99e551b2f33edebf98d92375d7229249036e123f",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/baseline_metrics.py",
+      "source": "/home/artifact/online_experiment/baseline_metrics.py"
+    },
+    "bilstm_direct_runner": {
+      "bytes": 34870,
+      "sha256": "c5ffb967982e6495c097f7145295513653144690440158e713be7e0b1fa363bd",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/code/run_bilstm_baseline_tplus2.py",
+      "source": "/home/artifact/online_experiment/code/run_bilstm_baseline_tplus2.py"
+    },
+    "bilstm_kpa_runner": {
+      "bytes": 74040,
+      "sha256": "12f226380cfe724e6fc802ec970ff131d17fb35490ebbaea74ab3adf717a414b",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/code/run_bilstm_kpa_baseline_tplus2.py",
+      "source": "/home/artifact/online_experiment/code/run_bilstm_kpa_baseline_tplus2.py"
+    },
+    "carbon_csv": {
+      "bytes": 37573,
+      "sha256": "0583b07dd9640e46c7128c8afefb697126609f5a7e11d65440c1139dcc331707",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/stage2/data/carbon_intensity_ie_2025-09-20_24h.csv",
+      "source": "/home/artifact/online_experiment/stage2/data/carbon_intensity_ie_2025-09-20_24h.csv"
+    },
+    "decision": {
+      "bytes": 18030,
+      "sha256": "cf26158343751d9669c664c27c7ab935a006d44fcc9ae7785d517ee6c90b98f9",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/decision.py",
+      "source": "/home/artifact/online_experiment/decision.py"
+    },
+    "ets_config": {
+      "bytes": 1513,
+      "sha256": "8f12d3357e3b4eaed2ab34d94dcfaf4c331f1805e2b9ff03c0f3f7fde37348f8",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/results/ets_best_config.json",
+      "source": "/home/artifact/online_experiment/results/ets_best_config.json"
+    },
+    "ets_direct_runner": {
+      "bytes": 34842,
+      "sha256": "bfc3e73f60528cb32dc485447fcfad8c98df77bd512d60ada7fdbc812c0d385d",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/code/run_ets_baseline_tplus2.py",
+      "source": "/home/artifact/online_experiment/code/run_ets_baseline_tplus2.py"
+    },
+    "ets_kpa_runner": {
+      "bytes": 60925,
+      "sha256": "66ff244c582ba912942fea5f4e5724d3281efba229ac055153606918d7e74177",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/code/run_ets_kpa_baseline_tplus2.py",
+      "source": "/home/artifact/online_experiment/code/run_ets_kpa_baseline_tplus2.py"
+    },
+    "frozen_protocol": {
+      "bytes": 14084,
+      "sha256": "e69377efeb3ef814358d9eff26b61b0856b4bad781b39b7be886184384076a6c",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/stage2/FROZEN_PROTOCOL.md",
+      "source": "/home/artifact/online_experiment/stage2/FROZEN_PROTOCOL.md"
+    },
+    "hpa_runner": {
+      "bytes": 11152,
+      "sha256": "8598031e004128f137162d2b62beda12939eb49094886ecf9577db40136ead3a",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/run_hpa_baseline.py",
+      "source": "/home/artifact/online_experiment/run_hpa_baseline.py"
+    },
+    "inference": {
+      "bytes": 11486,
+      "sha256": "847025e7302a838ed4eae0c5433542495e5b8819720cbff378aff191eccec6fe",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/inference.py",
+      "source": "/home/artifact/online_experiment/inference.py"
+    },
+    "kpa_runner": {
+      "bytes": 8396,
+      "sha256": "c0734f025a0aac1c215edc8e39f78c68b0f8577de02e667cd2548b3fcffce37f",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/run_kpa_baseline.py",
+      "source": "/home/artifact/online_experiment/run_kpa_baseline.py"
+    },
+    "prometheus_energy": {
+      "bytes": 37709,
+      "sha256": "c10bf4d86304042a6f224eddb6a4dcbbed4364f8376274e06a225df59a951bc8",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/prometheus_energy_metrics.py",
+      "source": "/home/artifact/online_experiment/prometheus_energy_metrics.py"
+    },
+    "sanity_runner": {
+      "bytes": 61043,
+      "sha256": "bda0fe1646957deed8619fa73cc6253629ba343dbd93cd350d3ec457248c22c3",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/run_e2e_sanity_check.py",
+      "source": "/home/artifact/online_experiment/run_e2e_sanity_check.py"
+    },
+    "stage2_controller": {
+      "bytes": 105363,
+      "sha256": "b95b265f2943d7cf123166ff028b3b8a041ecd6d7e89e2ae4284d84cb7f8e4d1",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/stage2/controller_stage2.py",
+      "source": "/home/artifact/online_experiment/stage2/controller_stage2.py"
+    },
+    "stage2_runner": {
+      "bytes": 132408,
+      "sha256": "b4a7577b75cff052878c10c2637f94a68fdb0565e0769d198f049203316c0b5c",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/stage2/run_stage2_baselines_x3.py",
+      "source": "/home/artifact/online_experiment/stage2/run_stage2_baselines_x3.py"
+    },
+    "workload_replayer": {
+      "bytes": 21398,
+      "sha256": "ececd703d1ad01851d64cf1f7269dee4056f2599e2fb1ad19cbdaa7319129341",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/workload_replayer.py",
+      "source": "/home/artifact/online_experiment/workload_replayer.py"
+    },
+    "yaml_bilstm_direct": {
+      "bytes": 3032,
+      "sha256": "1ead6a7e90b0fa5940c6f964ec9bacf08d5293a1e2b944ec204c3a0340ecdbe4",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/stage2/yamls/qwen-bilstm.yaml",
+      "source": "/home/artifact/online_experiment/stage2/yamls/qwen-bilstm.yaml"
+    },
+    "yaml_bilstm_kpa": {
+      "bytes": 3034,
+      "sha256": "89567f1e2a4e4b0dc28d540ffe2895ba3533e707ed8dfbe7867221424bc2d6a3",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/stage2/yamls/qwen-bilstm-kpa.yaml",
+      "source": "/home/artifact/online_experiment/stage2/yamls/qwen-bilstm-kpa.yaml"
+    },
+    "yaml_ets_direct": {
+      "bytes": 3029,
+      "sha256": "072f45ecfc398be7f8ad14396daf4119f4e5fff7d5e63d4b4b3204f580775c52",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/stage2/yamls/qwen-ets.yaml",
+      "source": "/home/artifact/online_experiment/stage2/yamls/qwen-ets.yaml"
+    },
+    "yaml_ets_kpa": {
+      "bytes": 3031,
+      "sha256": "8a2f1a717c493e91cca02e40873661abd311a45b2386bf8f6a8fbc659100993e",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/stage2/yamls/qwen-ets-kpa.yaml",
+      "source": "/home/artifact/online_experiment/stage2/yamls/qwen-ets-kpa.yaml"
+    },
+    "yaml_hpa": {
+      "bytes": 3021,
+      "sha256": "f4f000b1c53ad9646d83f564257fd0c540cb1c52ab2c2bfbf4fa26ddbaca71d6",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/stage2/yamls/qwen-hpa.yaml",
+      "source": "/home/artifact/online_experiment/stage2/yamls/qwen-hpa.yaml"
+    },
+    "yaml_kpa": {
+      "bytes": 3028,
+      "sha256": "3e92ed6380f27c1975afa29be38b79ded86315caeffa4567ce7368145f607ffc",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/stage2/yamls/qwen-kpa.yaml",
+      "source": "/home/artifact/online_experiment/stage2/yamls/qwen-kpa.yaml"
+    },
+    "yaml_proposed": {
+      "bytes": 3037,
+      "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/stage2/yamls/qwen-transformer.yaml",
+      "source": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml"
+    },
+    "yaml_proposed_current_queue": {
+      "bytes": 3037,
+      "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/stage2/yamls/qwen-transformer.yaml",
+      "source": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml"
+    },
+    "yaml_proposed_no_queue": {
+      "bytes": 3037,
+      "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/stage2/yamls/qwen-transformer.yaml",
+      "source": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml"
+    },
+    "yaml_proposed_oracle": {
+      "bytes": 3037,
+      "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/stage2/yamls/qwen-transformer.yaml",
+      "source": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml"
+    },
+    "yaml_proposed_ready_queue": {
+      "bytes": 3037,
+      "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/stage2/yamls/qwen-transformer.yaml",
+      "source": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml"
+    },
+    "yaml_transformer_direct": {
+      "bytes": 3037,
+      "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d",
+      "snapshot": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/files/stage2/yamls/qwen-transformer.yaml",
+      "source": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml"
+    }
+  },
+  "created_at_utc": "2026-07-30T10:12:06+00:00",
+  "effective_args": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/effective_args.json",
+  "frozen_inputs": "/home/artifact/online_experiment/results/stage2_all_baselines_x3_s11708_180min_mu_sensitivity_proposed_mu15p00_pos20_cold55_no_preflight_gate_20260729_1518/config_snapshot/frozen_inputs.json"
+}

@@ -1,0 +1,1175 @@
++ /home/artifact/online_experiment/.venv/bin/python code/run_ets_baseline_tplus2.py --train-csv data/train_workload_burst.csv --test-csv /home/artifact/online_experiment/data/test_workload_burst.csv --ets-config-json results/ets_best_config.json --pod-capacity-per-window 12.5 --min-pods 1 --max-pods 4 --autoscale-target revision --revision-name qwen-00001 --ets-target 100 --first-patch-lead-seconds 1.0 --start-row 11708 --duration-minutes 180.0 --window-size-seconds 60.0 --seed 43 --timeout-seconds 60.0 --start-delay-seconds 30.0 --run-id stage2_ets_direct_rep02_attempt01_s11708_180min_six_baselines_currentci_x2_20260720_1724 --output-dir /home/artifact/online_experiment/results --save-request-log --collect-pod-metrics --metrics-poll-seconds 30.0 --pod-metrics-selector revision --pod-metrics-revision-name qwen-00001 --metrics-pod-capacity-per-window 12.5 --power-active-watts 3.46 --power-idle-watts 0.024 --cold-start-energy-joules 10.38 --carbon-intensity-csv stage2/data/carbon_intensity_ie_2025-09-20_24h.csv
+[ETS Config] loading offline-tuned config from results/ets_best_config.json
+[ETS Config] trend=none
+[ETS Config] seasonal=none
+[ETS Config] seasonal_periods=None
+[ETS Config] history_window_size=30
+[ETS Config] min_history_windows=5
+[ETS Config] prediction_horizon=2
+[ETS Config] smoothing_level=None
+[ETS Config] smoothing_trend=None
+[ETS Config] smoothing_seasonal=None
+[ETS Config] ignoring pod_capacity_per_window=12.5 from JSON; using live default/CLI value 12.5
+[ETS Config] ignoring min_pods=1 from JSON; using live default/CLI value 1
+[ETS Config] ignoring max_pods=4 from JSON; using live default/CLI value 4
+Loaded train history: 50400 windows from data/train_workload_burst.csv
+========== ETS predictive controller ==========
+service=qwen namespace=default
+actual_request_source=workload_replayer.poisson_generated
+window_size_seconds=60.0
+duration_minutes=180.0
+windows=180
+planned_end=2026-07-22 05:04:52.242179
+pod_capacity_per_window=12.5
+kubectl_cmd=kubectl
+autoscale_target=revision/qwen-00001
+ets_autoscaler_class=kpa.autoscaling.knative.dev
+ets_metric=concurrency
+ets_target=100
+record_scale_latency=False
+pod_range=[1, 4]
+prediction_horizon=2
+ets=trend=none, seasonal=none, seasonal_periods=None, smoothing_level=None, smoothing_trend=None, smoothing_seasonal=None
+========== Poisson workload replay ==========
+baseline_name=ets
+start_time=2026-07-22 02:04:22.410053
+csv=/home/artifact/online_experiment/data/test_workload_burst.csv
+url=http://192.168.10.101:31011/v1/chat/completions
+host=qwen.default.example.com
+request_column=requests_per_60s
+window_size_seconds=60.0
+duration_minutes=180.0
+windows=180
+scale=1.0
+seed=43
+run_id=stage2_ets_direct_rep02_attempt01_s11708_180min_six_baselines_currentci_x2_20260720_1724
+output_dir=/home/artifact/online_experiment/results
+[Schedule] local_window=0 csv_window_id=87309 timestamp=5238480 type=Periodic peaks expected=14.00 poisson_generated=14
+[Schedule] local_window=1 csv_window_id=87310 timestamp=5238540 type=Periodic peaks expected=10.00 poisson_generated=10
+[Schedule] local_window=2 csv_window_id=87311 timestamp=5238600 type=Periodic peaks expected=12.00 poisson_generated=12
+[Schedule] local_window=3 csv_window_id=87312 timestamp=5238660 type=Periodic peaks expected=10.00 poisson_generated=10
+[Schedule] local_window=4 csv_window_id=87313 timestamp=5238720 type=Periodic peaks expected=13.00 poisson_generated=13
+[Schedule] local_window=5 csv_window_id=87314 timestamp=5238780 type=Periodic peaks expected=9.00 poisson_generated=9
+[Schedule] local_window=6 csv_window_id=87315 timestamp=5238840 type=Periodic peaks expected=11.00 poisson_generated=11
+[Schedule] local_window=7 csv_window_id=87316 timestamp=5238900 type=Periodic peaks expected=11.00 poisson_generated=11
+[Schedule] local_window=8 csv_window_id=87317 timestamp=5238960 type=Periodic peaks expected=14.00 poisson_generated=14
+[Schedule] local_window=9 csv_window_id=87318 timestamp=5239020 type=Periodic peaks expected=11.00 poisson_generated=11
+[Schedule] local_window=10 csv_window_id=87319 timestamp=5239080 type=Periodic peaks expected=12.00 poisson_generated=12
+[Schedule] local_window=11 csv_window_id=87320 timestamp=5239140 type=Periodic peaks expected=14.00 poisson_generated=14
+[Schedule] local_window=12 csv_window_id=87321 timestamp=5239200 type=Periodic peaks expected=8.00 poisson_generated=8
+[Schedule] local_window=13 csv_window_id=87322 timestamp=5239260 type=Periodic peaks expected=12.00 poisson_generated=12
+[Schedule] local_window=14 csv_window_id=87323 timestamp=5239320 type=Periodic peaks expected=9.00 poisson_generated=9
+[Schedule] local_window=15 csv_window_id=87324 timestamp=5239380 type=Periodic peaks expected=15.00 poisson_generated=15
+[Schedule] local_window=16 csv_window_id=87325 timestamp=5239440 type=Periodic peaks expected=8.00 poisson_generated=8
+[Schedule] local_window=17 csv_window_id=87326 timestamp=5239500 type=Periodic peaks expected=14.00 poisson_generated=14
+[Schedule] local_window=18 csv_window_id=87327 timestamp=5239560 type=Periodic peaks expected=12.00 poisson_generated=12
+[Schedule] local_window=19 csv_window_id=87328 timestamp=5239620 type=Periodic peaks expected=9.00 poisson_generated=9
+[Schedule] local_window=20 csv_window_id=87329 timestamp=5239680 type=Periodic peaks expected=9.00 poisson_generated=9
+[Schedule] local_window=21 csv_window_id=87330 timestamp=5239740 type=Periodic peaks expected=10.00 poisson_generated=10
+[Schedule] local_window=22 csv_window_id=87331 timestamp=5239800 type=Periodic peaks expected=9.00 poisson_generated=9
+[Schedule] local_window=23 csv_window_id=87332 timestamp=5239860 type=Periodic peaks expected=10.00 poisson_generated=10
+[Schedule] local_window=24 csv_window_id=87333 timestamp=5239920 type=Periodic peaks expected=10.00 poisson_generated=10
+[Schedule] local_window=25 csv_window_id=87334 timestamp=5239980 type=Periodic peaks expected=11.00 poisson_generated=11
+[Schedule] local_window=26 csv_window_id=87335 timestamp=5240040 type=Periodic peaks expected=9.00 poisson_generated=9
+[Schedule] local_window=27 csv_window_id=87336 timestamp=5240100 type=Periodic peaks expected=8.00 poisson_generated=8
+[Schedule] local_window=28 csv_window_id=87337 timestamp=5240160 type=Periodic peaks expected=11.00 poisson_generated=11
+[Schedule] local_window=29 csv_window_id=87338 timestamp=5240220 type=Periodic peaks expected=8.00 poisson_generated=8
+[Schedule] local_window=30 csv_window_id=87339 timestamp=5240280 type=Periodic peaks expected=10.00 poisson_generated=10
+[Schedule] local_window=31 csv_window_id=87340 timestamp=5240340 type=Periodic peaks expected=11.00 poisson_generated=11
+[Schedule] local_window=32 csv_window_id=87341 timestamp=5240400 type=Periodic peaks expected=10.00 poisson_generated=10
+[Schedule] local_window=33 csv_window_id=87342 timestamp=5240460 type=Periodic peaks expected=10.00 poisson_generated=10
+[Schedule] local_window=34 csv_window_id=87343 timestamp=5240520 type=Periodic peaks expected=11.00 poisson_generated=11
+[Schedule] local_window=35 csv_window_id=87344 timestamp=5240580 type=Periodic peaks expected=11.00 poisson_generated=11
+[Schedule] local_window=36 csv_window_id=87345 timestamp=5240640 type=Periodic peaks expected=13.00 poisson_generated=13
+[Schedule] local_window=37 csv_window_id=87346 timestamp=5240700 type=normal expected=6.00 poisson_generated=6
+[Schedule] local_window=38 csv_window_id=87347 timestamp=5240760 type=normal expected=7.00 poisson_generated=7
+[Schedule] local_window=39 csv_window_id=87348 timestamp=5240820 type=normal expected=11.00 poisson_generated=11
+[Schedule] local_window=40 csv_window_id=87349 timestamp=5240880 type=normal expected=10.00 poisson_generated=10
+[Schedule] local_window=41 csv_window_id=87350 timestamp=5240940 type=normal expected=4.00 poisson_generated=4
+[Schedule] local_window=42 csv_window_id=87351 timestamp=5241000 type=normal expected=7.00 poisson_generated=7
+[Schedule] local_window=43 csv_window_id=87352 timestamp=5241060 type=normal expected=5.00 poisson_generated=5
+[Schedule] local_window=44 csv_window_id=87353 timestamp=5241120 type=normal expected=5.00 poisson_generated=5
+[Schedule] local_window=45 csv_window_id=87354 timestamp=5241180 type=normal expected=7.00 poisson_generated=7
+[Schedule] local_window=46 csv_window_id=87355 timestamp=5241240 type=normal expected=6.00 poisson_generated=6
+[Schedule] local_window=47 csv_window_id=87356 timestamp=5241300 type=normal expected=8.00 poisson_generated=8
+[Schedule] local_window=48 csv_window_id=87357 timestamp=5241360 type=normal expected=10.00 poisson_generated=10
+[Schedule] local_window=49 csv_window_id=87358 timestamp=5241420 type=normal expected=7.00 poisson_generated=7
+[Schedule] local_window=50 csv_window_id=87359 timestamp=5241480 type=normal expected=11.00 poisson_generated=11
+[Schedule] local_window=51 csv_window_id=87360 timestamp=5241540 type=normal expected=10.00 poisson_generated=10
+[Schedule] local_window=52 csv_window_id=87361 timestamp=5241600 type=normal expected=8.00 poisson_generated=8
+[Schedule] local_window=53 csv_window_id=87362 timestamp=5241660 type=normal expected=7.00 poisson_generated=7
+[Schedule] local_window=54 csv_window_id=87363 timestamp=5241720 type=normal expected=6.00 poisson_generated=6
+[Schedule] local_window=55 csv_window_id=87364 timestamp=5241780 type=normal expected=5.00 poisson_generated=5
+[Schedule] local_window=56 csv_window_id=87365 timestamp=5241840 type=normal expected=6.00 poisson_generated=6
+[Schedule] local_window=57 csv_window_id=87366 timestamp=5241900 type=normal expected=6.00 poisson_generated=6
+[Schedule] local_window=58 csv_window_id=87367 timestamp=5241960 type=normal expected=8.00 poisson_generated=8
+[Schedule] local_window=59 csv_window_id=87368 timestamp=5242020 type=normal expected=8.00 poisson_generated=8
+[Schedule] local_window=60 csv_window_id=87369 timestamp=5242080 type=Pattern shift expected=34.00 poisson_generated=34
+[Schedule] local_window=61 csv_window_id=87370 timestamp=5242140 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=62 csv_window_id=87371 timestamp=5242200 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=63 csv_window_id=87372 timestamp=5242260 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=64 csv_window_id=87373 timestamp=5242320 type=Pattern shift expected=29.00 poisson_generated=29
+[Schedule] local_window=65 csv_window_id=87374 timestamp=5242380 type=Pattern shift expected=40.00 poisson_generated=40
+[Schedule] local_window=66 csv_window_id=87375 timestamp=5242440 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=67 csv_window_id=87376 timestamp=5242500 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=68 csv_window_id=87377 timestamp=5242560 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=69 csv_window_id=87378 timestamp=5242620 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=70 csv_window_id=87379 timestamp=5242680 type=Pattern shift expected=40.00 poisson_generated=40
+[Schedule] local_window=71 csv_window_id=87380 timestamp=5242740 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=72 csv_window_id=87381 timestamp=5242800 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=73 csv_window_id=87382 timestamp=5242860 type=Pattern shift expected=40.00 poisson_generated=40
+[Schedule] local_window=74 csv_window_id=87383 timestamp=5242920 type=Pattern shift expected=34.00 poisson_generated=34
+[Schedule] local_window=75 csv_window_id=87384 timestamp=5242980 type=Pattern shift expected=33.00 poisson_generated=33
+[Schedule] local_window=76 csv_window_id=87385 timestamp=5243040 type=Pattern shift expected=34.00 poisson_generated=34
+[Schedule] local_window=77 csv_window_id=87386 timestamp=5243100 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=78 csv_window_id=87387 timestamp=5243160 type=Pattern shift expected=40.00 poisson_generated=40
+[Schedule] local_window=79 csv_window_id=87388 timestamp=5243220 type=Pattern shift expected=43.00 poisson_generated=43
+[Schedule] local_window=80 csv_window_id=87389 timestamp=5243280 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=81 csv_window_id=87390 timestamp=5243340 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=82 csv_window_id=87391 timestamp=5243400 type=Pattern shift expected=37.00 poisson_generated=37
+[Schedule] local_window=83 csv_window_id=87392 timestamp=5243460 type=Pattern shift expected=37.00 poisson_generated=37
+[Schedule] local_window=84 csv_window_id=87393 timestamp=5243520 type=Pattern shift expected=39.00 poisson_generated=39
+[Schedule] local_window=85 csv_window_id=87394 timestamp=5243580 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=86 csv_window_id=87395 timestamp=5243640 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=87 csv_window_id=87396 timestamp=5243700 type=Pattern shift expected=39.00 poisson_generated=39
+[Schedule] local_window=88 csv_window_id=87397 timestamp=5243760 type=Pattern shift expected=37.00 poisson_generated=37
+[Schedule] local_window=89 csv_window_id=87398 timestamp=5243820 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=90 csv_window_id=87399 timestamp=5243880 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=91 csv_window_id=87400 timestamp=5243940 type=Pattern shift expected=33.00 poisson_generated=33
+[Schedule] local_window=92 csv_window_id=87401 timestamp=5244000 type=Pattern shift expected=31.00 poisson_generated=31
+[Schedule] local_window=93 csv_window_id=87402 timestamp=5244060 type=Pattern shift expected=34.00 poisson_generated=34
+[Schedule] local_window=94 csv_window_id=87403 timestamp=5244120 type=Pattern shift expected=30.00 poisson_generated=30
+[Schedule] local_window=95 csv_window_id=87404 timestamp=5244180 type=Pattern shift expected=30.00 poisson_generated=30
+[Schedule] local_window=96 csv_window_id=87405 timestamp=5244240 type=Pattern shift expected=32.00 poisson_generated=32
+[Schedule] local_window=97 csv_window_id=87406 timestamp=5244300 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=98 csv_window_id=87407 timestamp=5244360 type=Pattern shift expected=39.00 poisson_generated=39
+[Schedule] local_window=99 csv_window_id=87408 timestamp=5244420 type=Pattern shift expected=33.00 poisson_generated=33
+[Schedule] local_window=100 csv_window_id=87409 timestamp=5244480 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=101 csv_window_id=87410 timestamp=5244540 type=Pattern shift expected=31.00 poisson_generated=31
+[Schedule] local_window=102 csv_window_id=87411 timestamp=5244600 type=Pattern shift expected=33.00 poisson_generated=33
+[Schedule] local_window=103 csv_window_id=87412 timestamp=5244660 type=Pattern shift expected=31.00 poisson_generated=31
+[Schedule] local_window=104 csv_window_id=87413 timestamp=5244720 type=Pattern shift expected=37.00 poisson_generated=37
+[Schedule] local_window=105 csv_window_id=87414 timestamp=5244780 type=Pattern shift expected=33.00 poisson_generated=33
+[Schedule] local_window=106 csv_window_id=87415 timestamp=5244840 type=Pattern shift expected=34.00 poisson_generated=34
+[Schedule] local_window=107 csv_window_id=87416 timestamp=5244900 type=Pattern shift expected=34.00 poisson_generated=34
+[Schedule] local_window=108 csv_window_id=87417 timestamp=5244960 type=Pattern shift expected=32.00 poisson_generated=32
+[Schedule] local_window=109 csv_window_id=87418 timestamp=5245020 type=Pattern shift expected=37.00 poisson_generated=37
+[Schedule] local_window=110 csv_window_id=87419 timestamp=5245080 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=111 csv_window_id=87420 timestamp=5245140 type=Pattern shift expected=39.00 poisson_generated=39
+[Schedule] local_window=112 csv_window_id=87421 timestamp=5245200 type=Pattern shift expected=39.00 poisson_generated=39
+[Schedule] local_window=113 csv_window_id=87422 timestamp=5245260 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=114 csv_window_id=87423 timestamp=5245320 type=Pattern shift expected=33.00 poisson_generated=33
+[Schedule] local_window=115 csv_window_id=87424 timestamp=5245380 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=116 csv_window_id=87425 timestamp=5245440 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=117 csv_window_id=87426 timestamp=5245500 type=Pattern shift expected=32.00 poisson_generated=32
+[Schedule] local_window=118 csv_window_id=87427 timestamp=5245560 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=119 csv_window_id=87428 timestamp=5245620 type=Pattern shift expected=37.00 poisson_generated=37
+[Schedule] local_window=120 csv_window_id=87429 timestamp=5245680 type=Pattern shift expected=34.00 poisson_generated=34
+[Schedule] local_window=121 csv_window_id=87430 timestamp=5245740 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=122 csv_window_id=87431 timestamp=5245800 type=Pattern shift expected=32.00 poisson_generated=32
+[Schedule] local_window=123 csv_window_id=87432 timestamp=5245860 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=124 csv_window_id=87433 timestamp=5245920 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=125 csv_window_id=87434 timestamp=5245980 type=Pattern shift expected=40.00 poisson_generated=40
+[Schedule] local_window=126 csv_window_id=87435 timestamp=5246040 type=Pattern shift expected=32.00 poisson_generated=32
+[Schedule] local_window=127 csv_window_id=87436 timestamp=5246100 type=Pattern shift expected=38.00 poisson_generated=38
+[Schedule] local_window=128 csv_window_id=87437 timestamp=5246160 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=129 csv_window_id=87438 timestamp=5246220 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=130 csv_window_id=87439 timestamp=5246280 type=Pattern shift expected=37.00 poisson_generated=37
+[Schedule] local_window=131 csv_window_id=87440 timestamp=5246340 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=132 csv_window_id=87441 timestamp=5246400 type=Pattern shift expected=43.00 poisson_generated=43
+[Schedule] local_window=133 csv_window_id=87442 timestamp=5246460 type=Pattern shift expected=34.00 poisson_generated=34
+[Schedule] local_window=134 csv_window_id=87443 timestamp=5246520 type=Pattern shift expected=41.00 poisson_generated=41
+[Schedule] local_window=135 csv_window_id=87444 timestamp=5246580 type=Pattern shift expected=26.00 poisson_generated=26
+[Schedule] local_window=136 csv_window_id=87445 timestamp=5246640 type=Pattern shift expected=39.00 poisson_generated=39
+[Schedule] local_window=137 csv_window_id=87446 timestamp=5246700 type=Pattern shift expected=32.00 poisson_generated=32
+[Schedule] local_window=138 csv_window_id=87447 timestamp=5246760 type=Pattern shift expected=40.00 poisson_generated=40
+[Schedule] local_window=139 csv_window_id=87448 timestamp=5246820 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=140 csv_window_id=87449 timestamp=5246880 type=Pattern shift expected=33.00 poisson_generated=33
+[Schedule] local_window=141 csv_window_id=87450 timestamp=5246940 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=142 csv_window_id=87451 timestamp=5247000 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=143 csv_window_id=87452 timestamp=5247060 type=Pattern shift expected=42.00 poisson_generated=42
+[Schedule] local_window=144 csv_window_id=87453 timestamp=5247120 type=Pattern shift expected=45.00 poisson_generated=45
+[Schedule] local_window=145 csv_window_id=87454 timestamp=5247180 type=Pattern shift expected=41.00 poisson_generated=41
+[Schedule] local_window=146 csv_window_id=87455 timestamp=5247240 type=Pattern shift expected=33.00 poisson_generated=33
+[Schedule] local_window=147 csv_window_id=87456 timestamp=5247300 type=Pattern shift expected=35.00 poisson_generated=35
+[Schedule] local_window=148 csv_window_id=87457 timestamp=5247360 type=Pattern shift expected=31.00 poisson_generated=31
+[Schedule] local_window=149 csv_window_id=87458 timestamp=5247420 type=Pattern shift expected=36.00 poisson_generated=36
+[Schedule] local_window=150 csv_window_id=87459 timestamp=5247480 type=normal expected=8.00 poisson_generated=8
+[Schedule] local_window=151 csv_window_id=87460 timestamp=5247540 type=normal expected=9.00 poisson_generated=9
+[Schedule] local_window=152 csv_window_id=87461 timestamp=5247600 type=normal expected=7.00 poisson_generated=7
+[Schedule] local_window=153 csv_window_id=87462 timestamp=5247660 type=normal expected=4.00 poisson_generated=4
+[Schedule] local_window=154 csv_window_id=87463 timestamp=5247720 type=normal expected=9.00 poisson_generated=9
+[Schedule] local_window=155 csv_window_id=87464 timestamp=5247780 type=Sudden spike expected=31.00 poisson_generated=31
+[Schedule] local_window=156 csv_window_id=87465 timestamp=5247840 type=Sudden spike expected=21.00 poisson_generated=21
+[Schedule] local_window=157 csv_window_id=87466 timestamp=5247900 type=Sudden spike expected=42.00 poisson_generated=42
+[Schedule] local_window=158 csv_window_id=87467 timestamp=5247960 type=Sudden spike expected=8.00 poisson_generated=8
+[Schedule] local_window=159 csv_window_id=87468 timestamp=5248020 type=normal expected=10.00 poisson_generated=10
+[Schedule] local_window=160 csv_window_id=87469 timestamp=5248080 type=normal expected=12.00 poisson_generated=12
+[Schedule] local_window=161 csv_window_id=87470 timestamp=5248140 type=normal expected=7.00 poisson_generated=7
+[Schedule] local_window=162 csv_window_id=87471 timestamp=5248200 type=normal expected=10.00 poisson_generated=10
+[Schedule] local_window=163 csv_window_id=87472 timestamp=5248260 type=normal expected=7.00 poisson_generated=7
+[Schedule] local_window=164 csv_window_id=87473 timestamp=5248320 type=normal expected=6.00 poisson_generated=6
+[Schedule] local_window=165 csv_window_id=87474 timestamp=5248380 type=normal expected=11.00 poisson_generated=11
+[Schedule] local_window=166 csv_window_id=87475 timestamp=5248440 type=normal expected=8.00 poisson_generated=8
+[Schedule] local_window=167 csv_window_id=87476 timestamp=5248500 type=normal expected=8.00 poisson_generated=8
+[Schedule] local_window=168 csv_window_id=87477 timestamp=5248560 type=normal expected=8.00 poisson_generated=8
+[Schedule] local_window=169 csv_window_id=87478 timestamp=5248620 type=normal expected=9.00 poisson_generated=9
+[Schedule] local_window=170 csv_window_id=87479 timestamp=5248680 type=Irregular bursts expected=10.00 poisson_generated=10
+[Schedule] local_window=171 csv_window_id=87480 timestamp=5248740 type=Irregular bursts expected=7.00 poisson_generated=7
+[Schedule] local_window=172 csv_window_id=87481 timestamp=5248800 type=Irregular bursts expected=9.00 poisson_generated=9
+[Schedule] local_window=173 csv_window_id=87482 timestamp=5248860 type=Irregular bursts expected=7.00 poisson_generated=7
+[Schedule] local_window=174 csv_window_id=87483 timestamp=5248920 type=Irregular bursts expected=9.00 poisson_generated=9
+[Schedule] local_window=175 csv_window_id=87484 timestamp=5248980 type=Irregular bursts expected=13.00 poisson_generated=13
+[Schedule] local_window=176 csv_window_id=87485 timestamp=5249040 type=Irregular bursts expected=10.00 poisson_generated=10
+[Schedule] local_window=177 csv_window_id=87486 timestamp=5249100 type=Irregular bursts expected=10.00 poisson_generated=10
+[Schedule] local_window=178 csv_window_id=87487 timestamp=5249160 type=Irregular bursts expected=9.00 poisson_generated=9
+[Schedule] local_window=179 csv_window_id=87488 timestamp=5249220 type=Irregular bursts expected=8.00 poisson_generated=8
+
+Replay will start in 29.8 seconds and run until about 2026-07-22 05:04:53.218893.
+
+[ETS Window 0] target_window=1 history_windows=50400 predicted_requests=7.13 desired_pods=1
+[ETS Patch] kubectl patch revision qwen-00001 -n default --type merge -p {"metadata": {"annotations": {"autoscaling.knative.dev/min-scale": "1", "autoscaling.knative.dev/max-scale": "1"}}}
+revision.serving.knative.dev/qwen-00001 patched
+actual_requests_from_replayer=14.00 expected_requests=14.00
+
+[ETS Window 1] target_window=2 history_windows=50401 predicted_requests=7.94 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=10.00 expected_requests=10.00
+
+[ETS Window 2] target_window=3 history_windows=50402 predicted_requests=7.57 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=12.00 expected_requests=12.00
+
+[ETS Window 3] target_window=4 history_windows=50403 predicted_requests=9.26 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=10.00 expected_requests=10.00
+
+[ETS Window 4] target_window=5 history_windows=50404 predicted_requests=9.51 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=13.00 expected_requests=13.00
+
+[ETS Window 5] target_window=6 history_windows=50405 predicted_requests=10.62 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=9.00 expected_requests=9.00
+
+[ETS Window 6] target_window=7 history_windows=50406 predicted_requests=10.11 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=11.00 expected_requests=11.00
+
+[ETS Window 7] target_window=8 history_windows=50407 predicted_requests=10.38 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=11.00 expected_requests=11.00
+
+[ETS Window 8] target_window=9 history_windows=50408 predicted_requests=10.54 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=14.00 expected_requests=14.00
+
+[ETS Window 9] target_window=10 history_windows=50409 predicted_requests=11.45 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=11.00 expected_requests=11.00
+
+[ETS Window 10] target_window=11 history_windows=50410 predicted_requests=11.31 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=12.00 expected_requests=12.00
+
+[ETS Window 11] target_window=12 history_windows=50411 predicted_requests=11.46 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=14.00 expected_requests=14.00
+
+[ETS Window 12] target_window=13 history_windows=50412 predicted_requests=12.13 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=8.00 expected_requests=8.00
+
+[ETS Window 13] target_window=14 history_windows=50413 predicted_requests=11.10 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=12.00 expected_requests=12.00
+
+[ETS Window 14] target_window=15 history_windows=50414 predicted_requests=11.29 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=9.00 expected_requests=9.00
+
+[ETS Window 15] target_window=16 history_windows=50415 predicted_requests=10.80 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=15.00 expected_requests=15.00
+
+[ETS Window 16] target_window=17 history_windows=50416 predicted_requests=11.75 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=8.00 expected_requests=8.00
+
+[ETS Window 17] target_window=18 history_windows=50417 predicted_requests=10.91 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=14.00 expected_requests=14.00
+
+[ETS Window 18] target_window=19 history_windows=50418 predicted_requests=11.54 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=12.00 expected_requests=12.00
+
+[ETS Window 19] target_window=20 history_windows=50419 predicted_requests=11.68 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=9.00 expected_requests=9.00
+
+[ETS Window 20] target_window=21 history_windows=50420 predicted_requests=11.10 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=9.00 expected_requests=9.00
+
+[ETS Window 21] target_window=22 history_windows=50421 predicted_requests=10.70 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=10.00 expected_requests=10.00
+
+[ETS Window 22] target_window=23 history_windows=50422 predicted_requests=10.53 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=9.00 expected_requests=9.00
+
+[ETS Window 23] target_window=24 history_windows=50423 predicted_requests=10.19 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=10.00 expected_requests=10.00
+
+[ETS Window 24] target_window=25 history_windows=50424 predicted_requests=10.39 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=10.00 expected_requests=10.00
+
+[ETS Window 25] target_window=26 history_windows=50425 predicted_requests=10.22 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=11.00 expected_requests=11.00
+
+[ETS Window 26] target_window=27 history_windows=50426 predicted_requests=10.57 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=9.00 expected_requests=9.00
+
+[ETS Window 27] target_window=28 history_windows=50427 predicted_requests=10.60 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=8.00 expected_requests=8.00
+
+[ETS Window 28] target_window=29 history_windows=50428 predicted_requests=10.60 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=11.00 expected_requests=11.00
+
+[ETS Window 29] target_window=30 history_windows=50429 predicted_requests=10.77 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=8.00 expected_requests=8.00
+
+[ETS Window 30] target_window=31 history_windows=50430 predicted_requests=10.02 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=10.00 expected_requests=10.00
+
+[ETS Window 31] target_window=32 history_windows=50431 predicted_requests=10.63 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=11.00 expected_requests=11.00
+
+[ETS Window 32] target_window=33 history_windows=50432 predicted_requests=10.67 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=10.00 expected_requests=10.00
+
+[ETS Window 33] target_window=34 history_windows=50433 predicted_requests=10.60 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=10.00 expected_requests=10.00
+
+[ETS Window 34] target_window=35 history_windows=50434 predicted_requests=10.15 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=11.00 expected_requests=11.00
+
+[ETS Window 35] target_window=36 history_windows=50435 predicted_requests=10.53 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=11.00 expected_requests=11.00
+
+[ETS Window 36] target_window=37 history_windows=50436 predicted_requests=10.60 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=13.00 expected_requests=13.00
+
+[ETS Window 37] target_window=38 history_windows=50437 predicted_requests=10.67 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=6.00 expected_requests=6.00
+
+[ETS Window 38] target_window=39 history_windows=50438 predicted_requests=10.50 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=7.00 expected_requests=7.00
+
+[ETS Window 39] target_window=40 history_windows=50439 predicted_requests=10.27 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=11.00 expected_requests=11.00
+
+[ETS Window 40] target_window=41 history_windows=50440 predicted_requests=10.27 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=10.00 expected_requests=10.00
+
+[ETS Window 41] target_window=42 history_windows=50441 predicted_requests=10.20 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=4.00 expected_requests=4.00
+
+[ETS Window 42] target_window=43 history_windows=50442 predicted_requests=9.87 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=7.00 expected_requests=7.00
+
+[ETS Window 43] target_window=44 history_windows=50443 predicted_requests=8.90 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=5.00 expected_requests=5.00
+
+[ETS Window 44] target_window=45 history_windows=50444 predicted_requests=7.71 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=5.00 expected_requests=5.00
+
+[ETS Window 45] target_window=46 history_windows=50445 predicted_requests=6.36 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=7.00 expected_requests=7.00
+
+[ETS Window 46] target_window=47 history_windows=50446 predicted_requests=6.64 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=6.00 expected_requests=6.00
+
+[ETS Window 47] target_window=48 history_windows=50447 predicted_requests=6.24 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=8.00 expected_requests=8.00
+
+[ETS Window 48] target_window=49 history_windows=50448 predicted_requests=6.86 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=10.00 expected_requests=10.00
+
+[ETS Window 49] target_window=50 history_windows=50449 predicted_requests=7.79 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=7.00 expected_requests=7.00
+
+[ETS Window 50] target_window=51 history_windows=50450 predicted_requests=7.54 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=11.00 expected_requests=11.00
+
+[ETS Window 51] target_window=52 history_windows=50451 predicted_requests=8.62 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=10.00 expected_requests=10.00
+
+[ETS Window 52] target_window=53 history_windows=50452 predicted_requests=9.20 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=8.00 expected_requests=8.00
+
+[ETS Window 53] target_window=54 history_windows=50453 predicted_requests=8.75 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=7.00 expected_requests=7.00
+
+[ETS Window 54] target_window=55 history_windows=50454 predicted_requests=8.20 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=6.00 expected_requests=6.00
+
+[ETS Window 55] target_window=56 history_windows=50455 predicted_requests=7.53 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=5.00 expected_requests=5.00
+
+[ETS Window 56] target_window=57 history_windows=50456 predicted_requests=6.45 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=6.00 expected_requests=6.00
+
+[ETS Window 57] target_window=58 history_windows=50457 predicted_requests=6.25 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=6.00 expected_requests=6.00
+
+[ETS Window 58] target_window=59 history_windows=50458 predicted_requests=6.13 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=8.00 expected_requests=8.00
+
+[ETS Window 59] target_window=60 history_windows=50459 predicted_requests=6.88 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=8.00 expected_requests=8.00
+
+[ETS Window 60] target_window=61 history_windows=50460 predicted_requests=7.34 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=34.00 expected_requests=34.00
+
+[ETS Window 61] target_window=62 history_windows=50461 predicted_requests=26.45 desired_pods=3
+[ETS Patch] kubectl patch revision qwen-00001 -n default --type merge -p {"metadata": {"annotations": {"autoscaling.knative.dev/min-scale": "3", "autoscaling.knative.dev/max-scale": "3"}}}
+revision.serving.knative.dev/qwen-00001 patched
+actual_requests_from_replayer=35.00 expected_requests=35.00
+
+[ETS Window 62] target_window=63 history_windows=50462 predicted_requests=34.93 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=35.00 expected_requests=35.00
+
+[ETS Window 63] target_window=64 history_windows=50463 predicted_requests=35.00 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=38.00 expected_requests=38.00
+
+[ETS Window 64] target_window=65 history_windows=50464 predicted_requests=37.90 desired_pods=4
+[ETS Patch] kubectl patch revision qwen-00001 -n default --type merge -p {"metadata": {"annotations": {"autoscaling.knative.dev/min-scale": "4", "autoscaling.knative.dev/max-scale": "4"}}}
+revision.serving.knative.dev/qwen-00001 patched
+actual_requests_from_replayer=29.00 expected_requests=29.00
+
+[ETS Window 65] target_window=66 history_windows=50465 predicted_requests=29.56 desired_pods=3
+[ETS Patch] kubectl patch revision qwen-00001 -n default --type merge -p {"metadata": {"annotations": {"autoscaling.knative.dev/min-scale": "3", "autoscaling.knative.dev/max-scale": "3"}}}
+revision.serving.knative.dev/qwen-00001 patched
+actual_requests_from_replayer=40.00 expected_requests=40.00
+
+[ETS Window 66] target_window=67 history_windows=50466 predicted_requests=38.64 desired_pods=4
+[ETS Patch] kubectl patch revision qwen-00001 -n default --type merge -p {"metadata": {"annotations": {"autoscaling.knative.dev/min-scale": "4", "autoscaling.knative.dev/max-scale": "4"}}}
+revision.serving.knative.dev/qwen-00001 patched
+actual_requests_from_replayer=36.00 expected_requests=36.00
+
+[ETS Window 67] target_window=68 history_windows=50467 predicted_requests=36.38 desired_pods=3
+[ETS Patch] kubectl patch revision qwen-00001 -n default --type merge -p {"metadata": {"annotations": {"autoscaling.knative.dev/min-scale": "3", "autoscaling.knative.dev/max-scale": "3"}}}
+revision.serving.knative.dev/qwen-00001 patched
+actual_requests_from_replayer=38.00 expected_requests=38.00
+
+[ETS Window 68] target_window=69 history_windows=50468 predicted_requests=37.76 desired_pods=4
+[ETS Patch] kubectl patch revision qwen-00001 -n default --type merge -p {"metadata": {"annotations": {"autoscaling.knative.dev/min-scale": "4", "autoscaling.knative.dev/max-scale": "4"}}}
+revision.serving.knative.dev/qwen-00001 patched
+actual_requests_from_replayer=38.00 expected_requests=38.00
+
+[ETS Window 69] target_window=70 history_windows=50469 predicted_requests=37.97 desired_pods=4
+[ETS Patch] skipped, fixed scale already 4
+actual_requests_from_replayer=38.00 expected_requests=38.00
+
+[ETS Window 70] target_window=71 history_windows=50470 predicted_requests=37.99 desired_pods=4
+[ETS Patch] skipped, fixed scale already 4
+actual_requests_from_replayer=40.00 expected_requests=40.00
+
+[ETS Window 71] target_window=72 history_windows=50471 predicted_requests=39.72 desired_pods=4
+[ETS Patch] skipped, fixed scale already 4
+actual_requests_from_replayer=36.00 expected_requests=36.00
+
+[ETS Window 72] target_window=73 history_windows=50472 predicted_requests=36.53 desired_pods=3
+[ETS Patch] kubectl patch revision qwen-00001 -n default --type merge -p {"metadata": {"annotations": {"autoscaling.knative.dev/min-scale": "3", "autoscaling.knative.dev/max-scale": "3"}}}
+revision.serving.knative.dev/qwen-00001 patched
+actual_requests_from_replayer=36.00 expected_requests=36.00
+
+[ETS Window 73] target_window=74 history_windows=50473 predicted_requests=36.07 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=40.00 expected_requests=40.00
+
+[ETS Window 74] target_window=75 history_windows=50474 predicted_requests=39.44 desired_pods=4
+[ETS Patch] kubectl patch revision qwen-00001 -n default --type merge -p {"metadata": {"annotations": {"autoscaling.knative.dev/min-scale": "4", "autoscaling.knative.dev/max-scale": "4"}}}
+revision.serving.knative.dev/qwen-00001 patched
+actual_requests_from_replayer=34.00 expected_requests=34.00
+
+[ETS Window 75] target_window=76 history_windows=50475 predicted_requests=34.85 desired_pods=3
+[ETS Patch] kubectl patch revision qwen-00001 -n default --type merge -p {"metadata": {"annotations": {"autoscaling.knative.dev/min-scale": "3", "autoscaling.knative.dev/max-scale": "3"}}}
+revision.serving.knative.dev/qwen-00001 patched
+actual_requests_from_replayer=33.00 expected_requests=33.00
+
+[ETS Window 76] target_window=77 history_windows=50476 predicted_requests=33.27 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=34.00 expected_requests=34.00
+
+[ETS Window 77] target_window=78 history_windows=50477 predicted_requests=33.89 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=36.00 expected_requests=36.00
+
+[ETS Window 78] target_window=79 history_windows=50478 predicted_requests=35.68 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=40.00 expected_requests=40.00
+
+[ETS Window 79] target_window=80 history_windows=50479 predicted_requests=39.41 desired_pods=4
+[ETS Patch] kubectl patch revision qwen-00001 -n default --type merge -p {"metadata": {"annotations": {"autoscaling.knative.dev/min-scale": "4", "autoscaling.knative.dev/max-scale": "4"}}}
+revision.serving.knative.dev/qwen-00001 patched
+actual_requests_from_replayer=43.00 expected_requests=43.00
+
+[ETS Window 80] target_window=81 history_windows=50480 predicted_requests=42.58 desired_pods=4
+[ETS Patch] skipped, fixed scale already 4
+actual_requests_from_replayer=35.00 expected_requests=35.00
+
+[ETS Window 81] target_window=82 history_windows=50481 predicted_requests=36.10 desired_pods=3
+[ETS Patch] kubectl patch revision qwen-00001 -n default --type merge -p {"metadata": {"annotations": {"autoscaling.knative.dev/min-scale": "3", "autoscaling.knative.dev/max-scale": "3"}}}
+revision.serving.knative.dev/qwen-00001 patched
+actual_requests_from_replayer=38.00 expected_requests=38.00
+
+[ETS Window 82] target_window=83 history_windows=50482 predicted_requests=37.71 desired_pods=4
+[ETS Patch] kubectl patch revision qwen-00001 -n default --type merge -p {"metadata": {"annotations": {"autoscaling.knative.dev/min-scale": "4", "autoscaling.knative.dev/max-scale": "4"}}}
+revision.serving.knative.dev/qwen-00001 patched
+actual_requests_from_replayer=37.00 expected_requests=37.00
+
+[ETS Window 83] target_window=84 history_windows=50483 predicted_requests=37.11 desired_pods=3
+[ETS Patch] kubectl patch revision qwen-00001 -n default --type merge -p {"metadata": {"annotations": {"autoscaling.knative.dev/min-scale": "3", "autoscaling.knative.dev/max-scale": "3"}}}
+revision.serving.knative.dev/qwen-00001 patched
+actual_requests_from_replayer=37.00 expected_requests=37.00
+
+[ETS Window 84] target_window=85 history_windows=50484 predicted_requests=37.02 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=39.00 expected_requests=39.00
+
+[ETS Window 85] target_window=86 history_windows=50485 predicted_requests=38.68 desired_pods=4
+[ETS Patch] kubectl patch revision qwen-00001 -n default --type merge -p {"metadata": {"annotations": {"autoscaling.knative.dev/min-scale": "4", "autoscaling.knative.dev/max-scale": "4"}}}
+revision.serving.knative.dev/qwen-00001 patched
+actual_requests_from_replayer=36.00 expected_requests=36.00
+
+[ETS Window 86] target_window=87 history_windows=50486 predicted_requests=36.44 desired_pods=3
+[ETS Patch] kubectl patch revision qwen-00001 -n default --type merge -p {"metadata": {"annotations": {"autoscaling.knative.dev/min-scale": "3", "autoscaling.knative.dev/max-scale": "3"}}}
+revision.serving.knative.dev/qwen-00001 patched
+actual_requests_from_replayer=38.00 expected_requests=38.00
+
+[ETS Window 87] target_window=88 history_windows=50487 predicted_requests=37.74 desired_pods=4
+[ETS Patch] kubectl patch revision qwen-00001 -n default --type merge -p {"metadata": {"annotations": {"autoscaling.knative.dev/min-scale": "4", "autoscaling.knative.dev/max-scale": "4"}}}
+revision.serving.knative.dev/qwen-00001 patched
+actual_requests_from_replayer=39.00 expected_requests=39.00
+
+[ETS Window 88] target_window=89 history_windows=50488 predicted_requests=38.75 desired_pods=4
+[ETS Patch] skipped, fixed scale already 4
+actual_requests_from_replayer=37.00 expected_requests=37.00
+
+[ETS Window 89] target_window=90 history_windows=50489 predicted_requests=37.67 desired_pods=4
+[ETS Patch] skipped, fixed scale already 4
+actual_requests_from_replayer=36.00 expected_requests=36.00
+
+[ETS Window 90] target_window=91 history_windows=50490 predicted_requests=36.83 desired_pods=3
+[ETS Patch] kubectl patch revision qwen-00001 -n default --type merge -p {"metadata": {"annotations": {"autoscaling.knative.dev/min-scale": "3", "autoscaling.knative.dev/max-scale": "3"}}}
+revision.serving.knative.dev/qwen-00001 patched
+actual_requests_from_replayer=38.00 expected_requests=38.00
+
+[ETS Window 91] target_window=92 history_windows=50491 predicted_requests=36.97 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=33.00 expected_requests=33.00
+
+[ETS Window 92] target_window=93 history_windows=50492 predicted_requests=36.90 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=31.00 expected_requests=31.00
+
+[ETS Window 93] target_window=94 history_windows=50493 predicted_requests=36.77 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=34.00 expected_requests=34.00
+
+[ETS Window 94] target_window=95 history_windows=50494 predicted_requests=36.63 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=30.00 expected_requests=30.00
+
+[ETS Window 95] target_window=96 history_windows=50495 predicted_requests=32.42 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=30.00 expected_requests=30.00
+
+[ETS Window 96] target_window=97 history_windows=50496 predicted_requests=31.04 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=32.00 expected_requests=32.00
+
+[ETS Window 97] target_window=98 history_windows=50497 predicted_requests=31.51 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=36.00 expected_requests=36.00
+
+[ETS Window 98] target_window=99 history_windows=50498 predicted_requests=33.39 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=39.00 expected_requests=39.00
+
+[ETS Window 99] target_window=100 history_windows=50499 predicted_requests=36.79 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=33.00 expected_requests=33.00
+
+[ETS Window 100] target_window=101 history_windows=50500 predicted_requests=34.50 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=36.00 expected_requests=36.00
+
+[ETS Window 101] target_window=102 history_windows=50501 predicted_requests=35.10 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=31.00 expected_requests=31.00
+
+[ETS Window 102] target_window=103 history_windows=50502 predicted_requests=33.69 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=33.00 expected_requests=33.00
+
+[ETS Window 103] target_window=104 history_windows=50503 predicted_requests=33.45 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=31.00 expected_requests=31.00
+
+[ETS Window 104] target_window=105 history_windows=50504 predicted_requests=31.96 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=37.00 expected_requests=37.00
+
+[ETS Window 105] target_window=106 history_windows=50505 predicted_requests=34.19 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=33.00 expected_requests=33.00
+
+[ETS Window 106] target_window=107 history_windows=50506 predicted_requests=33.72 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=34.00 expected_requests=34.00
+
+[ETS Window 107] target_window=108 history_windows=50507 predicted_requests=33.80 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=34.00 expected_requests=34.00
+
+[ETS Window 108] target_window=109 history_windows=50508 predicted_requests=33.88 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=32.00 expected_requests=32.00
+
+[ETS Window 109] target_window=110 history_windows=50509 predicted_requests=33.27 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=37.00 expected_requests=37.00
+
+[ETS Window 110] target_window=111 history_windows=50510 predicted_requests=34.50 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=38.00 expected_requests=38.00
+
+[ETS Window 111] target_window=112 history_windows=50511 predicted_requests=36.07 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=39.00 expected_requests=39.00
+
+[ETS Window 112] target_window=113 history_windows=50512 predicted_requests=37.71 desired_pods=4
+[ETS Patch] kubectl patch revision qwen-00001 -n default --type merge -p {"metadata": {"annotations": {"autoscaling.knative.dev/min-scale": "4", "autoscaling.knative.dev/max-scale": "4"}}}
+revision.serving.knative.dev/qwen-00001 patched
+actual_requests_from_replayer=39.00 expected_requests=39.00
+
+[ETS Window 113] target_window=114 history_windows=50513 predicted_requests=38.45 desired_pods=4
+[ETS Patch] skipped, fixed scale already 4
+actual_requests_from_replayer=35.00 expected_requests=35.00
+
+[ETS Window 114] target_window=115 history_windows=50514 predicted_requests=36.73 desired_pods=3
+[ETS Patch] kubectl patch revision qwen-00001 -n default --type merge -p {"metadata": {"annotations": {"autoscaling.knative.dev/min-scale": "3", "autoscaling.knative.dev/max-scale": "3"}}}
+revision.serving.knative.dev/qwen-00001 patched
+actual_requests_from_replayer=33.00 expected_requests=33.00
+
+[ETS Window 115] target_window=116 history_windows=50515 predicted_requests=34.80 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=36.00 expected_requests=36.00
+
+[ETS Window 116] target_window=117 history_windows=50516 predicted_requests=35.42 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=36.00 expected_requests=36.00
+
+[ETS Window 117] target_window=118 history_windows=50517 predicted_requests=35.71 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=32.00 expected_requests=32.00
+
+[ETS Window 118] target_window=119 history_windows=50518 predicted_requests=34.50 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=38.00 expected_requests=38.00
+
+[ETS Window 119] target_window=120 history_windows=50519 predicted_requests=34.53 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=37.00 expected_requests=37.00
+
+[ETS Window 120] target_window=121 history_windows=50520 predicted_requests=35.46 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=34.00 expected_requests=34.00
+
+[ETS Window 121] target_window=122 history_windows=50521 predicted_requests=35.43 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=35.00 expected_requests=35.00
+
+[ETS Window 122] target_window=123 history_windows=50522 predicted_requests=35.36 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=32.00 expected_requests=32.00
+
+[ETS Window 123] target_window=124 history_windows=50523 predicted_requests=34.53 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=35.00 expected_requests=35.00
+
+[ETS Window 124] target_window=125 history_windows=50524 predicted_requests=34.88 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=35.00 expected_requests=35.00
+
+[ETS Window 125] target_window=126 history_windows=50525 predicted_requests=34.73 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=40.00 expected_requests=40.00
+
+[ETS Window 126] target_window=127 history_windows=50526 predicted_requests=35.07 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=32.00 expected_requests=32.00
+
+[ETS Window 127] target_window=128 history_windows=50527 predicted_requests=35.07 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=38.00 expected_requests=38.00
+
+[ETS Window 128] target_window=129 history_windows=50528 predicted_requests=35.13 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=36.00 expected_requests=36.00
+
+[ETS Window 129] target_window=130 history_windows=50529 predicted_requests=35.03 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=36.00 expected_requests=36.00
+
+[ETS Window 130] target_window=131 history_windows=50530 predicted_requests=35.13 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=37.00 expected_requests=37.00
+
+[ETS Window 131] target_window=132 history_windows=50531 predicted_requests=35.17 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=35.00 expected_requests=35.00
+
+[ETS Window 132] target_window=133 history_windows=50532 predicted_requests=35.30 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=43.00 expected_requests=43.00
+
+[ETS Window 133] target_window=134 history_windows=50533 predicted_requests=35.63 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=34.00 expected_requests=34.00
+
+[ETS Window 134] target_window=135 history_windows=50534 predicted_requests=35.73 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=41.00 expected_requests=41.00
+
+[ETS Window 135] target_window=136 history_windows=50535 predicted_requests=35.87 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=26.00 expected_requests=26.00
+
+[ETS Window 136] target_window=137 history_windows=50536 predicted_requests=35.63 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=39.00 expected_requests=39.00
+
+[ETS Window 137] target_window=138 history_windows=50537 predicted_requests=35.80 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=32.00 expected_requests=32.00
+
+[ETS Window 138] target_window=139 history_windows=50538 predicted_requests=35.73 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=40.00 expected_requests=40.00
+
+[ETS Window 139] target_window=140 history_windows=50539 predicted_requests=36.00 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=35.00 expected_requests=35.00
+
+[ETS Window 140] target_window=141 history_windows=50540 predicted_requests=35.93 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=33.00 expected_requests=33.00
+
+[ETS Window 141] target_window=142 history_windows=50541 predicted_requests=35.77 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=35.00 expected_requests=35.00
+
+[ETS Window 142] target_window=143 history_windows=50542 predicted_requests=35.63 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=36.00 expected_requests=36.00
+
+[ETS Window 143] target_window=144 history_windows=50543 predicted_requests=35.53 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=42.00 expected_requests=42.00
+
+[ETS Window 144] target_window=145 history_windows=50544 predicted_requests=35.77 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=45.00 expected_requests=45.00
+
+[ETS Window 145] target_window=146 history_windows=50545 predicted_requests=36.17 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=41.00 expected_requests=41.00
+
+[ETS Window 146] target_window=147 history_windows=50546 predicted_requests=36.33 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=33.00 expected_requests=33.00
+
+[ETS Window 147] target_window=148 history_windows=50547 predicted_requests=36.23 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=35.00 expected_requests=35.00
+
+[ETS Window 148] target_window=149 history_windows=50548 predicted_requests=36.33 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=31.00 expected_requests=31.00
+
+[ETS Window 149] target_window=150 history_windows=50549 predicted_requests=36.10 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=36.00 expected_requests=36.00
+
+[ETS Window 150] target_window=151 history_windows=50550 predicted_requests=36.07 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=8.00 expected_requests=8.00
+
+[ETS Window 151] target_window=152 history_windows=50551 predicted_requests=35.20 desired_pods=3
+[ETS Patch] skipped, fixed scale already 3
+actual_requests_from_replayer=9.00 expected_requests=9.00
+
+[ETS Window 152] target_window=153 history_windows=50552 predicted_requests=13.05 desired_pods=2
+[ETS Patch] kubectl patch revision qwen-00001 -n default --type merge -p {"metadata": {"annotations": {"autoscaling.knative.dev/min-scale": "2", "autoscaling.knative.dev/max-scale": "2"}}}
+revision.serving.knative.dev/qwen-00001 patched
+actual_requests_from_replayer=7.00 expected_requests=7.00
+
+[ETS Window 153] target_window=154 history_windows=50553 predicted_requests=8.84 desired_pods=1
+[ETS Patch] kubectl patch revision qwen-00001 -n default --type merge -p {"metadata": {"annotations": {"autoscaling.knative.dev/min-scale": "1", "autoscaling.knative.dev/max-scale": "1"}}}
+revision.serving.knative.dev/qwen-00001 patched
+actual_requests_from_replayer=4.00 expected_requests=4.00
+
+[ETS Window 154] target_window=155 history_windows=50554 predicted_requests=5.57 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=9.00 expected_requests=9.00
+
+[ETS Window 155] target_window=156 history_windows=50555 predicted_requests=7.83 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=31.00 expected_requests=31.00
+
+[ETS Window 156] target_window=157 history_windows=50556 predicted_requests=23.49 desired_pods=2
+[ETS Patch] kubectl patch revision qwen-00001 -n default --type merge -p {"metadata": {"annotations": {"autoscaling.knative.dev/min-scale": "2", "autoscaling.knative.dev/max-scale": "2"}}}
+revision.serving.knative.dev/qwen-00001 patched
+actual_requests_from_replayer=21.00 expected_requests=21.00
+
+[ETS Window 157] target_window=158 history_windows=50557 predicted_requests=21.69 desired_pods=2
+[ETS Patch] skipped, fixed scale already 2
+actual_requests_from_replayer=42.00 expected_requests=42.00
+
+[ETS Window 158] target_window=159 history_windows=50558 predicted_requests=35.81 desired_pods=3
+[ETS Patch] kubectl patch revision qwen-00001 -n default --type merge -p {"metadata": {"annotations": {"autoscaling.knative.dev/min-scale": "3", "autoscaling.knative.dev/max-scale": "3"}}}
+revision.serving.knative.dev/qwen-00001 patched
+actual_requests_from_replayer=8.00 expected_requests=8.00
+
+[ETS Window 159] target_window=160 history_windows=50559 predicted_requests=19.56 desired_pods=2
+[ETS Patch] kubectl patch revision qwen-00001 -n default --type merge -p {"metadata": {"annotations": {"autoscaling.knative.dev/min-scale": "2", "autoscaling.knative.dev/max-scale": "2"}}}
+revision.serving.knative.dev/qwen-00001 patched
+actual_requests_from_replayer=10.00 expected_requests=10.00
+
+[ETS Window 160] target_window=161 history_windows=50560 predicted_requests=14.26 desired_pods=2
+[ETS Patch] skipped, fixed scale already 2
+actual_requests_from_replayer=12.00 expected_requests=12.00
+
+[ETS Window 161] target_window=162 history_windows=50561 predicted_requests=12.94 desired_pods=2
+[ETS Patch] skipped, fixed scale already 2
+actual_requests_from_replayer=7.00 expected_requests=7.00
+
+[ETS Window 162] target_window=163 history_windows=50562 predicted_requests=9.43 desired_pods=1
+[ETS Patch] kubectl patch revision qwen-00001 -n default --type merge -p {"metadata": {"annotations": {"autoscaling.knative.dev/min-scale": "1", "autoscaling.knative.dev/max-scale": "1"}}}
+revision.serving.knative.dev/qwen-00001 patched
+actual_requests_from_replayer=10.00 expected_requests=10.00
+
+[ETS Window 163] target_window=164 history_windows=50563 predicted_requests=9.76 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=7.00 expected_requests=7.00
+
+[ETS Window 164] target_window=165 history_windows=50564 predicted_requests=8.14 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=6.00 expected_requests=6.00
+
+[ETS Window 165] target_window=166 history_windows=50565 predicted_requests=6.77 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=11.00 expected_requests=11.00
+
+[ETS Window 166] target_window=167 history_windows=50566 predicted_requests=9.40 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=8.00 expected_requests=8.00
+
+[ETS Window 167] target_window=168 history_windows=50567 predicted_requests=8.53 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=8.00 expected_requests=8.00
+
+[ETS Window 168] target_window=169 history_windows=50568 predicted_requests=8.19 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=8.00 expected_requests=8.00
+
+[ETS Window 169] target_window=170 history_windows=50569 predicted_requests=8.07 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=9.00 expected_requests=9.00
+
+[ETS Window 170] target_window=171 history_windows=50570 predicted_requests=8.67 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=10.00 expected_requests=10.00
+
+[ETS Window 171] target_window=172 history_windows=50571 predicted_requests=9.51 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=7.00 expected_requests=7.00
+
+[ETS Window 172] target_window=173 history_windows=50572 predicted_requests=7.93 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=9.00 expected_requests=9.00
+
+[ETS Window 173] target_window=174 history_windows=50573 predicted_requests=8.60 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=7.00 expected_requests=7.00
+
+[ETS Window 174] target_window=175 history_windows=50574 predicted_requests=7.58 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=9.00 expected_requests=9.00
+
+[ETS Window 175] target_window=176 history_windows=50575 predicted_requests=8.47 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=13.00 expected_requests=13.00
+
+[ETS Window 176] target_window=177 history_windows=50576 predicted_requests=11.17 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=10.00 expected_requests=10.00
+
+[ETS Window 177] target_window=178 history_windows=50577 predicted_requests=10.47 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=10.00 expected_requests=10.00
+
+[ETS Window 178] target_window=179 history_windows=50578 predicted_requests=9.74 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+actual_requests_from_replayer=9.00 expected_requests=9.00
+
+[ETS Window 179] target_window=180 history_windows=50579 predicted_requests=10.26 desired_pods=1
+[ETS Patch] skipped, fixed scale already 1
+All windows have been scheduled. Waiting for in-flight requests...
+actual_requests_from_replayer=8.00 expected_requests=8.00
+
+Saved ETS artifacts:
+  ets_controller_windows: /home/artifact/online_experiment/results/stage2_ets_direct_rep02_attempt01_s11708_180min_six_baselines_currentci_x2_20260720_1724_ets_controller_windows.csv
+  ets_metadata: /home/artifact/online_experiment/results/stage2_ets_direct_rep02_attempt01_s11708_180min_six_baselines_currentci_x2_20260720_1724_ets_metadata.json
+
+ETS controller finished=2026-07-22 05:04:53.447763
+
+========== Replay summary ==========
+[Window 00] expected=14.00 generated=14 sent=14 ok=14 failed=0 avg_latency=6.633s status_counts={'200': 14}
+[Window 01] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=7.869s status_counts={'200': 10}
+[Window 02] expected=12.00 generated=12 sent=12 ok=12 failed=0 avg_latency=15.295s status_counts={'200': 12}
+[Window 03] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=9.894s status_counts={'200': 10}
+[Window 04] expected=13.00 generated=13 sent=13 ok=13 failed=0 avg_latency=8.363s status_counts={'200': 13}
+[Window 05] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=5.523s status_counts={'200': 9}
+[Window 06] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=11.320s status_counts={'200': 11}
+[Window 07] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=8.562s status_counts={'200': 11}
+[Window 08] expected=14.00 generated=14 sent=14 ok=14 failed=0 avg_latency=8.407s status_counts={'200': 14}
+[Window 09] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=4.323s status_counts={'200': 11}
+[Window 10] expected=12.00 generated=12 sent=12 ok=12 failed=0 avg_latency=6.867s status_counts={'200': 12}
+[Window 11] expected=14.00 generated=14 sent=14 ok=14 failed=0 avg_latency=6.814s status_counts={'200': 14}
+[Window 12] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=6.786s status_counts={'200': 8}
+[Window 13] expected=12.00 generated=12 sent=12 ok=12 failed=0 avg_latency=10.329s status_counts={'200': 12}
+[Window 14] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=4.471s status_counts={'200': 9}
+[Window 15] expected=15.00 generated=15 sent=15 ok=15 failed=0 avg_latency=8.273s status_counts={'200': 15}
+[Window 16] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=5.419s status_counts={'200': 8}
+[Window 17] expected=14.00 generated=14 sent=14 ok=14 failed=0 avg_latency=7.286s status_counts={'200': 14}
+[Window 18] expected=12.00 generated=12 sent=12 ok=12 failed=0 avg_latency=6.961s status_counts={'200': 12}
+[Window 19] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=7.167s status_counts={'200': 9}
+[Window 20] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=4.979s status_counts={'200': 9}
+[Window 21] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=4.892s status_counts={'200': 10}
+[Window 22] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=6.306s status_counts={'200': 9}
+[Window 23] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=7.170s status_counts={'200': 10}
+[Window 24] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=6.393s status_counts={'200': 10}
+[Window 25] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=10.492s status_counts={'200': 11}
+[Window 26] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=8.663s status_counts={'200': 9}
+[Window 27] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=4.844s status_counts={'200': 8}
+[Window 28] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=5.133s status_counts={'200': 11}
+[Window 29] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=7.581s status_counts={'200': 8}
+[Window 30] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=13.270s status_counts={'200': 10}
+[Window 31] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=10.669s status_counts={'200': 11}
+[Window 32] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=3.606s status_counts={'200': 10}
+[Window 33] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=6.697s status_counts={'200': 10}
+[Window 34] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=7.012s status_counts={'200': 11}
+[Window 35] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=4.925s status_counts={'200': 11}
+[Window 36] expected=13.00 generated=13 sent=13 ok=13 failed=0 avg_latency=8.026s status_counts={'200': 13}
+[Window 37] expected=6.00 generated=6 sent=6 ok=6 failed=0 avg_latency=5.129s status_counts={'200': 6}
+[Window 38] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=4.611s status_counts={'200': 7}
+[Window 39] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=4.769s status_counts={'200': 11}
+[Window 40] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=6.293s status_counts={'200': 10}
+[Window 41] expected=4.00 generated=4 sent=4 ok=4 failed=0 avg_latency=5.030s status_counts={'200': 4}
+[Window 42] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=5.302s status_counts={'200': 7}
+[Window 43] expected=5.00 generated=5 sent=5 ok=5 failed=0 avg_latency=7.122s status_counts={'200': 5}
+[Window 44] expected=5.00 generated=5 sent=5 ok=5 failed=0 avg_latency=5.880s status_counts={'200': 5}
+[Window 45] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=6.008s status_counts={'200': 7}
+[Window 46] expected=6.00 generated=6 sent=6 ok=6 failed=0 avg_latency=6.427s status_counts={'200': 6}
+[Window 47] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=4.959s status_counts={'200': 8}
+[Window 48] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=7.882s status_counts={'200': 10}
+[Window 49] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=4.628s status_counts={'200': 7}
+[Window 50] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=5.525s status_counts={'200': 11}
+[Window 51] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=4.748s status_counts={'200': 10}
+[Window 52] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=4.822s status_counts={'200': 8}
+[Window 53] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=5.677s status_counts={'200': 7}
+[Window 54] expected=6.00 generated=6 sent=6 ok=6 failed=0 avg_latency=4.849s status_counts={'200': 6}
+[Window 55] expected=5.00 generated=5 sent=5 ok=5 failed=0 avg_latency=4.065s status_counts={'200': 5}
+[Window 56] expected=6.00 generated=6 sent=6 ok=6 failed=0 avg_latency=5.049s status_counts={'200': 6}
+[Window 57] expected=6.00 generated=6 sent=6 ok=6 failed=0 avg_latency=5.947s status_counts={'200': 6}
+[Window 58] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=4.430s status_counts={'200': 8}
+[Window 59] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=6.684s status_counts={'200': 8}
+[Window 60] expected=34.00 generated=34 sent=34 ok=34 failed=0 avg_latency=30.993s status_counts={'200': 34}
+[Window 61] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=17.349s status_counts={'200': 35}
+[Window 62] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=4.305s status_counts={'200': 35}
+[Window 63] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=4.748s status_counts={'200': 38}
+[Window 64] expected=29.00 generated=29 sent=29 ok=29 failed=0 avg_latency=5.147s status_counts={'200': 29}
+[Window 65] expected=40.00 generated=40 sent=40 ok=40 failed=0 avg_latency=4.495s status_counts={'200': 40}
+[Window 66] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=6.510s status_counts={'200': 36}
+[Window 67] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=5.751s status_counts={'200': 38}
+[Window 68] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=4.586s status_counts={'200': 38}
+[Window 69] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=5.747s status_counts={'200': 38}
+[Window 70] expected=40.00 generated=40 sent=40 ok=40 failed=0 avg_latency=5.188s status_counts={'200': 40}
+[Window 71] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=5.233s status_counts={'200': 36}
+[Window 72] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=5.396s status_counts={'200': 36}
+[Window 73] expected=40.00 generated=40 sent=40 ok=40 failed=0 avg_latency=6.078s status_counts={'200': 40}
+[Window 74] expected=34.00 generated=34 sent=34 ok=34 failed=0 avg_latency=5.226s status_counts={'200': 34}
+[Window 75] expected=33.00 generated=33 sent=33 ok=33 failed=0 avg_latency=4.844s status_counts={'200': 33}
+[Window 76] expected=34.00 generated=34 sent=34 ok=34 failed=0 avg_latency=4.797s status_counts={'200': 34}
+[Window 77] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=4.810s status_counts={'200': 36}
+[Window 78] expected=40.00 generated=40 sent=40 ok=40 failed=0 avg_latency=5.031s status_counts={'200': 40}
+[Window 79] expected=43.00 generated=43 sent=43 ok=43 failed=0 avg_latency=5.992s status_counts={'200': 43}
+[Window 80] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=4.291s status_counts={'200': 35}
+[Window 81] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=4.370s status_counts={'200': 38}
+[Window 82] expected=37.00 generated=37 sent=37 ok=37 failed=0 avg_latency=5.710s status_counts={'200': 37}
+[Window 83] expected=37.00 generated=37 sent=37 ok=37 failed=0 avg_latency=5.801s status_counts={'200': 37}
+[Window 84] expected=39.00 generated=39 sent=39 ok=39 failed=0 avg_latency=4.759s status_counts={'200': 39}
+[Window 85] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=5.058s status_counts={'200': 36}
+[Window 86] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=5.983s status_counts={'200': 38}
+[Window 87] expected=39.00 generated=39 sent=39 ok=39 failed=0 avg_latency=4.980s status_counts={'200': 39}
+[Window 88] expected=37.00 generated=37 sent=37 ok=37 failed=0 avg_latency=5.036s status_counts={'200': 37}
+[Window 89] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=4.439s status_counts={'200': 36}
+[Window 90] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=4.835s status_counts={'200': 38}
+[Window 91] expected=33.00 generated=33 sent=33 ok=33 failed=0 avg_latency=6.480s status_counts={'200': 33}
+[Window 92] expected=31.00 generated=31 sent=31 ok=31 failed=0 avg_latency=4.107s status_counts={'200': 31}
+[Window 93] expected=34.00 generated=34 sent=34 ok=34 failed=0 avg_latency=4.265s status_counts={'200': 34}
+[Window 94] expected=30.00 generated=30 sent=30 ok=30 failed=0 avg_latency=5.304s status_counts={'200': 30}
+[Window 95] expected=30.00 generated=30 sent=30 ok=30 failed=0 avg_latency=4.841s status_counts={'200': 30}
+[Window 96] expected=32.00 generated=32 sent=32 ok=32 failed=0 avg_latency=7.191s status_counts={'200': 32}
+[Window 97] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=5.965s status_counts={'200': 36}
+[Window 98] expected=39.00 generated=39 sent=39 ok=39 failed=0 avg_latency=6.133s status_counts={'200': 39}
+[Window 99] expected=33.00 generated=33 sent=33 ok=33 failed=0 avg_latency=5.509s status_counts={'200': 33}
+[Window 100] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=8.173s status_counts={'200': 36}
+[Window 101] expected=31.00 generated=31 sent=31 ok=31 failed=0 avg_latency=5.722s status_counts={'200': 31}
+[Window 102] expected=33.00 generated=33 sent=33 ok=33 failed=0 avg_latency=5.646s status_counts={'200': 33}
+[Window 103] expected=31.00 generated=31 sent=31 ok=31 failed=0 avg_latency=5.675s status_counts={'200': 31}
+[Window 104] expected=37.00 generated=37 sent=37 ok=37 failed=0 avg_latency=6.329s status_counts={'200': 37}
+[Window 105] expected=33.00 generated=33 sent=33 ok=33 failed=0 avg_latency=4.538s status_counts={'200': 33}
+[Window 106] expected=34.00 generated=34 sent=34 ok=34 failed=0 avg_latency=4.677s status_counts={'200': 34}
+[Window 107] expected=34.00 generated=34 sent=34 ok=34 failed=0 avg_latency=5.233s status_counts={'200': 34}
+[Window 108] expected=32.00 generated=32 sent=32 ok=32 failed=0 avg_latency=5.143s status_counts={'200': 32}
+[Window 109] expected=37.00 generated=37 sent=37 ok=37 failed=0 avg_latency=5.919s status_counts={'200': 37}
+[Window 110] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=5.370s status_counts={'200': 38}
+[Window 111] expected=39.00 generated=39 sent=39 ok=39 failed=0 avg_latency=4.548s status_counts={'200': 39}
+[Window 112] expected=39.00 generated=39 sent=39 ok=39 failed=0 avg_latency=5.115s status_counts={'200': 39}
+[Window 113] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=5.727s status_counts={'200': 35}
+[Window 114] expected=33.00 generated=33 sent=33 ok=33 failed=0 avg_latency=5.373s status_counts={'200': 33}
+[Window 115] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=5.748s status_counts={'200': 36}
+[Window 116] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=6.509s status_counts={'200': 36}
+[Window 117] expected=32.00 generated=32 sent=32 ok=32 failed=0 avg_latency=5.346s status_counts={'200': 32}
+[Window 118] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=5.154s status_counts={'200': 38}
+[Window 119] expected=37.00 generated=37 sent=37 ok=37 failed=0 avg_latency=4.866s status_counts={'200': 37}
+[Window 120] expected=34.00 generated=34 sent=34 ok=34 failed=0 avg_latency=4.637s status_counts={'200': 34}
+[Window 121] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=5.886s status_counts={'200': 35}
+[Window 122] expected=32.00 generated=32 sent=32 ok=32 failed=0 avg_latency=7.281s status_counts={'200': 32}
+[Window 123] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=5.413s status_counts={'200': 35}
+[Window 124] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=5.357s status_counts={'200': 35}
+[Window 125] expected=40.00 generated=40 sent=40 ok=40 failed=0 avg_latency=5.905s status_counts={'200': 40}
+[Window 126] expected=32.00 generated=32 sent=32 ok=32 failed=0 avg_latency=4.593s status_counts={'200': 32}
+[Window 127] expected=38.00 generated=38 sent=38 ok=38 failed=0 avg_latency=4.696s status_counts={'200': 38}
+[Window 128] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=4.501s status_counts={'200': 36}
+[Window 129] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=4.970s status_counts={'200': 36}
+[Window 130] expected=37.00 generated=37 sent=37 ok=37 failed=0 avg_latency=5.628s status_counts={'200': 37}
+[Window 131] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=5.001s status_counts={'200': 35}
+[Window 132] expected=43.00 generated=43 sent=43 ok=43 failed=0 avg_latency=4.465s status_counts={'200': 43}
+[Window 133] expected=34.00 generated=34 sent=34 ok=34 failed=0 avg_latency=5.165s status_counts={'200': 34}
+[Window 134] expected=41.00 generated=41 sent=41 ok=41 failed=0 avg_latency=5.803s status_counts={'200': 41}
+[Window 135] expected=26.00 generated=26 sent=26 ok=26 failed=0 avg_latency=5.724s status_counts={'200': 26}
+[Window 136] expected=39.00 generated=39 sent=39 ok=39 failed=0 avg_latency=5.014s status_counts={'200': 39}
+[Window 137] expected=32.00 generated=32 sent=32 ok=32 failed=0 avg_latency=4.546s status_counts={'200': 32}
+[Window 138] expected=40.00 generated=40 sent=40 ok=40 failed=0 avg_latency=4.348s status_counts={'200': 40}
+[Window 139] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=5.407s status_counts={'200': 35}
+[Window 140] expected=33.00 generated=33 sent=33 ok=33 failed=0 avg_latency=5.610s status_counts={'200': 33}
+[Window 141] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=5.036s status_counts={'200': 35}
+[Window 142] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=5.781s status_counts={'200': 36}
+[Window 143] expected=42.00 generated=42 sent=42 ok=42 failed=0 avg_latency=5.436s status_counts={'200': 42}
+[Window 144] expected=45.00 generated=45 sent=45 ok=45 failed=0 avg_latency=4.679s status_counts={'200': 45}
+[Window 145] expected=41.00 generated=41 sent=41 ok=41 failed=0 avg_latency=4.440s status_counts={'200': 41}
+[Window 146] expected=33.00 generated=33 sent=33 ok=33 failed=0 avg_latency=5.372s status_counts={'200': 33}
+[Window 147] expected=35.00 generated=35 sent=35 ok=35 failed=0 avg_latency=4.916s status_counts={'200': 35}
+[Window 148] expected=31.00 generated=31 sent=31 ok=31 failed=0 avg_latency=5.554s status_counts={'200': 31}
+[Window 149] expected=36.00 generated=36 sent=36 ok=36 failed=0 avg_latency=6.123s status_counts={'200': 36}
+[Window 150] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=4.695s status_counts={'200': 8}
+[Window 151] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=4.092s status_counts={'200': 9}
+[Window 152] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=5.449s status_counts={'200': 7}
+[Window 153] expected=4.00 generated=4 sent=4 ok=4 failed=0 avg_latency=4.542s status_counts={'200': 4}
+[Window 154] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=5.444s status_counts={'200': 9}
+[Window 155] expected=31.00 generated=31 sent=31 ok=31 failed=0 avg_latency=22.804s status_counts={'200': 31}
+[Window 156] expected=21.00 generated=21 sent=21 ok=21 failed=0 avg_latency=34.453s status_counts={'200': 21}
+[Window 157] expected=42.00 generated=42 sent=42 ok=42 failed=0 avg_latency=20.700s status_counts={'200': 42}
+[Window 158] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=5.733s status_counts={'200': 8}
+[Window 159] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=5.870s status_counts={'200': 10}
+[Window 160] expected=12.00 generated=12 sent=12 ok=12 failed=0 avg_latency=4.672s status_counts={'200': 12}
+[Window 161] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=5.420s status_counts={'200': 7}
+[Window 162] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=6.906s status_counts={'200': 10}
+[Window 163] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=5.380s status_counts={'200': 7}
+[Window 164] expected=6.00 generated=6 sent=6 ok=6 failed=0 avg_latency=4.718s status_counts={'200': 6}
+[Window 165] expected=11.00 generated=11 sent=11 ok=11 failed=0 avg_latency=11.349s status_counts={'200': 11}
+[Window 166] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=5.670s status_counts={'200': 8}
+[Window 167] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=8.159s status_counts={'200': 8}
+[Window 168] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=4.364s status_counts={'200': 8}
+[Window 169] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=6.724s status_counts={'200': 9}
+[Window 170] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=6.657s status_counts={'200': 10}
+[Window 171] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=9.521s status_counts={'200': 7}
+[Window 172] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=6.224s status_counts={'200': 9}
+[Window 173] expected=7.00 generated=7 sent=7 ok=7 failed=0 avg_latency=3.718s status_counts={'200': 7}
+[Window 174] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=5.425s status_counts={'200': 9}
+[Window 175] expected=13.00 generated=13 sent=13 ok=13 failed=0 avg_latency=7.667s status_counts={'200': 13}
+[Window 176] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=10.894s status_counts={'200': 10}
+[Window 177] expected=10.00 generated=10 sent=10 ok=10 failed=0 avg_latency=5.036s status_counts={'200': 10}
+[Window 178] expected=9.00 generated=9 sent=9 ok=9 failed=0 avg_latency=9.224s status_counts={'200': 9}
+[Window 179] expected=8.00 generated=8 sent=8 ok=8 failed=0 avg_latency=6.440s status_counts={'200': 8}
+Total status counts: {200: 4118}
+
+Saved replay artifacts:
+  schedule: /home/artifact/online_experiment/results/stage2_ets_direct_rep02_attempt01_s11708_180min_six_baselines_currentci_x2_20260720_1724_replay_schedule.csv
+  window_summary: /home/artifact/online_experiment/results/stage2_ets_direct_rep02_attempt01_s11708_180min_six_baselines_currentci_x2_20260720_1724_replay_window_summary.csv
+  metadata: /home/artifact/online_experiment/results/stage2_ets_direct_rep02_attempt01_s11708_180min_six_baselines_currentci_x2_20260720_1724_replay_metadata.json
+  request_log: /home/artifact/online_experiment/results/stage2_ets_direct_rep02_attempt01_s11708_180min_six_baselines_currentci_x2_20260720_1724_replay_request_log.csv
+finished=2026-07-22 05:04:55.807140
+
+Saved computed metrics:
+  metrics_summary: /home/artifact/online_experiment/results/stage2_ets_direct_rep02_attempt01_s11708_180min_six_baselines_currentci_x2_20260720_1724_metrics_summary.json
+  pod_metrics: /home/artifact/online_experiment/results/stage2_ets_direct_rep02_attempt01_s11708_180min_six_baselines_currentci_x2_20260720_1724_pod_metrics.csv

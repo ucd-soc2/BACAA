@@ -1,0 +1,197 @@
+{
+  "carbon": {
+    "carbon_lookup_window_seconds": 60.0,
+    "ci_time_scale": 8.0,
+    "ci_trace_start": "2025-09-20 00:00:00+00:00",
+    "ci_window_seconds": 480.0,
+    "first_timestamp": "2025-09-20T00:00:00.000000",
+    "last_timestamp": "2025-09-20T23:55:00.000000",
+    "rows": 288
+  },
+  "checked_at_utc": "2026-07-28T05:53:25+00:00",
+  "llm_request": {
+    "max_tokens": 100,
+    "model": "qwen",
+    "prompt": "A SaaS app suddenly receives 10 times more user requests after a product launch. Explain in simple language why autoscaling is needed, what could happen if scaling is too slow, and name one metric the system could monitor to decide when to add more servers. Give one short example. Keep the answer around 75 words.",
+    "source": "/home/artifact/online_experiment/workload_replayer.py",
+    "temperature": 0.0
+  },
+  "paths": {
+    "baseline_metrics": {
+      "bytes": 32333,
+      "path": "/home/artifact/online_experiment/baseline_metrics.py",
+      "sha256": "04610e90c9ade0693c0c5a5b99e551b2f33edebf98d92375d7229249036e123f"
+    },
+    "bilstm_direct_runner": {
+      "bytes": 34870,
+      "path": "/home/artifact/online_experiment/code/run_bilstm_baseline_tplus2.py",
+      "sha256": "c5ffb967982e6495c097f7145295513653144690440158e713be7e0b1fa363bd"
+    },
+    "bilstm_kpa_runner": {
+      "bytes": 74040,
+      "path": "/home/artifact/online_experiment/code/run_bilstm_kpa_baseline_tplus2.py",
+      "sha256": "12f226380cfe724e6fc802ec970ff131d17fb35490ebbaea74ab3adf717a414b"
+    },
+    "bilstm_model": {
+      "bytes": 176671,
+      "path": "/home/artifact/online_experiment/code/bilstm_autoscaler_model.pt",
+      "sha256": "1169265b85f9a2111b62f98b61206e1a9affcb5e6c1fc4def38dd46a257f92fc"
+    },
+    "carbon_csv": {
+      "bytes": 37573,
+      "path": "/home/artifact/online_experiment/stage2/data/carbon_intensity_ie_2025-09-20_24h.csv",
+      "sha256": "0583b07dd9640e46c7128c8afefb697126609f5a7e11d65440c1139dcc331707"
+    },
+    "decision": {
+      "bytes": 18030,
+      "path": "/home/artifact/online_experiment/decision.py",
+      "sha256": "cf26158343751d9669c664c27c7ab935a006d44fcc9ae7785d517ee6c90b98f9"
+    },
+    "ets_config": {
+      "bytes": 1513,
+      "path": "/home/artifact/online_experiment/results/ets_best_config.json",
+      "sha256": "8f12d3357e3b4eaed2ab34d94dcfaf4c331f1805e2b9ff03c0f3f7fde37348f8"
+    },
+    "ets_direct_runner": {
+      "bytes": 34842,
+      "path": "/home/artifact/online_experiment/code/run_ets_baseline_tplus2.py",
+      "sha256": "bfc3e73f60528cb32dc485447fcfad8c98df77bd512d60ada7fdbc812c0d385d"
+    },
+    "ets_kpa_runner": {
+      "bytes": 60925,
+      "path": "/home/artifact/online_experiment/code/run_ets_kpa_baseline_tplus2.py",
+      "sha256": "66ff244c582ba912942fea5f4e5724d3281efba229ac055153606918d7e74177"
+    },
+    "frozen_protocol": {
+      "bytes": 14084,
+      "path": "/home/artifact/online_experiment/stage2/FROZEN_PROTOCOL.md",
+      "sha256": "e69377efeb3ef814358d9eff26b61b0856b4bad781b39b7be886184384076a6c"
+    },
+    "hpa_runner": {
+      "bytes": 11152,
+      "path": "/home/artifact/online_experiment/run_hpa_baseline.py",
+      "sha256": "8598031e004128f137162d2b62beda12939eb49094886ecf9577db40136ead3a"
+    },
+    "inference": {
+      "bytes": 11486,
+      "path": "/home/artifact/online_experiment/inference.py",
+      "sha256": "847025e7302a838ed4eae0c5433542495e5b8819720cbff378aff191eccec6fe"
+    },
+    "kpa_runner": {
+      "bytes": 8396,
+      "path": "/home/artifact/online_experiment/run_kpa_baseline.py",
+      "sha256": "c0734f025a0aac1c215edc8e39f78c68b0f8577de02e667cd2548b3fcffce37f"
+    },
+    "prometheus_energy": {
+      "bytes": 37709,
+      "path": "/home/artifact/online_experiment/prometheus_energy_metrics.py",
+      "sha256": "c10bf4d86304042a6f224eddb6a4dcbbed4364f8376274e06a225df59a951bc8"
+    },
+    "sanity_runner": {
+      "bytes": 61043,
+      "path": "/home/artifact/online_experiment/run_e2e_sanity_check.py",
+      "sha256": "bda0fe1646957deed8619fa73cc6253629ba343dbd93cd350d3ec457248c22c3"
+    },
+    "stage2_controller": {
+      "bytes": 105363,
+      "path": "/home/artifact/online_experiment/stage2/controller_stage2.py",
+      "sha256": "b95b265f2943d7cf123166ff028b3b8a041ecd6d7e89e2ae4284d84cb7f8e4d1"
+    },
+    "stage2_runner": {
+      "bytes": 132408,
+      "path": "/home/artifact/online_experiment/stage2/run_stage2_baselines_x3.py",
+      "sha256": "b4a7577b75cff052878c10c2637f94a68fdb0565e0769d198f049203316c0b5c"
+    },
+    "train_workload": {
+      "bytes": 1488557,
+      "path": "/home/artifact/online_experiment/data/train_workload_burst.csv",
+      "sha256": "da94c42c435a36c9bdca1ee4ffa018c6f2f3b9e5234e6881600ad9008d48b777"
+    },
+    "transformer_model": {
+      "bytes": 7928386,
+      "path": "/home/artifact/online_experiment/checkpoints_transformer_h2/best_model.pt",
+      "sha256": "7e601e3f50a7ea1456fd769b1f9b2a8e226e2a8bffbb89e7f6b095b3aaec7d47"
+    },
+    "workload": {
+      "bytes": 760963,
+      "path": "/home/artifact/online_experiment/data/test_workload_burst.csv",
+      "sha256": "09fa4f32746e6851315f1e7c6fa90288b27d6ed792626f7133490811fe9c982b"
+    },
+    "workload_replayer": {
+      "bytes": 21398,
+      "path": "/home/artifact/online_experiment/workload_replayer.py",
+      "sha256": "ececd703d1ad01851d64cf1f7269dee4056f2599e2fb1ad19cbdaa7319129341"
+    },
+    "yaml_bilstm_direct": {
+      "bytes": 3032,
+      "path": "/home/artifact/online_experiment/stage2/yamls/qwen-bilstm.yaml",
+      "sha256": "1ead6a7e90b0fa5940c6f964ec9bacf08d5293a1e2b944ec204c3a0340ecdbe4"
+    },
+    "yaml_bilstm_kpa": {
+      "bytes": 3034,
+      "path": "/home/artifact/online_experiment/stage2/yamls/qwen-bilstm-kpa.yaml",
+      "sha256": "89567f1e2a4e4b0dc28d540ffe2895ba3533e707ed8dfbe7867221424bc2d6a3"
+    },
+    "yaml_ets_direct": {
+      "bytes": 3029,
+      "path": "/home/artifact/online_experiment/stage2/yamls/qwen-ets.yaml",
+      "sha256": "072f45ecfc398be7f8ad14396daf4119f4e5fff7d5e63d4b4b3204f580775c52"
+    },
+    "yaml_ets_kpa": {
+      "bytes": 3031,
+      "path": "/home/artifact/online_experiment/stage2/yamls/qwen-ets-kpa.yaml",
+      "sha256": "8a2f1a717c493e91cca02e40873661abd311a45b2386bf8f6a8fbc659100993e"
+    },
+    "yaml_hpa": {
+      "bytes": 3021,
+      "path": "/home/artifact/online_experiment/stage2/yamls/qwen-hpa.yaml",
+      "sha256": "f4f000b1c53ad9646d83f564257fd0c540cb1c52ab2c2bfbf4fa26ddbaca71d6"
+    },
+    "yaml_kpa": {
+      "bytes": 3028,
+      "path": "/home/artifact/online_experiment/stage2/yamls/qwen-kpa.yaml",
+      "sha256": "3e92ed6380f27c1975afa29be38b79ded86315caeffa4567ce7368145f607ffc"
+    },
+    "yaml_proposed": {
+      "bytes": 3037,
+      "path": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml",
+      "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d"
+    },
+    "yaml_proposed_current_queue": {
+      "bytes": 3037,
+      "path": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml",
+      "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d"
+    },
+    "yaml_proposed_no_queue": {
+      "bytes": 3037,
+      "path": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml",
+      "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d"
+    },
+    "yaml_proposed_oracle": {
+      "bytes": 3037,
+      "path": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml",
+      "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d"
+    },
+    "yaml_proposed_ready_queue": {
+      "bytes": 3037,
+      "path": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml",
+      "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d"
+    },
+    "yaml_transformer_direct": {
+      "bytes": 3037,
+      "path": "/home/artifact/online_experiment/stage2/yamls/qwen-transformer.yaml",
+      "sha256": "e21029ae05af6ca7c58ed42150a162f052a4370038930bbaf300e490df5e948d"
+    }
+  },
+  "workload": {
+    "decision_windows": 180,
+    "first_window_id": 87309,
+    "last_window_id": 87488,
+    "max_requests_per_window": 45.0,
+    "mean_requests_per_window": 22.877777777777776,
+    "min_requests_per_window": 4.0,
+    "normal_and_burst_note": "The frozen Azure-derived trace slice preserves low/normal windows and burst windows; see the selected request statistics above and per-window replay schedules for the exact mix.",
+    "start_row": 11708,
+    "total_selected_requests": 4118.0
+  }
+}

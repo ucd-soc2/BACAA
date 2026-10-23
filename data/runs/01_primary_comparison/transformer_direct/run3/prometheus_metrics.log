@@ -1,0 +1,19 @@
++ /home/artifact/online_experiment/.venv/bin/python prometheus_energy_metrics.py --method transformer_direct --run-id stage2_transformer_direct_rep03_attempt01_s11708_180min_main_transformer_direct_x3_cold55_no_preflight_gate_20260730_1650 --output-dir /home/artifact/online_experiment/results --prometheus-url http://10.43.143.194:9090 --start-epoch 1785465835.190 --end-epoch 1785476717.748 --step-seconds 10.0 --cpu-rate-window-seconds 30.0 --window-size-seconds 60.0 --carbon-lookup-window-seconds 60.0 --pod-capacity-per-window 12.5 --carbon-intensity-csv stage2/data/carbon_intensity_ie_2025-09-20_24h.csv --carbon-start-index 11708 --cpu-joules-per-core-second 10.8 --memory-joules-per-gb-second 0.3725 --cold-start-model-joules 10.38 --cold-start-window-seconds 30.0 --ci-trace-start 2025-09-20 00:00:00+00:00 --ci-window-seconds 480.0 --ci-time-scale 8.0
+{
+  "resource_samples_csv": "/home/artifact/online_experiment/results/stage2_transformer_direct_rep03_attempt01_s11708_180min_main_transformer_direct_x3_cold55_no_preflight_gate_20260730_1650_prometheus_resource_samples.csv",
+  "window_metrics_csv": "/home/artifact/online_experiment/results/stage2_transformer_direct_rep03_attempt01_s11708_180min_main_transformer_direct_x3_cold55_no_preflight_gate_20260730_1650_prometheus_windows.csv",
+  "sensitivity_csv": "/home/artifact/online_experiment/results/stage2_transformer_direct_rep03_attempt01_s11708_180min_main_transformer_direct_x3_cold55_no_preflight_gate_20260730_1650_prometheus_sensitivity.csv",
+  "summary_json": "/home/artifact/online_experiment/results/stage2_transformer_direct_rep03_attempt01_s11708_180min_main_transformer_direct_x3_cold55_no_preflight_gate_20260730_1650_prometheus_summary.json",
+  "summary_csv": "/home/artifact/online_experiment/results/stage2_transformer_direct_rep03_attempt01_s11708_180min_main_transformer_direct_x3_cold55_no_preflight_gate_20260730_1650_prometheus_summary.csv"
+}
+{
+  "run_id": "stage2_transformer_direct_rep03_attempt01_s11708_180min_main_transformer_direct_x3_cold55_no_preflight_gate_20260730_1650",
+  "method": "transformer_direct",
+  "successful_requests": 4117,
+  "p95_latency_seconds": 17.171255514389472,
+  "p99_latency_seconds": 41.311872266400066,
+  "estimated_total_energy_j": 242656.77345753397,
+  "estimated_total_carbon_gco2e": 19.54326076504979,
+  "energy_per_successful_request_j": 58.94019272711537,
+  "carbon_per_successful_request_gco2e": 0.004746966423378623
+}

@@ -1,0 +1,94 @@
+﻿apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: qwen
+  namespace: default
+  annotations:
+    experiment/method: "bilstm"
+    experiment/external-controller: "true"
+spec:
+  template:
+    metadata:
+      labels:
+        app: qwen
+      annotations:
+        autoscaling.knative.dev/class: "kpa.autoscaling.knative.dev"
+        autoscaling.knative.dev/metric: "concurrency"
+        autoscaling.knative.dev/target: "100"
+        autoscaling.knative.dev/initial-scale: "2"
+        autoscaling.knative.dev/min-scale: "2"
+        autoscaling.knative.dev/max-scale: "4"
+    spec:
+      containerConcurrency: 2
+      timeoutSeconds: 300
+      enableServiceLinks: false
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: qwen
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - llm-node-1
+                      - llm-node2
+                      - llm-node3
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - llm-node-1
+            - weight: 80
+              preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - llm-node2
+      containers:
+        - name: user-container
+          image: ko.local/qwen-local@sha256:b48add5d8f2db57bcb85e1c58992eb6519d5d17aed7143b67de108b88160d76d
+          imagePullPolicy: Never
+          command: ["/app/llama-server"]
+          args: ["-m", "/app/model.gguf", "--host", "0.0.0.0", "--port", "8080", "-ngl", "0", "--parallel", "2", "-t", "2", "--threads-batch", "2", "-c", "4096", "--cache-ram", "0", "--no-cache-prompt", "--ignore-eos"]
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /v1/models
+              port: 8080
+            initialDelaySeconds: 0
+            periodSeconds: 1
+            timeoutSeconds: 2
+            successThreshold: 1
+            failureThreshold: 3
+          startupProbe:
+            httpGet:
+              path: /v1/models
+              port: 8080
+            initialDelaySeconds: 0
+            periodSeconds: 1
+            timeoutSeconds: 2
+            failureThreshold: 30
+          resources:
+            requests:
+              cpu: "2"
+              memory: "2Gi"
+            limits:
+              cpu: "2"
+              memory: "4Gi"
+  traffic:
+    - latestRevision: true
+      percent: 100
+

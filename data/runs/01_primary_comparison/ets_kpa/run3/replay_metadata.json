@@ -1,0 +1,28 @@
+{
+  "run_id": "stage2_ets_kpa_rep01_attempt01_s11708_180min_ets_kpa_only_after_vm_restart_nodegrace180_20260723_2256",
+  "baseline_name": "ets",
+  "csv": "/home/artifact/online_experiment/data/test_workload_burst.csv",
+  "url": "http://192.168.10.101:31011/v1/chat/completions",
+  "host": "qwen.default.example.com",
+  "window_size_seconds": 60.0,
+  "duration_minutes": 180.0,
+  "start_row": 11708,
+  "scale": 1.0,
+  "seed": 42,
+  "timeout_seconds": 60.0,
+  "connector_limit": 0,
+  "save_request_log": true,
+  "artifact_complete": true,
+  "partial_reason": null,
+  "result_count": 4118,
+  "schedule_count": 180,
+  "window_summary_count": 180,
+  "runtime_snapshot": null,
+  "created_at": "2026-07-24T02:12:38",
+  "saved_paths": {
+    "schedule": "/home/artifact/online_experiment/results/stage2_ets_kpa_rep01_attempt01_s11708_180min_ets_kpa_only_after_vm_restart_nodegrace180_20260723_2256_replay_schedule.csv",
+    "window_summary": "/home/artifact/online_experiment/results/stage2_ets_kpa_rep01_attempt01_s11708_180min_ets_kpa_only_after_vm_restart_nodegrace180_20260723_2256_replay_window_summary.csv",
+    "metadata": "/home/artifact/online_experiment/results/stage2_ets_kpa_rep01_attempt01_s11708_180min_ets_kpa_only_after_vm_restart_nodegrace180_20260723_2256_replay_metadata.json",
+    "request_log": "/home/artifact/online_experiment/results/stage2_ets_kpa_rep01_attempt01_s11708_180min_ets_kpa_only_after_vm_restart_nodegrace180_20260723_2256_replay_request_log.csv"
+  }
+}
