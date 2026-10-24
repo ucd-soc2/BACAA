@@ -1,8 +1,6 @@
-# BACAA
+# Autoscaling Experiment Artifact
 
-Research code and experimental data for **Burst-Adaptive Carbon-Aware Autoscaling for Serverless LLM Inference on Edge Servers**, prepared for submission to SEAMS.
-
-BACAA combines two-step Quantile Transformer forecasts with readiness-aware replica planning and carbon-aware scale-down. The evaluation compares the proposed controller with seven autoscaling baselines on a CPU-based Knative deployment. This repository contains the retained source versions, model checkpoints, experiment configurations, selected run records, and numerical tables used to inspect that evaluation.
+Code and experimental data for forecast-driven autoscaling with readiness-aware replica planning and carbon-aware scale-down on a CPU-based Knative deployment. The artifact includes source versions, forecasting checkpoints, experiment configurations, selected run records, and numerical results for comparison with seven autoscaling baselines.
 
 ## Repository layout
 
@@ -31,14 +29,14 @@ LICENSE                    MIT license for repository-owned code
 
 The two source families preserve differences between experiment batches. They are not interchangeable duplicates. The separate `recorded_proposed_run1` snapshot preserves the controller used for that selected run. Runtime scripts retain imports and paths from the original experiment layout; this archival layout is not an installed Python package.
 
-## Paper-to-artifact map
+## Experiment index
 
 | Experiment | Retained runs | Numerical results |
 | --- | --- | --- |
-| Primary comparison (Tables V–VII) | Eight methods, three selected runs each in [`01_primary_comparison`](data/runs/01_primary_comparison) | [`primary_all_runs_metrics.csv`](data/tables/01_primary_comparison/primary_all_runs_metrics.csv), [`primary_method_summary.csv`](data/tables/01_primary_comparison/primary_method_summary.csv) |
-| Capacity-parameter sensitivity (Table VIII) | One run at each of 10.00, 11.25, 13.75, and 15.00 requests/window; three reference runs at 12.50 in [`02_capacity_sensitivity`](data/runs/02_capacity_sensitivity) | [`sensitivity_all_runs_metrics.csv`](data/tables/02_capacity_sensitivity/sensitivity_all_runs_metrics.csv), [`sensitivity_summary.csv`](data/tables/02_capacity_sensitivity/sensitivity_summary.csv) |
+| Primary comparison | Eight methods, three selected runs each in [`01_primary_comparison`](data/runs/01_primary_comparison) | [`primary_all_runs_metrics.csv`](data/tables/01_primary_comparison/primary_all_runs_metrics.csv), [`primary_method_summary.csv`](data/tables/01_primary_comparison/primary_method_summary.csv) |
+| Capacity-parameter sensitivity | One run at each of 10.00, 11.25, 13.75, and 15.00 requests/window; three reference runs at 12.50 in [`02_capacity_sensitivity`](data/runs/02_capacity_sensitivity) | [`sensitivity_all_runs_metrics.csv`](data/tables/02_capacity_sensitivity/sensitivity_all_runs_metrics.csv), [`sensitivity_summary.csv`](data/tables/02_capacity_sensitivity/sensitivity_summary.csv) |
 | Cluster-capacity calibration | Three trials at each of 46, 48, 50, 52, and 54 requests/minute in [`03_cluster_capacity`](data/runs/03_cluster_capacity) | [`capacity_all_runs_metrics.csv`](data/tables/03_cluster_capacity/capacity_all_runs_metrics.csv), [`capacity_by_load_summary.csv`](data/tables/03_cluster_capacity/capacity_by_load_summary.csv), [`capacity_decision_check.csv`](data/tables/03_cluster_capacity/capacity_decision_check.csv) |
-| Decision-layer ablation (Table IX) | Three runs for each of four configurations in [`04_decision_ablation`](data/runs/04_decision_ablation) | [`ablation_all_runs_metrics.csv`](data/tables/04_decision_ablation/ablation_all_runs_metrics.csv), [`ablation_summary.csv`](data/tables/04_decision_ablation/ablation_summary.csv) |
+| Decision-layer ablation | Three runs for each of four configurations in [`04_decision_ablation`](data/runs/04_decision_ablation) | [`ablation_all_runs_metrics.csv`](data/tables/04_decision_ablation/ablation_all_runs_metrics.csv), [`ablation_summary.csv`](data/tables/04_decision_ablation/ablation_summary.csv) |
 
 The primary method identifiers are `kpa`, `hpa`, `ets_direct`, `bilstm_direct`, `transformer_direct`, `ets_kpa`, `bilstm_kpa`, and `proposed`. The ablations disable carbon-aware fusion, readiness-aware pressure, or upper-quantile planning, respectively.
 
@@ -46,12 +44,7 @@ The primary method identifiers are `kpa`, `hpa`, `ets_direct`, `bilstm_direct`, 
 
 ## Quick start: inspect the recorded results
 
-Clone the repository and enter its root:
-
-```sh
-git clone https://github.com/ucd-soc2/BACAA.git
-cd BACAA
-```
+Run the following command from the repository root, which contains `src/`, `models/`, `config/`, and `data/`.
 
 The following check requires only Python 3 and its standard library. It validates the selected workload slice and recalculates carbon means, sample standard deviations, and per-run SLO pass counts from the primary per-run table. It does not launch a cluster experiment.
 
@@ -102,7 +95,7 @@ For `proposed`, the expected carbon result is **14.05 +/- 0.80 gCO2e**, with **3
 - **Energy and carbon:** The resource proxy uses 10.8 J/core-second, 0.3725 J/GB-second, and a 10.38 J initialization term per cold start, with 3,600,000 J/kWh. Carbon combines estimated energy with the aligned carbon trace in gCO2e/kWh. These are resource-based operational estimates, not direct wall-power measurements. Per-request carbon fields ending in `_gco2e` must be multiplied by 1,000 for mgCO2e.
 - **Aggregation:** Summary files report means and sample standard deviations across selected runs. Latency summaries average the per-run percentiles; they are not percentiles of pooled requests. Single-run sensitivity entries have no estimate of between-run variability even where their stored SD field is zero. Empty fields indicate unavailable values, not zero.
 
-A run directory may contain `run_metrics.csv`, request logs, window decisions, queue samples, scale events, Prometheus resource samples and summaries, runtime logs, and `source_configuration/`. Availability varies by run. Prefer the paper-oriented `data/tables/` files and corresponding run/Prometheus summaries for the final reported measures. Older `metrics_summary.json` files can contain a legacy two-second SLA threshold and a different energy approximation.
+A run directory may contain `run_metrics.csv`, request logs, window decisions, queue samples, scale events, Prometheus resource samples and summaries, runtime logs, and `source_configuration/`. Availability varies by run. Prefer the `data/tables/` files and corresponding run/Prometheus summaries for the final reported measures. Older `metrics_summary.json` files can contain a legacy two-second SLA threshold and a different energy approximation.
 
 ## Code, checkpoints, and environment
 
@@ -142,14 +135,12 @@ The repository does not provide a complete cluster provisioning recipe or a veri
 ## Coverage and known limitations
 
 - **Training provenance:** The complete training/validation traces, trace-construction pipeline and function identifiers, and full parameter sweep are absent. The retained training helpers do not reconstruct the exact checkpoint pipeline by themselves. The current checkpoint's `results.json` names the same workload file for validation and testing, with a validation slice overlapping the online replay slice; this snapshot does not independently establish a disjoint held-out evaluation.
-- **Resource sampling:** Recorded configurations use five-second sampling for historical baselines and ten-second sampling for several later Proposed, Transformer, sensitivity, and ablation batches. This differs from the manuscript's uniform five-second description.
+- **Resource sampling:** Recorded configurations use five-second sampling for historical baselines and ten-second sampling for several later Proposed, Transformer, sensitivity, and ablation batches.
 - **Raw-data coverage:** Proposed run 1 lacks its raw resource-sample export. The 15 cluster-capacity trials retain summary metrics without the underlying request logs. Some historical baseline run-1 records lack scale-event counts needed for the complete scaling-event comparison. Missing fields should remain missing.
 - **Latency reconciliation:** Some run-1 saved latency summaries differ slightly from recomputation using their request logs (up to approximately 0.0271 seconds in the inspected latency statistics). Request counts agree. Both records are retained without changing the measurements to force agreement.
 - **Figures and deployment:** A complete figure-generation workflow, exact serving-image build, GGUF file, and cluster provisioning materials are not included. The available data and source support inspection of the recorded evaluation, with the above limits on end-to-end reproduction.
 - **Provenance records:** Run IDs, source paths, checksums, and attempt histories describe the original execution environment. They are not all paths to files in this repository. Source comments and messages have been translated to English, and local export/report metadata has been removed; original source-time hashes therefore need not match the packaged source files. Measurement CSVs, model weights, and confidence arrays are preserved.
 
-## License and attribution
+## License
 
-Repository-owned code is licensed under the [MIT License](LICENSE), copyright 2026 Sustainable Orchestration in Computing Continuum Lab. Third-party data, models, and dependencies remain subject to their respective original terms; the code license does not relicense those materials.
-
-When using these artifacts, cite **Burst-Adaptive Carbon-Aware Autoscaling for Serverless LLM Inference on Edge Servers** and identify the repository commit used for the analysis. No publication DOI or artifact-evaluation badge is claimed here.
+Repository-owned code is licensed under the [MIT License](LICENSE). Third-party data, models, and dependencies remain subject to their respective original terms; the code license does not relicense those materials.
